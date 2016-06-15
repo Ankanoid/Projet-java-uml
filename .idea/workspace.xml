@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="970d3da7-a4f2-44a9-aad8-a8a2552a4324" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/target/classes/model/DAOEntity.class" afterPath="$PROJECT_DIR$/model/target/classes/model/DAOEntity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/target/classes/model/DAOHelloWorld.class" afterPath="$PROJECT_DIR$/model/target/classes/model/DAOHelloWorld.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="970d3da7-a4f2-44a9-aad8-a8a2552a4324" name="Default" comment="" />
     <ignored path="masterpom.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/main/target/" />
@@ -995,7 +991,7 @@
       <option name="presentableId" value="Default" />
       <updated>1465889506723</updated>
       <workItem from="1465889511530" duration="5984000" />
-      <workItem from="1465974562307" duration="9110000" />
+      <workItem from="1465974562307" duration="9118000" />
     </task>
     <task id="LOCAL-00001" summary="Maps calls">
       <created>1465983153512</created>
@@ -1032,11 +1028,18 @@
       <option name="project" value="LOCAL" />
       <updated>1465986528163</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Maps calls v3">
+      <created>1465989641284</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1465989641284</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15094000" />
+    <option name="totallyTimeSpent" value="15102000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2391" y="-9" width="2418" height="1318" extended-state="6" />
