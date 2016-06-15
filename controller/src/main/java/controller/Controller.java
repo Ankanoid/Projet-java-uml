@@ -12,10 +12,10 @@ import contract.IView;
 public class Controller implements IController {
 
 	/** The view. */
-	private IView		view;
+	private IView view;
 
 	/** The model. */
-	private IModel	model;
+	private IModel model;
 
 	/**
 	 * Instantiates a new controller.
@@ -66,17 +66,20 @@ public class Controller implements IController {
 	 */
 	public void orderPerform(final ControllerOrder controllerOrder) {
 		switch (controllerOrder) {
-			case English:
-				this.model.loadMessage("GB");
+			case Map1:
+				this.model.loadMessage("m1");
 				break;
-			case Francais:
-				this.model.loadMessage("FR");
+			case Map2:
+				this.model.loadMessage("m2");
 				break;
-			case Deutsch:
-				this.model.loadMessage("DE");
+			case Map3:
+				this.model.loadMessage("m3");
 				break;
-			case Indonesia:
-				this.model.loadMessage("ID");
+			case Map4:
+				this.model.loadMessage("m4");
+				break;
+			case Map5:
+				this.model.loadMessage("m5");
 				break;
 
 			default:
