@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="970d3da7-a4f2-44a9-aad8-a8a2552a4324" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contract/target/classes/contract/IModel.class" afterPath="$PROJECT_DIR$/contract/target/classes/contract/IModel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/target/classes/model/Model.class" afterPath="$PROJECT_DIR$/model/target/classes/model/Model.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/target/classes/view/ViewFrame.class" afterPath="$PROJECT_DIR$/view/target/classes/view/ViewFrame.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/target/classes/view/ViewPanel.class" afterPath="$PROJECT_DIR$/view/target/classes/view/ViewPanel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/contract/src/main/java/contract/IModel.java" afterPath="$PROJECT_DIR$/contract/src/main/java/contract/IModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/main/java/model/HelloWorld.java" afterPath="$PROJECT_DIR$/model/src/main/java/model/HelloWorld.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/main/java/model/Model.java" afterPath="$PROJECT_DIR$/model/src/main/java/model/Model.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/src/main/java/view/ViewFrame.java" afterPath="$PROJECT_DIR$/view/src/main/java/view/ViewFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/src/main/java/view/ViewPanel.java" afterPath="$PROJECT_DIR$/view/src/main/java/view/ViewPanel.java" />
     </list>
     <ignored path="masterpom.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -914,7 +906,7 @@
       <option name="presentableId" value="Default" />
       <updated>1465889506723</updated>
       <workItem from="1465889511530" duration="5984000" />
-      <workItem from="1465974562307" duration="12034000" />
+      <workItem from="1465974562307" duration="12061000" />
     </task>
     <task id="LOCAL-00001" summary="Maps calls">
       <created>1465983153512</created>
@@ -958,11 +950,18 @@
       <option name="project" value="LOCAL" />
       <updated>1465989641284</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Maps display">
+      <created>1465993138950</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1465993138950</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18018000" />
+    <option name="totallyTimeSpent" value="18045000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2391" y="-9" width="2418" height="1318" extended-state="6" />
@@ -1002,7 +1001,8 @@
     <MESSAGE value="Maps calls" />
     <MESSAGE value="Maps calls v2" />
     <MESSAGE value="Maps calls v3" />
-    <option name="LAST_COMMIT_MESSAGE" value="Maps calls v3" />
+    <MESSAGE value="Maps display" />
+    <option name="LAST_COMMIT_MESSAGE" value="Maps display" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
