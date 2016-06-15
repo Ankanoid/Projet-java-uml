@@ -22,6 +22,11 @@ public interface IModel {
 	 */
 	void loadMessage(String key);
 
+	void doTheThing();
+
+	void putInTabmap(int i, int j, char car);
+
+	char[][] getTabmap2d();
 	/**
 	 * Gets the observable.
 	 *

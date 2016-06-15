@@ -13,6 +13,8 @@ import contract.IModel;
 
 /**
  * The Class ViewFrame.
+ *
+ * @author Jean-Aymeric Diet
  */
 class ViewFrame extends JFrame implements KeyListener {
 
@@ -129,7 +131,7 @@ class ViewFrame extends JFrame implements KeyListener {
 		this.setResizable(false);
 		this.addKeyListener(this);
 		this.setContentPane(new ViewPanel(this));
-		this.setSize(640, 384);
+		this.setSize(650, 420);
 		this.setLocationRelativeTo(null);
 	}
 
