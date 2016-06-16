@@ -9,5 +9,10 @@ public enum ControllerOrder {
 	Map2, /** The map 2 */
 	Map3, /** The map 3 */
 	Map4, /** The map 4 */
-	Map5  /** The map 5 */
+	Map5,  /** The map 5 */
+	MoveLeft,
+	MoveRight,
+	MoveUp,
+	MoveDown,
+	DiaLeftUp
 }

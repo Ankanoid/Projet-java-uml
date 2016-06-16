@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -20,7 +21,7 @@ class ViewPanel extends JPanel implements Observer {
 	private ViewFrame					viewFrame;
 	/** The Constant serialVersionUID. */
 	private static final long	serialVersionUID	= -998294702363713521L;
-
+	char[][] tabmap ;
 	/**
 	 * Instantiates a new view panel.
 	 *
@@ -57,6 +58,7 @@ class ViewPanel extends JPanel implements Observer {
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	public void update(final Observable arg0, final Object arg1) {
+		this.viewFrame.getModel().doTheThing();
 		this.repaint();
 	}
 
@@ -66,25 +68,30 @@ class ViewPanel extends JPanel implements Observer {
 	 *
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
-
-
-
+	
 	@Override
 	protected void paintComponent(final Graphics graphics) {
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
 		graphics.setColor(Color.BLACK);
 		graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
-		//String[]tabmap = this.getViewFrame().getModel().getMessage().split("\n");
-		this.viewFrame.getModel().doTheThing();
-		char[][] tabmap = this.viewFrame.getModel().getTabmap2d();
+		
+		
+		//this.viewFrame.getModel().moveLeft();
+		afficherMap(graphics);
 
-		for(int i =0; i<tabmap.length; i++)
+	}
+	
+	public void afficherMap(final Graphics graphics) {
+		
+		this.tabmap = this.viewFrame.getModel().getTabmap2d();
+
+		for(int i =0; i<this.tabmap.length; i++)
 		{
-			for (int j =0; j<tabmap[i].length;j++)
+			for (int j =0; j<this.tabmap[i].length;j++)
 			{
-				switch (tabmap[i][j]) {
+				switch (this.tabmap[i][j]) {
 					case '0':
-						System.out.print(tabmap[i][j]);
+						System.out.print(this.tabmap[i][j]);
 						/**try {
 						 Image img = ImageIO.read(new File("sprite/vertical_bone.png"));
 						 graphics.drawImage(img, 32*j, 32*i, this);
@@ -96,9 +103,9 @@ class ViewPanel extends JPanel implements Observer {
 						break;
 
 					case '1':
-						System.out.print(tabmap[i][j]);
+						System.out.print(this.tabmap[i][j]);
 						try {
-							Image img = ImageIO.read(new File("sprite/bone.png"));
+							Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/bone.png"));
 							graphics.drawImage(img, 32*j, 32*i, this);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -108,7 +115,7 @@ class ViewPanel extends JPanel implements Observer {
 					case '2':
 						System.out.print(tabmap[i][j]);
 						try {
-							Image img = ImageIO.read(new File("sprite/horizontal_bone.png"));
+							Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/horizontal_bone.png"));
 							graphics.drawImage(img, 32*j, 32*i, this);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -118,7 +125,7 @@ class ViewPanel extends JPanel implements Observer {
 					case '3':
 						System.out.print(tabmap[i][j]);
 						try {
-							Image img = ImageIO.read(new File("sprite/vertical_bone.png"));
+							Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/vertical_bone.png"));
 							graphics.drawImage(img, 32*j, 32*i, this);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -128,7 +135,7 @@ class ViewPanel extends JPanel implements Observer {
 					case '6':
 						System.out.print(tabmap[i][j]);
 						try {
-							Image img = ImageIO.read(new File("sprite/monster_1.png"));
+							Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/monster_1.png"));
 							graphics.drawImage(img, 32*j, 32*i, this);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -138,7 +145,7 @@ class ViewPanel extends JPanel implements Observer {
 					case '7':
 						System.out.print(tabmap[i][j]);
 						try {
-							Image img = ImageIO.read(new File("sprite/monster_2.png"));
+							Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/monster_2.png"));
 							graphics.drawImage(img, 32*j, 32*i, this);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -148,7 +155,7 @@ class ViewPanel extends JPanel implements Observer {
 					case '8':
 						System.out.print(tabmap[i][j]);
 						try {
-							Image img = ImageIO.read(new File("sprite/monster_3.png"));
+							Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/monster_3.png"));
 							graphics.drawImage(img, 32*j, 32*i, this);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -158,7 +165,7 @@ class ViewPanel extends JPanel implements Observer {
 					case '9':
 						System.out.print(tabmap[i][j]);
 						try {
-							Image img = ImageIO.read(new File("sprite/monster_4.png"));
+							Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/monster_4.png"));
 							graphics.drawImage(img, 32*j, 32*i, this);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -168,7 +175,7 @@ class ViewPanel extends JPanel implements Observer {
 					case 'C':
 						System.out.print(tabmap[i][j]);
 						try {
-							Image img = ImageIO.read(new File("sprite/purse.png"));
+							Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/purse.png"));
 							graphics.drawImage(img, 32*j, 32*i, this);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -177,18 +184,13 @@ class ViewPanel extends JPanel implements Observer {
 
 					case 'P':
 						System.out.print(tabmap[i][j]);
-						try {
-							Image img = ImageIO.read(new File("sprite/lorann_r.png"));
-							graphics.drawImage(img, 32*j, 32*i, this);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						break;
+						graphics.drawImage(new ImageIcon("C:/Users/Thomas/git/Projet-java-uml/sprite/animated.gif").getImage(), 32*j, 32*i, this);
+					break;
 
 					case 'E':
 						System.out.print(tabmap[i][j]);
 						try {
-							Image img = ImageIO.read(new File("sprite/crystal_ball.png"));
+							Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/crystal_ball.png"));
 							graphics.drawImage(img, 32*j, 32*i, this);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -198,7 +200,7 @@ class ViewPanel extends JPanel implements Observer {
 					case 'L':
 						System.out.print(tabmap[i][j]);
 						try {
-							Image img = ImageIO.read(new File("sprite/fireball_1.png"));
+							Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/fireball_1.png"));
 							graphics.drawImage(img, 32*j, 32*i, this);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -208,39 +210,23 @@ class ViewPanel extends JPanel implements Observer {
 					case 'S':
 						System.out.print(tabmap[i][j]);
 						try {
-							Image img = ImageIO.read(new File("sprite/gate_closed.png"));
+							Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/gate_closed.png"));
 							graphics.drawImage(img, 32*j, 32*i, this);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 						break;
 
-
-
-
-
-
-
-					/** remplir switch case **/
-
-
 					default :
 						System.out.print(tabmap[i][j]);
 						break;
+						
+						
 				}
+				
 			}
 			System.out.println();
 		}
-		/**tabmap2d[0][0] = tabmap[0].charAt(1) ;
-		 graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
-		 int x=0;
-		 int y=20;
-		 char t=tabmap2d[0][0];
-		 while(x!=10){
-		 graphics.drawChars(null, t, 10, y, y);
-		 y=y+20;
-		 x++;}**/
-
-
+		
 	}
 }

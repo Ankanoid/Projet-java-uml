@@ -1,9 +1,22 @@
 package model;
 
 import java.sql.SQLException;
+
 import java.util.Observable;
+
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.Observer;
+
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
 import contract.IModel;
+
+
 /**
  * The Class Model.
  *
@@ -13,6 +26,25 @@ public class Model extends Observable implements IModel {
 
 	private int height = 12;
 	private int width = 21;
+	
+	private int positionHeroX;
+	private int positionHeroY;
+	
+	public int getPositionHeroX() {
+		return positionHeroX;
+	}
+
+	public void setPositionHeroX(int positionHeroX) {
+		this.positionHeroX = positionHeroX;
+	}
+
+	public int getPositionHeroY() {
+		return positionHeroY;
+	}
+
+	public void setPositionHeroY(int positionHeroY) {
+		this.positionHeroY = positionHeroY;
+	}
 
 	public int getHeight(){
 		return this.height;
@@ -23,8 +55,6 @@ public class Model extends Observable implements IModel {
 	}
 
 	public char[][] tabmap2d = new char[this.getHeight()][this.getWidth()];
-
-
 
 	/** The message. */
 	private String message;
@@ -98,18 +128,19 @@ public class Model extends Observable implements IModel {
 						break;
 					case 'P':
 						this.putInTabmap(i,j,'P');
+						setPositionHeroY(i);
+						setPositionHeroX(j);	
 						break;
 					case 'S':
 						this.putInTabmap(i,j,'S');
 						break;
-
-
 					default :
 						this.putInTabmap(i,j,' ');
 						break;
 				}
 			}
 		}
+		
 	}
 	public char[][] getTabmap2d() {
 		return this.tabmap2d;
@@ -149,4 +180,26 @@ public class Model extends Observable implements IModel {
 	public Observable getObservable() {
 		return this;
 	}
+
+	public void moveG(int x, int y) {
+		if(isMovePossible(x, y) == true)
+		{
+			tabmap2d[positionHeroY+y][positionHeroX+x]='P';
+			tabmap2d[positionHeroY][positionHeroX]='0';
+			setPositionHeroX(positionHeroX+x);
+			setPositionHeroY(positionHeroY+y);
+		}
+		
+		else {}
+	}
+	
+	public boolean isMovePossible(int x,  int y)
+	{
+		if(tabmap2d[positionHeroY+y][positionHeroX+x] == '0')
+			return true;
+		
+		else 
+			return false;
+	}
+	
 }

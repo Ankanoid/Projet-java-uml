@@ -27,10 +27,23 @@ public interface IModel {
 	void putInTabmap(int i, int j, char car);
 
 	char[][] getTabmap2d();
+	
+	int getPositionHeroX();
+	
+	void setPositionHeroX(int positionHeroX);
+	
+	int getPositionHeroY();
+	
+	void setPositionHeroY(int positionHeroY);
+	
+	
 	/**
 	 * Gets the observable.
 	 *
 	 * @return the observable
 	 */
 	Observable getObservable();
+
+
+	void moveG(int x, int y);
 }

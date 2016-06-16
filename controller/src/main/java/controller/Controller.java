@@ -81,7 +81,21 @@ public class Controller implements IController {
 			case Map5:
 				this.model.loadMessage("m5");
 				break;
-
+			case MoveLeft:
+				this.model.moveG(-1, 0);
+				break;
+			case MoveRight:
+				this.model.moveG(1, 0);
+				break;
+			case MoveUp:
+				this.model.moveG(0, -1);
+				break;
+			case MoveDown:
+				this.model.moveG(0, 1);
+				break;
+			case DiaLeftUp:
+				this.model.moveG(-1, -1);
+				break;
 			default:
 				break;
 		}
