@@ -47,6 +47,8 @@ public class View implements IView, Runnable {
 				return ControllerOrder.MoveUp;
 			case KeyEvent.VK_DOWN:
 				return ControllerOrder.MoveDown;
+			case KeyEvent.VK_A:
+				return ControllerOrder.Missile;
 			case 1406:
 				return ControllerOrder.MoveLeftUp;
 			case 1482:
@@ -55,8 +57,6 @@ public class View implements IView, Runnable {
 				return ControllerOrder.MoveLeftDown;
 			case 1560:
 				return ControllerOrder.MoveRightDown;
-			case KeyEvent.VK_A:
-				return ControllerOrder.Missile;
 			default:
 				return ControllerOrder.Nop;
 		}

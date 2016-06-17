@@ -102,7 +102,7 @@ public class Controller implements IController {
 				this.model.loadMessage("m9");
 				this.model.setLevel(9);
 			case Missile:
-				this.model.setActivemissile(1);
+				this.model.setActiveMissile(1);
 				this.model.moveMissile();
 			default:
 				break;

@@ -34,13 +34,29 @@ public class Model extends Observable implements IModel {
 	private int positionMissileX;
 	private int positionMissileY;
 	
+	public int getPositionMissileX() {
+		return positionMissileX;
+	}
+
+	public void setPositionMissileX(int positionMissileX) {
+		this.positionMissileX = positionMissileX;
+	}
+
+	public int getPositionMissileY() {
+		return positionMissileY;
+	}
+
+	public void setPositionMissileY(int positionMissileY) {
+		this.positionMissileY = positionMissileY;
+	}
+
 	private int activemissile = 0;
 	
-	public int getActivemissile() {
+	public int getActiveMissile() {
 		return activemissile;
 	}
 
-	public void setActivemissile(int activemissile) {
+	public void setActiveMissile(int activemissile) {
 		this.activemissile = activemissile;
 	}
 
@@ -422,12 +438,12 @@ public class Model extends Observable implements IModel {
 	}
 	
 	public void moveM1() {
-		t++;
+		this.t++;
 		
 		int randomNumX = -1 + (int)(Math.random() * ((1 - (-1)) + 1));
 		int randomNumY = -1 + (int)(Math.random() * ((1 - (-1)) + 1));
 
-		if(t == 1){
+		if(this.t == 1){
 			
 			switch (tabmap2d[positionMonster1Y][positionMonster1X+1]) {
 			case '0':
@@ -435,7 +451,7 @@ public class Model extends Observable implements IModel {
 				tabmap2d[positionMonster1Y][positionMonster1X+1]='6';
 				setPositionMonster1X(positionMonster1X+1);
 				setPositionMonster1Y(positionMonster1Y);
-				t = 0;
+				this.t = 0;
 				break;
 			case 'P':
 				gameOverM();
@@ -446,14 +462,24 @@ public class Model extends Observable implements IModel {
 		
 		else {tabmap2d[positionMonster1Y][positionMonster1X]='6';}
 	}
+
+	public void moveMissile() {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	public void moveMissile()
+	/*public void moveMissile()
 	{
-		if(this.activemissile == 1)
+		if(activemissile != 0)
 		{
 			if(this.d == 0)
-				{ tabmap2d[positionHeroY][positionHeroX-1]='L';
-				d++; }
+				{ 
+					if(tabmap2d[positionHeroY][positionHeroX-1]=='0')
+					tabmap2d[positionHeroY][positionHeroX-1]='L';
+					setPositionMissileX(positionHeroX-1);
+					setPositionMissileY(positionHeroY);
+					d++; 
+				}
 			
 			else
 			{ 
@@ -461,12 +487,12 @@ public class Model extends Observable implements IModel {
 				case '0':
 					tabmap2d[positionMissileY][positionMissileX]='0';
 					tabmap2d[positionMissileY][positionMissileX-1]='L';
-					setPositionMonster1X(positionMonster1X-1);
-					setPositionMonster1Y(positionMonster1Y);
-					t = 0;
+					setPositionMissileX(positionMissileX-1);
+					setPositionMissileY(positionMissileY);
 					break;
 				case 'E':
 					gameOverM();
+					break;
 				default:
 					break;
 				}
@@ -475,6 +501,8 @@ public class Model extends Observable implements IModel {
 		}
 		
 		else {}
-	}
+	}*/
+	
+
 	
 }

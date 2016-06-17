@@ -59,9 +59,9 @@ public interface IModel {
 	void setRotat(int rotat);
 	void moveMissile();
 	
-	int getActivemissile();
+	int getActiveMissile();
 	
-	void setActivemissile(int activemissile);
+	void setActiveMissile(int activemissile);
 	
 	/**
 	 * Gets the observable.

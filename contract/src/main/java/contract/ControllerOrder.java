@@ -7,6 +7,7 @@ public enum ControllerOrder {
 
 	
 Map0,			/** Load 1st map */
+Missile,
 /** Move left */
 MoveLeft,		/** Move right */
 MoveRight,		/** Move up */
@@ -16,6 +17,5 @@ MoveLeftUp,		/** Move up right */
 MoveRightUp,	/** Move down left */
 MoveLeftDown,	/** Move down right */
 MoveRightDown,	/** Don't move */
-Missile,
 Nop
 }
