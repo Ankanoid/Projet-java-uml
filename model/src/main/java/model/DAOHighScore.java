@@ -93,7 +93,7 @@ class DAOHighScore extends DAOEntity<HighScore> {
 			call.execute();
 			final ResultSet resultSet = call.getResultSet();
 			if (resultSet.first()) {
-				highScore = new HighScore(resultSet.getInt("id"), key, resultSet.getInt("score"));
+				highScore = new HighScore(resultSet.getInt("id_score"), key, resultSet.getInt("score"));
 			}
 			return highScore;
 		} catch (final SQLException e) {

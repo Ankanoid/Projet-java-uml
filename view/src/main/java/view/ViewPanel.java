@@ -60,7 +60,7 @@ class ViewPanel extends JPanel implements Observer {
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	public void update(final Observable arg0, final Object arg1) {
-		this.viewFrame.getModel().doTheThing();
+		this.viewFrame.getModel().parseMap();
 		this.repaint();
 	}
 
@@ -94,12 +94,13 @@ class ViewPanel extends JPanel implements Observer {
 			Font fonte = new Font("TimesRoman ",Font.BOLD,30);
 			graphics.setFont(fonte);
 			graphics.setColor(Color.white);
-			graphics.drawString("Highscores : ",225,75);
-			graphics.drawString("Map 1 : " + scoremap1,150,150);
-			graphics.drawString("Map 2 : " + scoremap2,150,200);
-			graphics.drawString("Map 3 : " + scoremap3,150,250);
-			graphics.drawString("Map 4 : " + scoremap4,150,300);
+			graphics.drawString("Highscores : ",50,35);
+			graphics.drawString("Map 1 : " + scoremap1,150,90);
+			graphics.drawString("Map 2 : " + scoremap2,150,155);
+			graphics.drawString("Map 3 : " + scoremap3,150,220);
+			graphics.drawString("Map 4 : " + scoremap4,150,285);
 			graphics.drawString("Map 5 : " + scoremap5,150,350);
+			graphics.drawString("PRESS ENTER TO CONTINUE ",50,415);
 		}
 			
 		if(this.viewFrame.getModel().getLevel() == 1 || this.viewFrame.getModel().getLevel() == 2 || this.viewFrame.getModel().getLevel() == 3 || this.viewFrame.getModel().getLevel() == 4 || this.viewFrame.getModel().getLevel() == 5)
@@ -111,34 +112,23 @@ class ViewPanel extends JPanel implements Observer {
 			graphics.drawString("Score : " + this.viewFrame.getModel().getScore(),60,440);
 			
 			this.viewFrame.getModel().moveM1();
+			//this.viewFrame.getModel().moveM2();
+			//this.viewFrame.getModel().moveM3();
+			//this.viewFrame.getModel().moveM4();
 			this.viewFrame.getModel().moveMissile();
-			afficherMap(graphics);
 		}
 		
 		if(this.viewFrame.getModel().getLevel() == 9)
 		{ 
-		
-			/*this.viewFrame.getModel().loadHighScore("map1");
-			int scoremap1 = this.viewFrame.getModel().getHighScore();
-			this.viewFrame.getModel().loadHighScore("map2");
-			int scoremap2 = this.viewFrame.getModel().getHighScore();
-			this.viewFrame.getModel().loadHighScore("map3");
-			int scoremap3 = this.viewFrame.getModel().getHighScore();
-			this.viewFrame.getModel().loadHighScore("map4");
-			int scoremap4 = this.viewFrame.getModel().getHighScore();
-			this.viewFrame.getModel().loadHighScore("map5");
-			int scoremap5 = this.viewFrame.getModel().getHighScore();*/
-			
-			/*Font fonte = new Font("TimesRoman ",Font.BOLD,20);
+			Font fonte = new Font("TimesRoman ",Font.BOLD,20);
 			graphics.setFont(fonte);
 			graphics.setColor(Color.white);
-			graphics.drawString("Map 1",200,80);*/
-
-			
-			afficherMap(graphics);
+			graphics.drawString("PRESS H FOR HIGHSCORES",50,415);
 		}
 		
 		else {afficherMap(graphics);}
+		
+		afficherMap(graphics);
 
 	}
 	
@@ -246,6 +236,7 @@ class ViewPanel extends JPanel implements Observer {
 
 					case 'P':
 						System.out.print(tabmap[i][j]);
+						if(this.viewFrame.getModel().getLevel() != 6 && this.viewFrame.getModel().getLevel() != 7)
 							graphics.drawImage(new ImageIcon("C:/Users/Thomas/git/Projet-java-uml/sprite/animated.gif").getImage(), 32*j, 32*i, this);
 					break;
 

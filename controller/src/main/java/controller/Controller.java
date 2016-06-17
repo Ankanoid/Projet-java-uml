@@ -66,44 +66,57 @@ public class Controller implements IController {
 	 */
 	public void orderPerform(final ControllerOrder controllerOrder) {
 		switch (controllerOrder) {
+			case Map0:
+				this.model.loadMessage("m9");
+				this.model.setLevel(9);
+				this.model.setM1alive(1);
+				break;
+			case Missile:
+				this.model.setActiveMissile(1);
+				break;
+			case DisplayHighscores:
+				this.model.setLevel(0);
+				break;
 			case MoveLeft:
+				this.model.lastKey("LEFT");
 				this.model.moveH(-1, 0);
 				this.model.setRotat(-1);
 				break;
 			case MoveRight:
+				this.model.lastKey("RIGHT");
 				this.model.moveH(1, 0);
 				this.model.setRotat(1);
 				break;
 			case MoveUp:
+				this.model.lastKey("UP");
 				this.model.moveH(0, -1);
 				this.model.setRotat(2);
 				break;
 			case MoveDown:
+				this.model.lastKey("DOWN");
 				this.model.moveH(0, 1);
 				this.model.setRotat(3);
 				break;
 			case MoveLeftUp:
+				this.model.lastKey("LEFT");
 				this.model.moveH(-1, -1);
 				this.model.setRotat(6);
 				break;
 			case MoveRightUp:
+				this.model.lastKey("RIGHT");
 				this.model.moveH(1, -1);
 				this.model.setRotat(7);
 				break;
 			case MoveLeftDown:
+				this.model.lastKey("LEFT");
 				this.model.moveH(-1, 1);
 				this.model.setRotat(4);
 				break;
 			case MoveRightDown:
+				this.model.lastKey("RIGHT");
 				this.model.moveH(1, 1);
 				this.model.setRotat(5);
 				break;
-			case Map0:
-				this.model.loadMessage("m9");
-				this.model.setLevel(9);
-			case Missile:
-				this.model.setActiveMissile(1);
-				this.model.moveMissile();
 			default:
 				break;
 		}

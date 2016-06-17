@@ -39,6 +39,10 @@ public class View implements IView, Runnable {
 		switch (keyCode) {
 			case KeyEvent.VK_ENTER:
 				return ControllerOrder.Map0;
+			case KeyEvent.VK_SPACE:
+				return ControllerOrder.Missile;
+			case KeyEvent.VK_H:
+				return ControllerOrder.DisplayHighscores;
 			case KeyEvent.VK_LEFT:
 				return ControllerOrder.MoveLeft;
 			case KeyEvent.VK_RIGHT:
@@ -47,8 +51,6 @@ public class View implements IView, Runnable {
 				return ControllerOrder.MoveUp;
 			case KeyEvent.VK_DOWN:
 				return ControllerOrder.MoveDown;
-			case KeyEvent.VK_A:
-				return ControllerOrder.Missile;
 			case 1406:
 				return ControllerOrder.MoveLeftUp;
 			case 1482:

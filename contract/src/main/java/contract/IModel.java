@@ -25,16 +25,12 @@ public interface IModel {
 	void loadMessage(String key);
 	
 	void loadHighScore(String key);
-	
-    void saveHighScore(final int score, final String key);
 
-	void doTheThing();
+	void parseMap();
 
 	void putInTabmap(int i, int j, char car);
 
 	char[][] getTabmap2d();
-	
-	void setScore(int score);
 	
 	int getScore();
 	
@@ -42,24 +38,22 @@ public interface IModel {
 	
 	int getLevel();
 	
-	public int getPositionMonster1X();
-
-	public void setPositionMonster1X(int positionMonster1X);
-
-	public int getPositionMonster1Y();
-
-	public void setPositionMonster1Y(int positionMonster1Y);
-	
 	void gameOverM();
+	
+	void setRotat(int rotat);
 	
 	void moveH(int x, int y);
 	
 	void moveM1();
+	void moveM2();
+	void moveM3();
+	void moveM4();
 	
-	void setRotat(int rotat);
+	void lastKey(String lastKey);
+	
+	void setM1alive(int m1alive);
+	
 	void moveMissile();
-	
-	int getActiveMissile();
 	
 	void setActiveMissile(int activemissile);
 	
