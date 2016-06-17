@@ -80,4 +80,9 @@ abstract class DAOEntity<E extends Entity> {
 	 */
 	public abstract E find(String key);
 
+	public HighScore find(int score, String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

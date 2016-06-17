@@ -7,14 +7,19 @@ import java.util.Observable;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Observer;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import contract.ControllerOrder;
 import contract.IModel;
+import contract.IController;
 
 
 /**
@@ -23,6 +28,49 @@ import contract.IModel;
  * @author Jean-Aymeric Diet
  */
 public class Model extends Observable implements IModel {
+	
+	public int rotat = 0;
+	
+	private int positionMissileX;
+	private int positionMissileY;
+	
+	private int activemissile = 0;
+	
+	public int getActivemissile() {
+		return activemissile;
+	}
+
+	public void setActivemissile(int activemissile) {
+		this.activemissile = activemissile;
+	}
+
+	private int t = 0;
+	
+	private int d = 0;
+	
+	public void setRotat(int rotat) {
+		this.rotat = rotat;
+	}
+	
+	private int score = 0;
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	private int level = 0;
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
 
 	private int height = 12;
 	private int width = 21;
@@ -30,6 +78,44 @@ public class Model extends Observable implements IModel {
 	private int positionHeroX;
 	private int positionHeroY;
 	
+	private int positionMonster1X;
+	private int positionMonster1Y;
+	
+	public int getPositionMonster1X() {
+		return positionMonster1X;
+	}
+
+	public void setPositionMonster1X(int positionMonster1X) {
+		this.positionMonster1X = positionMonster1X;
+	}
+
+	public int getPositionMonster1Y() {
+		return positionMonster1Y;
+	}
+
+	public void setPositionMonster1Y(int positionMonster1Y) {
+		this.positionMonster1Y = positionMonster1Y;
+	}
+
+	private int positionDoorX;
+	private int positionDoorY;
+	
+	public int getPositionDoorX() {
+		return positionDoorX;
+	}
+
+	public void setPositionDoorX(int positionDoorX) {
+		this.positionDoorX = positionDoorX;
+	}
+
+	public int getPositionDoorY() {
+		return positionDoorY;
+	}
+
+	public void setPositionDoorY(int positionDoorY) {
+		this.positionDoorY = positionDoorY;
+	}
+
 	public int getPositionHeroX() {
 		return positionHeroX;
 	}
@@ -58,6 +144,8 @@ public class Model extends Observable implements IModel {
 
 	/** The message. */
 	private String message;
+	
+	private int highscore;
 
 	/**
 	 * Instantiates a new model.
@@ -80,6 +168,11 @@ public class Model extends Observable implements IModel {
 		return this.message;
 
 	}
+	
+	public int getHighScore() {
+		return this.highscore;
+
+	}
 
 
 	public void putInTabmap(int i, int j, char car) {
@@ -88,6 +181,7 @@ public class Model extends Observable implements IModel {
 
 	public void doTheThing() {
 		String[] tabmap = this.message.split("\n") ;
+		score = 0;
 		for(int i =0; i<tabmap.length; i++)
 		{
 			for (int j =0; j<tabmap[i].length();j++)
@@ -107,6 +201,8 @@ public class Model extends Observable implements IModel {
 						break;
 					case '6':
 						this.putInTabmap(i,j,'6');
+						setPositionMonster1Y(i);
+						setPositionMonster1X(j);
 						break;
 					case '7':
 						this.putInTabmap(i,j,'7');
@@ -133,6 +229,23 @@ public class Model extends Observable implements IModel {
 						break;
 					case 'S':
 						this.putInTabmap(i,j,'S');
+						setPositionDoorY(i);
+						setPositionDoorX(j);
+						break;
+					case 'A':
+						this.putInTabmap(i,j,'A');
+						break;
+					case 'Z':
+						this.putInTabmap(i,j,'Z');
+						break;
+					case 'R':
+						this.putInTabmap(i,j,'R');
+						break;
+					case 'T':
+						this.putInTabmap(i,j,'T');
+						break;
+					case 'Y':
+						this.putInTabmap(i,j,'Y');
 						break;
 					default :
 						this.putInTabmap(i,j,' ');
@@ -157,6 +270,12 @@ public class Model extends Observable implements IModel {
 		this.setChanged();
 		this.notifyObservers();
 	}
+	
+	private void setHighScore(final int highscore) {
+		this.highscore = highscore;
+		this.setChanged();
+		this.notifyObservers();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -171,6 +290,24 @@ public class Model extends Observable implements IModel {
 			e.printStackTrace();
 		}
 	}
+	
+	public void loadHighScore(final String key) {
+		try {
+			final DAOHighScore daoHighScore = new DAOHighScore(DBConnection.getInstance().getConnection());
+			this.setHighScore(daoHighScore.find(key).getHighScore());
+		} catch (final SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void saveHighScore(final int score, final String key) {
+		try {
+			final DAOHighScore daoHighScore = new DAOHighScore(DBConnection.getInstance().getConnection());
+			daoHighScore.find(score,key);
+		} catch (final SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -181,25 +318,163 @@ public class Model extends Observable implements IModel {
 		return this;
 	}
 
-	public void moveG(int x, int y) {
+	public void moveH(int x, int y) {
 		if(isMovePossible(x, y) == true)
 		{
+			if(this.rotat == -1)
+			tabmap2d[positionHeroY+y][positionHeroX+x]='Q';
+			
+			if(this.rotat == 1)
+			tabmap2d[positionHeroY+y][positionHeroX+x]='F';
+			
+			if(this.rotat == 3)
+			tabmap2d[positionHeroY+y][positionHeroX+x]='D';
+			
+			if(this.rotat == 2)
+			tabmap2d[positionHeroY+y][positionHeroX+x]='I';
+			
+			if(this.rotat == 4)
+			tabmap2d[positionHeroY+y][positionHeroX+x]='X';
+			
+			if(this.rotat == 5)
+			tabmap2d[positionHeroY+y][positionHeroX+x]='V';
+			
+			if(this.rotat == 6)
+			tabmap2d[positionHeroY+y][positionHeroX+x]='B';
+			
+			if(this.rotat == 7)
+			tabmap2d[positionHeroY+y][positionHeroX+x]='M';
+			
+			if(this.rotat == 0)
 			tabmap2d[positionHeroY+y][positionHeroX+x]='P';
+			
 			tabmap2d[positionHeroY][positionHeroX]='0';
 			setPositionHeroX(positionHeroX+x);
 			setPositionHeroY(positionHeroY+y);
 		}
+
 		
 		else {}
 	}
 	
 	public boolean isMovePossible(int x,  int y)
 	{
-		if(tabmap2d[positionHeroY+y][positionHeroX+x] == '0')
+		switch (tabmap2d[positionHeroY+y][positionHeroX+x]) {
+		case '0':
 			return true;
-		
-		else 
+		case 'C':
+			score += 100;
+			return true;
+		case 'E':
+			if(this.level == 5)
+			tabmap2d[positionDoorY][positionDoorX]='W';
+			else
+			tabmap2d[positionDoorY][positionDoorX]='O';
+			return true;
+		case 'O':
+			this.saveHighScore(this.score,"map"+this.level);
+			this.loadMessage("m9");
+			this.setLevel(9);
+			return true;
+		case '6':
+			gameOverM();
+			return true;
+		case '7':
+			gameOverM();
+		case '8':
+			gameOverM();
+		case 'A':
+			this.loadMessage("m1");
+			this.setLevel(1);
+			return true;
+		case 'Z':
+			this.loadMessage("m2");
+			this.setLevel(2);
+			return true;
+		case 'R':
+			this.loadMessage("m3");
+			this.setLevel(3);
+			return true;
+		case 'T':
+			this.loadMessage("m4");
+			this.setLevel(4);
+			return true;
+		case 'Y':
+			this.loadMessage("m5");
+			this.setLevel(5);
+			return true;
+		case 'W':
+			this.saveHighScore(this.score,"map"+this.level);
+			this.loadMessage("m7");
+			this.setLevel(7);
+			return true;
+		default:
 			return false;
+	}
+		
+	}
+	
+	public void gameOverM()
+	{
+		this.saveHighScore(this.score,"map"+this.level);
+		this.loadMessage("m6");
+		this.setLevel(6);
+	}
+	
+	public void moveM1() {
+		t++;
+		
+		int randomNumX = -1 + (int)(Math.random() * ((1 - (-1)) + 1));
+		int randomNumY = -1 + (int)(Math.random() * ((1 - (-1)) + 1));
+
+		if(t == 1){
+			
+			switch (tabmap2d[positionMonster1Y][positionMonster1X+1]) {
+			case '0':
+				tabmap2d[positionMonster1Y][positionMonster1X]='0';
+				tabmap2d[positionMonster1Y][positionMonster1X+1]='6';
+				setPositionMonster1X(positionMonster1X+1);
+				setPositionMonster1Y(positionMonster1Y);
+				t = 0;
+				break;
+			case 'P':
+				gameOverM();
+			default:
+				break;
+			}
+		}
+		
+		else {tabmap2d[positionMonster1Y][positionMonster1X]='6';}
+	}
+	
+	public void moveMissile()
+	{
+		if(this.activemissile == 1)
+		{
+			if(this.d == 0)
+				{ tabmap2d[positionHeroY][positionHeroX-1]='L';
+				d++; }
+			
+			else
+			{ 
+				switch (tabmap2d[positionMissileY][positionMissileX-1]) {
+				case '0':
+					tabmap2d[positionMissileY][positionMissileX]='0';
+					tabmap2d[positionMissileY][positionMissileX-1]='L';
+					setPositionMonster1X(positionMonster1X-1);
+					setPositionMonster1Y(positionMonster1Y);
+					t = 0;
+					break;
+				case 'E':
+					gameOverM();
+				default:
+					break;
+				}
+				
+			} 
+		}
+		
+		else {}
 	}
 	
 }

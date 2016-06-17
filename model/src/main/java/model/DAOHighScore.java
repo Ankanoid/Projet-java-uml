@@ -8,7 +8,7 @@ import java.sql.SQLException;
 /**
  * The Class DAOHelloWorld.
  */
-class DAOHelloWorld extends DAOEntity<HelloWorld> {
+class DAOHighScore extends DAOEntity<HighScore> {
 
 	/**
 	 * Instantiates a new DAO hello world.
@@ -18,7 +18,7 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	 * @throws SQLException
 	 *           the SQL exception
 	 */
-	public DAOHelloWorld(final Connection connection) throws SQLException {
+	public DAOHighScore(final Connection connection) throws SQLException {
 		super(connection);
 	}
 
@@ -28,7 +28,7 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	 * @see model.DAOEntity#create(model.Entity)
 	 */
 	@Override
-	public boolean create(final HelloWorld entity) {
+	public boolean create(final HighScore entity) {
 		// Not implemented
 		return false;
 	}
@@ -39,7 +39,7 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	 * @see model.DAOEntity#delete(model.Entity)
 	 */
 	@Override
-	public boolean delete(final HelloWorld entity) {
+	public boolean delete(final HighScore entity) {
 		// Not implemented
 		return false;
 	}
@@ -50,9 +50,31 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	 * @see model.DAOEntity#update(model.Entity)
 	 */
 	@Override
-	public boolean update(final HelloWorld entity) {
+	public boolean update(final HighScore entity) {
 		// Not implemented
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see model.DAOEntity#find(int)
+	 */
+	@Override
+	public HighScore find(final int score, final String key) {
+		HighScore highScore = new HighScore();
+
+		try {
+			final String sql = "{call addScoreByMap(?, ?)}";
+			final CallableStatement call = this.getConnection().prepareCall(sql);
+			call.setInt(1, score);
+			call.setString(2, key);
+			call.execute();
+			return highScore;
+		} catch (final SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/*
@@ -61,19 +83,19 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	 * @see model.DAOEntity#find(java.lang.String)
 	 */
 	@Override
-	public HelloWorld find(final String key) {
-		HelloWorld helloWorld = new HelloWorld();
+	public HighScore find(final String key) {
+		HighScore highScore = new HighScore();
 
 		try {
-			final String sql = "{call mapByKey(?)}";
+			final String sql = "{call scoreMapByKey(?)}";
 			final CallableStatement call = this.getConnection().prepareCall(sql);
 			call.setString(1, key);
 			call.execute();
 			final ResultSet resultSet = call.getResultSet();
 			if (resultSet.first()) {
-				helloWorld = new HelloWorld(resultSet.getInt("id"), key, resultSet.getString("mapcontent"));
+				highScore = new HighScore(resultSet.getInt("id"), key, resultSet.getInt("score"));
 			}
-			return helloWorld;
+			return highScore;
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,7 +103,7 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	}
 
 	@Override
-	public HelloWorld find(int id) {
+	public HighScore find(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

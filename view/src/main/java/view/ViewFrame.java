@@ -4,6 +4,7 @@ import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,6 +18,8 @@ import contract.IModel;
  * @author Jean-Aymeric Diet
  */
 class ViewFrame extends JFrame implements KeyListener {
+	
+	public static ArrayList l = new ArrayList();
 
 	/** The model. */
 	private IModel						model;
@@ -126,12 +129,13 @@ class ViewFrame extends JFrame implements KeyListener {
 	 *          the model
 	 */
 	private void buildViewFrame(final IModel model) {
+		this.setTitle("Lorann");
 		this.setModel(model);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.addKeyListener(this);
 		this.setContentPane(new ViewPanel(this));
-		this.setSize(650, 420);
+		this.setSize(650, 480);
 		this.setLocationRelativeTo(null);
 	}
 
@@ -159,16 +163,37 @@ class ViewFrame extends JFrame implements KeyListener {
 	 *
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 	 */
-	public void keyPressed(final KeyEvent e) {
-		this.getController().orderPerform(View.keyCodeToControllerOrder(e.getKeyCode()));
-	}
+	public void keyPressed(final KeyEvent keyEvent) {
+		for(int i = 0; i < this.l.size(); i++)
 
+		{
+			if ((Integer) this.l.get(i) == keyEvent.getKeyCode()) {
+				this.l.remove(i);
+			}
+		}
+		this.l.add(keyEvent.getKeyCode());
+		//NettleView.displayMessage("" + keyEvent.getKeyCode());
+		if (this.l.size() == 1) {
+			this.getController().orderPerform(View.keyCodeToControllerOrder(keyEvent.getKeyCode()));
+		} else if (this.l.size() == 2) {
+			int i = 0;
+			i = (Integer) this.l.get(0) * (Integer) this.l.get(1);
+			this.getController().orderPerform(View.keyCodeToControllerOrder(i));
+			System.out.println("Deux touches sont utilisées en même temps !");
+		}
+	}
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
 	 */
-	public void keyReleased(final KeyEvent e) {
+	public void keyReleased(final KeyEvent keyEvent) {
+		for(int i = 0; i < this.l.size(); i++)
 
+		{
+			if ((Integer) this.l.get(i) == keyEvent.getKeyCode()) {
+				this.l.remove(i);
+			}
+		}
 	}
 }

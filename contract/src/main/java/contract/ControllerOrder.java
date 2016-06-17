@@ -5,14 +5,17 @@ package contract;
  */
 public enum ControllerOrder {
 
-	Map1, /** The map 1*/
-	Map2, /** The map 2 */
-	Map3, /** The map 3 */
-	Map4, /** The map 4 */
-	Map5,  /** The map 5 */
-	MoveLeft,
-	MoveRight,
-	MoveUp,
-	MoveDown,
-	DiaLeftUp
+	
+Map0,			/** Load 1st map */
+/** Move left */
+MoveLeft,		/** Move right */
+MoveRight,		/** Move up */
+MoveUp,			/** Move down */
+MoveDown,		/** Move up left */
+MoveLeftUp,		/** Move up right */
+MoveRightUp,	/** Move down left */
+MoveLeftDown,	/** Move down right */
+MoveRightDown,	/** Don't move */
+Missile,
+Nop
 }

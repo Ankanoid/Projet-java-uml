@@ -36,7 +36,7 @@ public class Controller implements IController {
 	 * @see contract.IController#control()
 	 */
 	public void control() {
-		this.view.printMessage("Appuyer sur les touches 'E', 'F', 'D' ou 'I', pour afficher Hello world dans la langue d votre choix.");
+		// this.view.printMessage("Appuyer sur les touches 'E', 'F', 'D' ou 'I', pour afficher Hello world dans la langue d votre choix.");
 	}
 
 	/**
@@ -66,36 +66,44 @@ public class Controller implements IController {
 	 */
 	public void orderPerform(final ControllerOrder controllerOrder) {
 		switch (controllerOrder) {
-			case Map1:
-				this.model.loadMessage("m1");
-				break;
-			case Map2:
-				this.model.loadMessage("m2");
-				break;
-			case Map3:
-				this.model.loadMessage("m3");
-				break;
-			case Map4:
-				this.model.loadMessage("m4");
-				break;
-			case Map5:
-				this.model.loadMessage("m5");
-				break;
 			case MoveLeft:
-				this.model.moveG(-1, 0);
+				this.model.moveH(-1, 0);
+				this.model.setRotat(-1);
 				break;
 			case MoveRight:
-				this.model.moveG(1, 0);
+				this.model.moveH(1, 0);
+				this.model.setRotat(1);
 				break;
 			case MoveUp:
-				this.model.moveG(0, -1);
+				this.model.moveH(0, -1);
+				this.model.setRotat(2);
 				break;
 			case MoveDown:
-				this.model.moveG(0, 1);
+				this.model.moveH(0, 1);
+				this.model.setRotat(3);
 				break;
-			case DiaLeftUp:
-				this.model.moveG(-1, -1);
+			case MoveLeftUp:
+				this.model.moveH(-1, -1);
+				this.model.setRotat(6);
 				break;
+			case MoveRightUp:
+				this.model.moveH(1, -1);
+				this.model.setRotat(7);
+				break;
+			case MoveLeftDown:
+				this.model.moveH(-1, 1);
+				this.model.setRotat(4);
+				break;
+			case MoveRightDown:
+				this.model.moveH(1, 1);
+				this.model.setRotat(5);
+				break;
+			case Map0:
+				this.model.loadMessage("m9");
+				this.model.setLevel(9);
+			case Missile:
+				this.model.setActivemissile(1);
+				this.model.moveMissile();
 			default:
 				break;
 		}

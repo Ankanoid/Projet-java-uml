@@ -13,6 +13,8 @@ public interface IModel {
 	 * @return the message
 	 */
 	String getMessage();
+	
+	int getHighScore();
 
 	/**
 	 * Load the message.
@@ -21,6 +23,10 @@ public interface IModel {
 	 *          the key
 	 */
 	void loadMessage(String key);
+	
+	void loadHighScore(String key);
+	
+    void saveHighScore(final int score, final String key);
 
 	void doTheThing();
 
@@ -28,14 +34,34 @@ public interface IModel {
 
 	char[][] getTabmap2d();
 	
-	int getPositionHeroX();
+	void setScore(int score);
 	
-	void setPositionHeroX(int positionHeroX);
+	int getScore();
 	
-	int getPositionHeroY();
+	void setLevel(int level);
 	
-	void setPositionHeroY(int positionHeroY);
+	int getLevel();
 	
+	public int getPositionMonster1X();
+
+	public void setPositionMonster1X(int positionMonster1X);
+
+	public int getPositionMonster1Y();
+
+	public void setPositionMonster1Y(int positionMonster1Y);
+	
+	void gameOverM();
+	
+	void moveH(int x, int y);
+	
+	void moveM1();
+	
+	void setRotat(int rotat);
+	void moveMissile();
+	
+	int getActivemissile();
+	
+	void setActivemissile(int activemissile);
 	
 	/**
 	 * Gets the observable.
@@ -44,6 +70,4 @@ public interface IModel {
 	 */
 	Observable getObservable();
 
-
-	void moveG(int x, int y);
 }
