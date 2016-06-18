@@ -67,55 +67,41 @@ public class Controller implements IController {
 	public void orderPerform(final ControllerOrder controllerOrder) {
 		switch (controllerOrder) {
 			case Map0:
-				this.model.loadMessage("m9");
+				this.model.loadMap("m9");
 				this.model.setLevel(9);
-				this.model.setM1alive(1);
 				break;
 			case Missile:
-				this.model.setActiveMissile(1);
+				this.model.setActiveMissile(true);
 				break;
 			case DisplayHighscores:
+				if(this.model.getLevel()==9)
 				this.model.setLevel(0);
 				break;
 			case MoveLeft:
-				this.model.lastKey("LEFT");
-				this.model.moveH(-1, 0);
-				this.model.setRotat(-1);
+				this.model.setLastKey("LEFT");
 				break;
 			case MoveRight:
-				this.model.lastKey("RIGHT");
-				this.model.moveH(1, 0);
-				this.model.setRotat(1);
+				this.model.setLastKey("RIGHT");
 				break;
 			case MoveUp:
-				this.model.lastKey("UP");
-				this.model.moveH(0, -1);
-				this.model.setRotat(2);
+				this.model.setLastKey("UP");
 				break;
 			case MoveDown:
-				this.model.lastKey("DOWN");
-				this.model.moveH(0, 1);
-				this.model.setRotat(3);
+				this.model.setLastKey("DOWN");
 				break;
 			case MoveLeftUp:
-				this.model.lastKey("LEFT");
-				this.model.moveH(-1, -1);
-				this.model.setRotat(6);
+				this.model.setLastKey("LEFTUP");
 				break;
 			case MoveRightUp:
-				this.model.lastKey("RIGHT");
-				this.model.moveH(1, -1);
-				this.model.setRotat(7);
+				this.model.setLastKey("RIGHTUP");
 				break;
 			case MoveLeftDown:
-				this.model.lastKey("LEFT");
-				this.model.moveH(-1, 1);
-				this.model.setRotat(4);
+				this.model.setLastKey("LEFTDOWN");
 				break;
 			case MoveRightDown:
-				this.model.lastKey("RIGHT");
-				this.model.moveH(1, 1);
-				this.model.setRotat(5);
+				this.model.setLastKey("RIGHTDOWN");
+				break;
+			case Nop:
 				break;
 			default:
 				break;

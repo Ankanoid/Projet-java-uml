@@ -12,7 +12,7 @@ public interface IModel {
 	 *
 	 * @return the message
 	 */
-	String getMessage();
+	String getMap();
 	
 	int getHighScore();
 
@@ -22,13 +22,11 @@ public interface IModel {
 	 * @param key
 	 *          the key
 	 */
-	void loadMessage(String key);
+	void loadMap(String key);
 	
 	void loadHighScore(String key);
 
 	void parseMap();
-
-	void putInTabmap(int i, int j, char car);
 
 	char[][] getTabmap2d();
 	
@@ -38,24 +36,24 @@ public interface IModel {
 	
 	int getLevel();
 	
-	void gameOverM();
+	void moveH();
+
+	String getImageHero();
+	String getImageFireBall();
+	String getImageDoor();
 	
-	void setRotat(int rotat);
-	
-	void moveH(int x, int y);
+	int getDoorLevel();
 	
 	void moveM1();
 	void moveM2();
 	void moveM3();
 	void moveM4();
 	
-	void lastKey(String lastKey);
-	
-	void setM1alive(int m1alive);
+	void setLastKey(String lastKey);
 	
 	void moveMissile();
 	
-	void setActiveMissile(int activemissile);
+	void setActiveMissile(boolean isActive);
 	
 	/**
 	 * Gets the observable.

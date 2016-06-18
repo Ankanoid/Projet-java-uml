@@ -3,23 +3,9 @@ package model;
 import java.sql.SQLException;
 
 import java.util.Observable;
-
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
-import java.util.Observer;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
-
-import contract.ControllerOrder;
 import contract.IModel;
-import contract.IController;
 
 
 /**
@@ -28,235 +14,65 @@ import contract.IController;
  * @author Jean-Aymeric Diet
  */
 public class Model extends Observable implements IModel {
-	
-	Hero hero = new Hero(0, 0);
-	
-	public Hero getHero(){return this.hero;}
-	
-	int a = getHero().getX();
 
-	public int rotat = 0;
-	
-	private int m1alive = 1;
-	private int m2alive = 1;
-	private int m3alive = 1;
-	private int m4alive = 1;
-	
-	private int xmissile = 0;
-	private int ymissile = 0;
-	
-	private int missilefired = 0;
-	
-	public void lastKey(String lastKey)
+	private Hero hero;
+	private Monster monster1;
+	private Monster monster2;
+	private Monster monster3;
+	private Monster monster4;
+	private FireBall fireball;
+	private Door door;
+
+	public int getScore()
 	{
-		if(missilefired == 0)
-			{
-			if(lastKey == "RIGHT")
-			{
-				xmissile = 1;
-				ymissile = 0;
-			}
-			
-			if(lastKey == "LEFT")
-			{
-				xmissile = -1;
-				ymissile = 0;
-			}
-			
-			if(lastKey == "UP")
-			{
-				xmissile = 0;
-				ymissile = -1;
-			}
-			
-			if(lastKey == "DOWN")
-			{
-				xmissile = 0;
-				ymissile = 1;
-			}
-		}
-		
-		else {}
+		return Infos.getScore();
 	}
 	
-	private int positionMissileX;
-	private int positionMissileY;
-	
-	public int getPositionMissileX() {
-		return positionMissileX;
-	}
-
-	public void setPositionMissileX(int positionMissileX) {
-		this.positionMissileX = positionMissileX;
-	}
-
-	public int getPositionMissileY() {
-		return positionMissileY;
-	}
-
-	public void setPositionMissileY(int positionMissileY) {
-		this.positionMissileY = positionMissileY;
-	}
-
-	private int activemissile = 0;
-	
-	public int getActiveMissile() {
-		return activemissile;
-	}
-
-	public void setActiveMissile(int activemissile) {
-		this.activemissile = activemissile;
-	}
-
-	private int t = 0;
-	private int t2 = 0;
-	private int t3 = 0;
-	private int t4 = 0;
-	
-	private int tm = 0;
-	
-	private int d = 0;
-	
-	public void setRotat(int rotat) {
-		this.rotat = rotat;
+	public String getImageHero()
+	{
+		return this.hero.getImage();
 	}
 	
-	private int score = 0;
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
+	public String getImageFireBall()
+	{
+		return this.fireball.getImage();
 	}
 	
-	private int level = 0;
-
-	public int getLevel() {
-		return level;
+	public String getImageDoor()
+	{
+		return this.door.getImage();
 	}
-
-	public void setLevel(int level) {
-		this.level = level;
+	
+	public void setScore(int score)
+	{
+		Infos.setScore(score);
 	}
+	
+	public int getLevel()
+	{
+		return Infos.getLevel();
+	}
+	
+	public void setLevel(int level)
+	{
+		Infos.setLevel(level);
+	}
+	
+	public int getDoorLevel()
+	{
+		return this.door.getToLevel();
+	}
+	
+	public String lastKey;
+	
+	public boolean isNewKey = false;
 
+	public String getLastKey() {
+		return lastKey;
+	}
+	
 	private int height = 12;
 	private int width = 21;
-	
-	private int positionHeroX;
-	private int positionHeroY;
-	
-	private int positionMonster1X;
-	private int positionMonster1Y;
-	
-	private int positionMonster2X;
-	private int positionMonster2Y;
-	
-	private int positionMonster3X;
-	private int positionMonster3Y;
-	
-	private int positionMonster4X;
-	private int positionMonster4Y;
-	
-	public int getPositionMonster1X() {
-		return positionMonster1X;
-	}
-
-	public void setPositionMonster1X(int positionMonster1X) {
-		this.positionMonster1X = positionMonster1X;
-	}
-
-	public int getPositionMonster1Y() {
-		return positionMonster1Y;
-	}
-
-	public void setPositionMonster1Y(int positionMonster1Y) {
-		this.positionMonster1Y = positionMonster1Y;
-	}
-	
-	public int getPositionMonster2X() {
-		return positionMonster2X;
-	}
-
-	public void setPositionMonster2X(int positionMonster2X) {
-		this.positionMonster2X = positionMonster2X;
-	}
-
-	public int getPositionMonster2Y() {
-		return positionMonster2Y;
-	}
-
-	public void setPositionMonster2Y(int positionMonster2Y) {
-		this.positionMonster2Y = positionMonster2Y;
-	}
-
-	public int getPositionMonster3X() {
-		return positionMonster3X;
-	}
-
-	public void setPositionMonster3X(int positionMonster3X) {
-		this.positionMonster3X = positionMonster3X;
-	}
-
-	public int getPositionMonster3Y() {
-		return positionMonster3Y;
-	}
-
-	public void setPositionMonster3Y(int positionMonster3Y) {
-		this.positionMonster3Y = positionMonster3Y;
-	}
-
-	public int getPositionMonster4X() {
-		return positionMonster4X;
-	}
-
-	public void setPositionMonster4X(int positionMonster4X) {
-		this.positionMonster4X = positionMonster4X;
-	}
-
-	public int getPositionMonster4Y() {
-		return positionMonster4Y;
-	}
-
-	public void setPositionMonster4Y(int positionMonster4Y) {
-		this.positionMonster4Y = positionMonster4Y;
-	}
-
-	private int positionDoorX;
-	private int positionDoorY;
-	
-	public int getPositionDoorX() {
-		return positionDoorX;
-	}
-
-	public void setPositionDoorX(int positionDoorX) {
-		this.positionDoorX = positionDoorX;
-	}
-
-	public int getPositionDoorY() {
-		return positionDoorY;
-	}
-
-	public void setPositionDoorY(int positionDoorY) {
-		this.positionDoorY = positionDoorY;
-	}
-
-	public int getPositionHeroX() {
-		return positionHeroX;
-	}
-
-	public void setPositionHeroX(int positionHeroX) {
-		this.positionHeroX = positionHeroX;
-	}
-
-	public int getPositionHeroY() {
-		return positionHeroY;
-	}
-
-	public void setPositionHeroY(int positionHeroY) {
-		this.positionHeroY = positionHeroY;
-	}
 
 	public int getHeight(){
 		return this.height;
@@ -269,7 +85,7 @@ public class Model extends Observable implements IModel {
 	public char[][] tabmap2d = new char[this.getHeight()][this.getWidth()];
 
 	/** The message. */
-	private String message;
+	private String map;
 	
 	private int highscore;
 
@@ -277,7 +93,14 @@ public class Model extends Observable implements IModel {
 	 * Instantiates a new model.
 	 */
 	public Model() {
-		this.message = "";
+		this.hero = new Hero(0,0, false);
+		this.monster1 = new Monster(0,0,false);
+		this.monster2 = new Monster(0,0,false);
+		this.monster3 = new Monster(0,0,false);
+		this.monster4 = new Monster(0,0,false);
+		this.fireball = new FireBall(0,0,false);
+		this.door = new Door(0,0, false);
+		this.map = "";
 	}
 
 	/*
@@ -290,8 +113,8 @@ public class Model extends Observable implements IModel {
 
 	}
 
-	public String getMessage() {
-		return this.message;
+	public String getMap() {
+		return this.map;
 
 	}
 	
@@ -300,17 +123,26 @@ public class Model extends Observable implements IModel {
 
 	}
 
-
 	public void putInTabmap(int i, int j, char car) {
 		this.tabmap2d[i][j] = car;
 	}
 
 	public void parseMap() {
-		String[] tabmap = this.message.split("\n") ;
-		d = 0;
-		score = 0;
-		activemissile = 0;
-		for(int i =0; i<tabmap.length; i++)
+		
+		this.monster1 = new Monster(0,0,false);
+		this.monster2 = new Monster(0,0,false);
+		this.monster3 = new Monster(0,0,false);
+		this.monster4 = new Monster(0,0,false);
+		this.hero = new Hero(0,1,false);
+		this.door = new Door (0,0, false);
+		
+		this.fireball.setFirstLaunch(true);
+		this.setScore(0);
+		this.fireball.setActive(false);
+		
+		String[] tabmap = this.map.split("\n") ;
+		
+		for(int i = 0; i<tabmap.length; i++)
 		{
 			for (int j =0; j<tabmap[i].length();j++)
 			{
@@ -329,24 +161,31 @@ public class Model extends Observable implements IModel {
 						break;
 					case '6':
 						this.putInTabmap(i,j,'6');
-						m1alive = 1;
-						setPositionMonster1Y(i);
-						setPositionMonster1X(j);
+						this.monster1.setAlive(true);
+						this.monster1.setMove(0);
+						this.monster1.setY(i);
+						this.monster1.setX(j);
 						break;
 					case '7':
 						this.putInTabmap(i,j,'7');
-						setPositionMonster2Y(i);
-						setPositionMonster2X(j);
+						this.monster2.setAlive(true);
+						this.monster2.setMove(0);
+						this.monster2.setY(i);
+						this.monster2.setX(j);
 						break;
 					case '8':
 						this.putInTabmap(i,j,'8');
-						setPositionMonster3Y(i);
-						setPositionMonster3X(j);
+						this.monster4.setAlive(true);
+						this.monster3.setMove(0);
+						this.monster3.setY(i);
+						this.monster3.setX(j);
 						break;
 					case '9':
 						this.putInTabmap(i,j,'9');
-						setPositionMonster4Y(i);
-						setPositionMonster4X(j);
+						this.monster4.setAlive(true);
+						this.monster4.setMove(0);
+						this.monster4.setY(i);
+						this.monster4.setX(j);
 						break;
 					case 'C':
 						this.putInTabmap(i,j,'C');
@@ -356,18 +195,15 @@ public class Model extends Observable implements IModel {
 						break;
 					case 'P':
 						this.putInTabmap(i,j,'P');
-						setPositionHeroY(i);
-						setPositionHeroX(j);	
+						this.hero.setAlive(true);
+						this.hero.setY(i);
+						this.hero.setX(j);
 						break;
 					case 'S':
 						this.putInTabmap(i,j,'S');
-						setPositionDoorY(i);
-						setPositionDoorX(j);
-						break;
-					case 'L':
-						this.putInTabmap(i,j,'L');
-						setPositionMissileY(i);
-						setPositionMissileX(j);
+						this.door.setOpen(false);
+						this.door.setY(i);
+						this.door.setX(j);
 						break;
 					case 'A':
 						this.putInTabmap(i,j,'A');
@@ -375,14 +211,8 @@ public class Model extends Observable implements IModel {
 					case 'Z':
 						this.putInTabmap(i,j,'Z');
 						break;
-					case 'R':
-						this.putInTabmap(i,j,'R');
-						break;
-					case 'T':
-						this.putInTabmap(i,j,'T');
-						break;
-					case 'Y':
-						this.putInTabmap(i,j,'Y');
+					case 'G':
+						this.putInTabmap(i,j,'G');
 						break;
 					default :
 						this.putInTabmap(i,j,' ');
@@ -390,8 +220,8 @@ public class Model extends Observable implements IModel {
 				}
 			}
 		}
-		
 	}
+	
 	public char[][] getTabmap2d() {
 		return this.tabmap2d;
 	}
@@ -402,8 +232,8 @@ public class Model extends Observable implements IModel {
 	 * @param message
 	 *          the new message
 	 */
-	private void setMessage(final String message) {
-		this.message = message;
+	private void setMap(final String map) {
+		this.map = map;
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -419,10 +249,10 @@ public class Model extends Observable implements IModel {
 	 *
 	 * @see contract.IModel#getMessage(java.lang.String)
 	 */
-	public void loadMessage(final String key) {
+	public void loadMap(final String key) {
 		try {
-			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setMessage(daoHelloWorld.find(key).getMessage());
+			final DAOMap map = new DAOMap(DBConnection.getInstance().getConnection());
+			this.setMap(map.find(key).getMap());
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
@@ -455,132 +285,175 @@ public class Model extends Observable implements IModel {
 		return this;
 	}
 
-	public void moveH(int x, int y) {
-		if(isMovePossible(x, y) == true)
+	public void setLastKey(String lastKey) {
+		this.lastKey = lastKey;
+		this.isNewKey = true;
+		this.hero.setMove(this.lastKey);
+		this.hero.SelectPosHero();
+		if(this.fireball.isFirstLaunch()==true)
 		{
-			if(this.rotat == -1)
-			tabmap2d[positionHeroY+y][positionHeroX+x]='Q';
-			
-			if(this.rotat == 1)
-			tabmap2d[positionHeroY+y][positionHeroX+x]='F';
-			
-			if(this.rotat == 3)
-			tabmap2d[positionHeroY+y][positionHeroX+x]='D';
-			
-			if(this.rotat == 2)
-			tabmap2d[positionHeroY+y][positionHeroX+x]='I';
-			
-			if(this.rotat == 4)
-			tabmap2d[positionHeroY+y][positionHeroX+x]='X';
-			
-			if(this.rotat == 5)
-			tabmap2d[positionHeroY+y][positionHeroX+x]='V';
-			
-			if(this.rotat == 6)
-			tabmap2d[positionHeroY+y][positionHeroX+x]='B';
-			
-			if(this.rotat == 7)
-			tabmap2d[positionHeroY+y][positionHeroX+x]='M';
-			
-			if(this.rotat == 0)
-			tabmap2d[positionHeroY+y][positionHeroX+x]='P';
-			
-			tabmap2d[positionHeroY][positionHeroX]='0';
-			setPositionHeroX(positionHeroX+x);
-			setPositionHeroY(positionHeroY+y);
+			this.fireball.setMove(this.lastKey);
+			this.fireball.SelectMoveFireBall();
 		}
+	}
+	
 
+	public void setActiveMissile(boolean isActive) {
+		if(this.fireball.isFirstLaunch()==true)
+		this.fireball.setActive(isActive);
+	}
+	
+	private boolean bourse = false;
+	
+	public void moveH() {
+		this.hero.setPosGen(this.hero.getPosGen()+1);
+		this.hero.SelectPosGenHero();
+		if(isMovePossible() == true && this.isNewKey == true && this.hero.isAlive() == true)
+		{
+			this.hero.SelectPosHero();
+			tabmap2d[this.hero.getY()][this.hero.getX()]='P';
+			tabmap2d[this.hero.getY()-this.hero.getyToMove()][this.hero.getX()-this.hero.getxToMove()]='0';
+			this.hero.setxToMove(0);
+			this.hero.setyToMove(0);
+			this.isNewKey = false;
+		}
+		
+		if(isMovePossible() == false && this.hero.isAlive() == true)
+		{
+			tabmap2d[this.hero.getY()][this.hero.getX()]='P';
+		}
 		
 		else {}
 	}
 	
-	public boolean isMovePossible(int x,  int y)
+
+	public boolean isMovePossible()
 	{
-		switch (tabmap2d[positionHeroY+y][positionHeroX+x]) {
-		case '0':
-			if(this.level != 6 && this.level != 7)
-				return true;
+		this.hero.setX(this.hero.getX()+this.hero.getxToMove());
+		this.hero.setY(this.hero.getY()+this.hero.getyToMove());
+		
+		if(tabmap2d[this.hero.getY()][this.hero.getX()] == '0')
+			return true;
+		
+		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'A')
+		{
+			if(this.door.getToLevel()>2)
+			{
+				this.door.setToLevel(this.door.getToLevel()-1); 
+				this.hero.setX(this.hero.getX()-this.hero.getxToMove()); 
+				this.hero.setY(this.hero.getY()-this.hero.getyToMove());
+				this.hero.setxToMove(0);
+				this.hero.setyToMove(0);
+				return false; }
 			else
-				return false;
-		case 'C':
-			score += 100;
-			return true;
-		case 'E':
-			if(this.level == 5)
-			tabmap2d[positionDoorY][positionDoorX]='W';
-			else
-			tabmap2d[positionDoorY][positionDoorX]='O';
-			return true;
-		case 'O':
-			m1alive = 1;
-			this.saveHighScore(this.score,"map"+this.level);
-			this.loadMessage("m9");
-			this.setLevel(9);
-			return true;
-		case '6':
-			gameOverM();
-			return true;
-		case '7':
-			gameOverM();
-			return true;
-		case '8':
-			gameOverM();
-			return true;
-		case 'L':
-			tabmap2d[positionMissileY][positionMissileX]='0';
-			activemissile = 0;
-			d = 0;
-			return true;
-		case 'A':
-			this.loadMessage("m1");
-			this.setLevel(1);
-			return true;
-		case 'Z':
-			this.loadMessage("m2");
-			this.setLevel(2);
-			return true;
-		case 'R':
-			this.loadMessage("m3");
-			this.setLevel(3);
-			return true;
-		case 'T':
-			this.loadMessage("m4");
-			this.setLevel(4);
-			return true;
-		case 'Y':
-			this.loadMessage("m5");
-			this.setLevel(5);
-			return true;
-		case 'W':
-			m1alive = 1;
-			this.saveHighScore(this.score,"map"+this.level);
-			this.loadMessage("m7");
-			this.setLevel(7);
-			return true;
-		default:
-			return false;
+			{
+				this.hero.setX(this.hero.getX()-this.hero.getxToMove()); 
+				this.hero.setY(this.hero.getY()-this.hero.getyToMove()); 
+			}
+			return false; 
 		}
 		
+		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'Z')
+		{
+			if(this.door.getToLevel()<5)
+			{
+				this.door.setToLevel(this.door.getToLevel()+1); 
+				this.hero.setX(this.hero.getX()-this.hero.getxToMove()); 
+				this.hero.setY(this.hero.getY()-this.hero.getyToMove());
+				this.hero.setxToMove(0);
+				this.hero.setyToMove(0);
+				return false; }
+			else
+			{
+				this.hero.setX(this.hero.getX()-this.hero.getxToMove()); 
+				this.hero.setY(this.hero.getY()-this.hero.getyToMove()); 
+			}
+			return false; 
+		}
+		
+		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'G')
+		{
+			this.setLevel(this.door.getToLevel()); this.loadMap("m"+this.door.getToLevel()); return false;
+		}
+		
+		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'E')
+		{
+			this.door.SelectPosDoor(this.getLevel());
+			this.door.setOpen(true);
+			return true;
+		}
+		
+		if(this.hero.getY() == this.monster1.getY() && this.hero.getX() == this.monster1.getX())
+		{ this.monster1 = new Monster(0,0,false); gameOver(); return false; }
+		
+		if(this.hero.getY() == this.door.getY() && this.hero.getX() == this.door.getX() && this.door.isOpen()==true)
+		{ gameEnd(); return false; }
+		
+		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'C')
+		{ this.setScore(this.getScore()+100); return true; }
+		
+		if(this.hero.getY() == this.fireball.getY() && this.hero.getX() == this.fireball.getX())
+		{ 			
+			this.fireball.setActive(false);
+			this.fireball.setFirstLaunch(true);
+			return true;
+		}
+		
+		else
+		{
+			this.hero.setX(this.hero.getX()-this.hero.getxToMove()); this.hero.setY(this.hero.getY()-this.hero.getyToMove());
+			return false; 
+		}
 	}
 	
-	public void gameOverM()
+	public void gameOver()
 	{
-		this.saveHighScore(this.score,"map"+this.level);
-		this.loadMessage("m6");
+		this.saveHighScore(this.getScore(),"map"+this.getLevel());
+		this.loadMap("m6");
 		this.setLevel(6);
 	}
 	
-	public void moveM1() {
-		this.t++;
+	public void gameEnd()
+	{
+		this.saveHighScore(this.getScore(),"map"+this.getLevel());
 		
-		if(m1alive == 1)
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println(this.getScore());
+		System.out.println(this.getLevel());
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
+		
+		
+		this.setLevel(this.door.getToLevel());
+		this.loadMap("m"+this.door.getToLevel());
+	}
+	
+	public void moveM1() {
+		this.monster1.setMove(this.monster1.getMove()+1);
+		
+		if(this.monster1.getAlive() == true && this.monster1.getMove() == 2)
 		{
-			if(this.t == 2){
 				int min = -1, max = 1;
 				
 				Random r = new Random();
 				
-				if(positionHeroX < positionMonster1X)
+				if(this.hero.getX() < this.monster1.getX())
 					max = 0;
 				else
 					min = 0;
@@ -590,32 +463,85 @@ public class Model extends Observable implements IModel {
 				min = -1;
 				max = 1;
 				
-				if(positionHeroY < positionMonster1Y)
+				if(this.hero.getY() < this.monster1.getY())
 					max = 0;
 				else
 					min = 0;
 				
 				int randY = r.nextInt((max - min) + 1) + min;
 				
-				switch (tabmap2d[positionMonster1Y+randY][positionMonster1X+randX]) {
+				switch (tabmap2d[this.monster1.getY()+randY][this.monster1.getX()+randX]) {
 				case '0':
-					tabmap2d[positionMonster1Y][positionMonster1X]='0';
-					tabmap2d[positionMonster1Y+randY][positionMonster1X+randX]='6';
-					setPositionMonster1X(positionMonster1X+randX);
-					setPositionMonster1Y(positionMonster1Y+randY);
-					this.t = 0;
+					tabmap2d[this.monster1.getY()][this.monster1.getX()]='0';
+					tabmap2d[this.monster1.getY()+randY][this.monster1.getX()+randX]='6';
+					this.monster1.setX(this.monster1.getX()+randX);
+					this.monster1.setY(this.monster1.getY()+randY);
+					this.monster1.setMove(0);
 					break;
 				case 'P':
-					gameOverM();
+					gameOver();
 					break;
 				case 'L':
-					tabmap2d[positionMonster1Y][positionMonster1X]='0';
-					tabmap2d[positionMonster1Y+randY][positionMonster1X+randX]='0';
-					activemissile = 0;
-					m1alive = 0;
+					tabmap2d[this.monster1.getY()][this.monster1.getX()]='0';
+					tabmap2d[this.monster1.getY()+randY][this.monster1.getX()+randX]='0';
+					this.monster1 = new Monster(0,0,false);
+					this.fireball.setActive(false);
 					break;
 				default:
-					this.t = 0 ;
+					this.monster1.setMove(0);
+					break;
+				}
+		}
+		
+		else {}
+	}
+
+	public void moveM2() {
+		this.monster2.setMove(this.monster2.getMove()+1);
+		
+		if(this.monster2.getAlive() == true)
+		{
+			if(this.monster2.getMove() == 2){
+				int min = -1, max = 1;
+				
+				Random r = new Random();
+				
+				if(this.hero.getX() < this.monster2.getX())
+					max = 0;
+				else
+					min = 0;
+					
+				int randX = r.nextInt((max - min) + 1) + min;
+				
+				min = -1;
+				max = 1;
+				
+				if(this.hero.getY() < this.monster2.getY())
+					max = 0;
+				else
+					min = 0;
+				
+				int randY = r.nextInt((max - min) + 1) + min;
+				
+				switch (tabmap2d[this.monster2.getY()+randY][this.monster2.getX()+randX]) {
+				case '0':
+					tabmap2d[this.monster2.getY()][this.monster2.getX()]='0';
+					tabmap2d[this.monster2.getY()+randY][this.monster2.getX()+randX]='7';
+					this.monster2.setX(this.monster2.getX()+randX);
+					this.monster2.setY(this.monster2.getY()+randY);
+					this.monster2.setMove(0);
+					break;
+				case 'P':
+					gameOver();
+					break;
+				case 'L':
+					tabmap2d[this.monster2.getY()][this.monster2.getX()]='0';
+					tabmap2d[this.monster2.getY()+randY][this.monster2.getX()+randX]='0';
+					this.fireball.setActive(false);
+					this.monster2 = new Monster(0,0,false);
+					break;
+				default:
+					this.monster2.setMove(0);
 					break;
 				}
 			}
@@ -625,76 +551,19 @@ public class Model extends Observable implements IModel {
 		
 		else {}
 	}
-
-	public void moveM2() {
-		this.t2++;
-		
-		if(this.m2alive == 1)
-		{
-			if(this.t2 == 2){
-				int min = -1, max = 1;
-				
-				Random r = new Random();
-				
-				if(positionHeroX < positionMonster2X)
-					max = 0;
-				else
-					min = 0;
-					
-				int randX = r.nextInt((max - min) + 1) + min;
-				
-				min = -1;
-				max = 1;
-				
-				if(positionHeroY < positionMonster2Y)
-					max = 0;
-				else
-					min = 0;
-				
-				int randY = r.nextInt((max - min) + 1) + min;
-				
-				switch (tabmap2d[positionMonster2Y+randY][positionMonster2X+randX]) {
-				case '0':
-					tabmap2d[positionMonster2Y][positionMonster2X]='0';
-					tabmap2d[positionMonster2Y+randY][positionMonster2X+randX]='7';
-					setPositionMonster2X(positionMonster2X+randX);
-					setPositionMonster2Y(positionMonster2Y+randY);
-					this.t2 = 0;
-					break;
-				case 'P':
-					gameOverM();
-					break;
-				case 'L':
-					tabmap2d[positionMonster2Y][positionMonster2X]='0';
-					tabmap2d[positionMonster2Y+randY][positionMonster2X+randX]='0';
-					this.m2alive = 0;
-					this.activemissile = 0;
-					break;
-				default:
-					this.t2 = 0 ;
-					break;
-				}
-			}
-			
-			else {tabmap2d[positionMonster2Y][positionMonster2X]='7';}
-		}
-		
-		else
-			
-		{ }
-	}
+	
 
 	public void moveM3() {
-		this.t3++;
+		this.monster3.setMove(this.monster3.getMove()+1);
 		
-		if(this.m3alive == 1)
+		if(this.monster3.getAlive() == true)
 		{
-			if(this.t3 == 2){
+			if(this.monster3.getMove() == 2){
 				int min = -1, max = 1;
 				
 				Random r = new Random();
 				
-				if(positionHeroX < positionMonster3X)
+				if(this.hero.getX() < this.monster3.getX())
 					max = 0;
 				else
 					min = 0;
@@ -704,55 +573,54 @@ public class Model extends Observable implements IModel {
 				min = -1;
 				max = 1;
 				
-				if(positionHeroY < positionMonster3Y)
+				if(this.hero.getY() < this.monster3.getY())
 					max = 0;
 				else
 					min = 0;
 				
 				int randY = r.nextInt((max - min) + 1) + min;
 				
-				switch (tabmap2d[positionMonster3Y+randY][positionMonster3X+randX]) {
+				switch (tabmap2d[this.monster3.getY()+randY][this.monster3.getX()+randX]) {
 				case '0':
-					tabmap2d[positionMonster3Y][positionMonster3X]='0';
-					tabmap2d[positionMonster3Y+randY][positionMonster1X+randX]='8';
-					setPositionMonster3X(positionMonster3X+randX);
-					setPositionMonster3Y(positionMonster3Y+randY);
-					this.t3 = 0;
+					tabmap2d[this.monster3.getY()][this.monster3.getX()]='0';
+					tabmap2d[this.monster3.getY()+randY][this.monster3.getX()+randX]='8';
+					this.monster3.setX(this.monster3.getX()+randX);
+					this.monster3.setY(this.monster3.getY()+randY);
+					this.monster3.setMove(0);
 					break;
 				case 'P':
-					gameOverM();
+					gameOver();
 					break;
 				case 'L':
-					tabmap2d[positionMonster3Y][positionMonster3X]='0';
-					tabmap2d[positionMonster3Y+randY][positionMonster3X+randX]='0';
-					this.m2alive = 0;
-					this.activemissile = 0;
+					tabmap2d[this.monster3.getY()][this.monster3.getX()]='0';
+					tabmap2d[this.monster3.getY()+randY][this.monster3.getX()+randX]='0';
+					this.fireball.setActive(false);
+					this.monster3 = new Monster(0,0,false);
 					break;
 				default:
-					this.t3 = 0 ;
+					this.monster3.setMove(0);
 					break;
 				}
 			}
 			
-			else {tabmap2d[positionMonster3Y][positionMonster3X]='8';}
+			else {}
 		}
 		
-		else
-			
-		{ }
+		else {}
 	}
+	
 
 	public void moveM4() {
-		this.t4++;
+		this.monster4.setMove(this.monster4.getMove()+1);
 		
-		if(this.m4alive == 1)
+		if(this.monster4.getAlive() == true)
 		{
-			if(this.t4 == 2){
+			if(this.monster4.getMove() == 2){
 				int min = -1, max = 1;
 				
 				Random r = new Random();
 				
-				if(positionHeroX < positionMonster4X)
+				if(this.hero.getX() < this.monster4.getX())
 					max = 0;
 				else
 					min = 0;
@@ -762,132 +630,176 @@ public class Model extends Observable implements IModel {
 				min = -1;
 				max = 1;
 				
-				if(positionHeroY < positionMonster4Y)
+				if(this.hero.getY() < this.monster4.getY())
 					max = 0;
 				else
 					min = 0;
 				
 				int randY = r.nextInt((max - min) + 1) + min;
 				
-				switch (tabmap2d[positionMonster4Y+randY][positionMonster4X+randX]) {
+				switch (tabmap2d[this.monster4.getY()+randY][this.monster4.getX()+randX]) {
 				case '0':
-					tabmap2d[positionMonster4Y][positionMonster4X]='0';
-					tabmap2d[positionMonster4Y+randY][positionMonster4X+randX]='9';
-					setPositionMonster4X(positionMonster4X+randX);
-					setPositionMonster4Y(positionMonster4Y+randY);
-					this.t4 = 0;
+					tabmap2d[this.monster4.getY()][this.monster4.getX()]='0';
+					tabmap2d[this.monster4.getY()+randY][this.monster4.getX()+randX]='9';
+					this.monster4.setX(this.monster4.getX()+randX);
+					this.monster4.setY(this.monster4.getY()+randY);
+					this.monster4.setMove(0);
 					break;
 				case 'P':
-					gameOverM();
+					gameOver();
 					break;
 				case 'L':
-					tabmap2d[positionMonster4Y][positionMonster4X]='0';
-					tabmap2d[positionMonster4Y+randY][positionMonster4X+randX]='0';
-					this.m2alive = 0;
-					this.activemissile = 0;
+					tabmap2d[this.monster4.getY()][this.monster4.getX()]='0';
+					tabmap2d[this.monster4.getY()+randY][this.monster4.getX()+randX]='0';
+					this.fireball.setActive(false);
+					this.monster4 = new Monster(0,0,false);
 					break;
 				default:
-					this.t4 = 0 ;
+					this.monster4.setMove(0);
 					break;
 				}
 			}
 			
-			else {tabmap2d[positionMonster4Y][positionMonster4X]='9';}
+			else {}
 		}
 		
-		else
-			
-		{ }
+		else {}
 	}
+	
 	
 	public void moveMissile()
 	{
-		this.tm++;
+		this.fireball.setPosGen(this.fireball.getPosGen()+1);
+		this.fireball.setCanMove(this.fireball.getCanMove()+1);
+		this.fireball.SelectPosGenFireBall();
 		
-		if(this.activemissile == 1)
+		if(this.fireball.isActive() == true)
 		{
-			if(d == 0)
+			if(this.fireball.isFirstLaunch() == true)
 			{
-				if(tabmap2d[positionHeroY+ymissile][positionHeroX+xmissile]!='0')
+				if(tabmap2d[this.hero.getY()+this.fireball.getyToMove()][this.hero.getX()+this.fireball.getxToMove()]!='0')
 				{	
-					d=0;
-					activemissile=0;
+					this.fireball.setFirstLaunch(true);
+					this.fireball.setActive(false);
+					this.fireball.setCanMove(0);
 				}
 				
 				else
 				{
-					tabmap2d[positionHeroY+ymissile][positionHeroX+xmissile]='L';
-					setPositionMissileX(positionHeroX+xmissile);
-					setPositionMissileY(positionHeroY+ymissile);
-					d=1;
-					missilefired = 1;
-					tm = 0;
+					tabmap2d[this.hero.getY()+this.fireball.getyToMove()][this.hero.getX()+this.fireball.getxToMove()]='L';
+					this.fireball.setX(this.hero.getX()+this.fireball.getxToMove());
+					this.fireball.setY(this.hero.getY()+this.fireball.getyToMove());
+					this.fireball.setFirstLaunch(false);
+					this.fireball.setCanMove(0);
 				}
 			}
 			
-			if(d==1)
+			if(this.fireball.isFirstLaunch() == false)
 			{
-				if(this.tm == 2){
-					
-					switch (tabmap2d[positionMissileY+ymissile][positionMissileX+xmissile]) {
+				if(this.fireball.getCanMove() == 1){
+					switch (tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]) {
 					case '0':
-						tabmap2d[positionMissileY][positionMissileX]='0';
-						tabmap2d[positionMissileY+ymissile][positionMissileX+xmissile]='L';
-						setPositionMissileX(positionMissileX+xmissile);
-						setPositionMissileY(positionMissileY+ymissile);
-						this.tm = 0;
+						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='L';
+						this.fireball.setX(this.fireball.getX()+this.fireball.getxToMove());
+						this.fireball.setY(this.fireball.getY()+this.fireball.getyToMove());
+						this.fireball.setCanMove(0);
 						break;
 					case 'P':
-						tabmap2d[positionMissileY][positionMissileX]='0';
-						activemissile = 0;
-						d = 0;
-						xmissile = -xmissile;
-						ymissile = -ymissile;
-						missilefired = 0;
+						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+						this.fireball.setActive(false);
+						this.fireball.setFirstLaunch(true);
+						this.fireball.setxToMove(-this.fireball.getxToMove());
+						this.fireball.setyToMove(-this.fireball.getyToMove());
 						break;
 					case '6':
-						tabmap2d[positionMissileY][positionMissileX]='0';
-						tabmap2d[positionMissileY+ymissile][positionMissileX+xmissile]='0';
-						activemissile = 0;
-						m1alive = 0;
-						d = 0;
-						missilefired=0;
+						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
+						this.fireball.setActive(false);
+						this.monster1 = new Monster(0,0,false);
+						this.fireball.setFirstLaunch(true);
+						break;
+					case '7':
+						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
+						this.fireball.setActive(false);
+						this.monster2 = new Monster(0,0,false);
+						this.fireball.setFirstLaunch(true);
+						break;
+					case '8':
+						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
+						this.fireball.setActive(false);
+						this.monster3 = new Monster(0,0,false);
+						this.fireball.setFirstLaunch(true);
+						break;
+					case '9':
+						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
+						this.fireball.setActive(false);
+						this.monster4 = new Monster(0,0,false);
+						this.fireball.setFirstLaunch(true);
 						break;
 					default:
-						xmissile = -xmissile;
-						ymissile = -ymissile;
-						tabmap2d[positionMissileY][positionMissileX]='0';
-						tabmap2d[positionMissileY+ymissile][positionMissileX+xmissile]='L';
-						setPositionMissileX(positionMissileX+xmissile);
-						setPositionMissileY(positionMissileY+ymissile);
-						this.tm = 0;
+						this.fireball.setxToMove(-this.fireball.getxToMove());
+						this.fireball.setyToMove(-this.fireball.getyToMove());
+						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='0')
+						{
+							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='L';
+							this.fireball.setX(this.fireball.getX()+this.fireball.getxToMove());
+							this.fireball.setY(this.fireball.getY()+this.fireball.getyToMove());
+							this.fireball.setCanMove(0);
+						}
+						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()] == 'P')
+						{
+							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+							this.fireball.setActive(false);
+							this.fireball.setFirstLaunch(true);
+							this.fireball.setxToMove(-this.fireball.getxToMove());
+							this.fireball.setyToMove(-this.fireball.getyToMove());
+						}
+						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='6')
+						{
+							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
+							this.fireball.setActive(false);
+							this.monster1 = new Monster(0,0,false);
+							this.fireball.setFirstLaunch(true);
+						}
+						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='7')
+						{
+							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
+							this.fireball.setActive(false);
+							this.monster2 = new Monster(0,0,false);
+							this.fireball.setFirstLaunch(true);
+						}
+						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='8')
+						{
+							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
+							this.fireball.setActive(false);
+							this.monster3 = new Monster(0,0,false);
+							this.fireball.setFirstLaunch(true);
+						}
+						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='9')
+						{
+							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
+							this.fireball.setActive(false);
+							this.monster4 = new Monster(0,0,false);
+							this.fireball.setFirstLaunch(true);
+						}
 						break;
 					}
 				}
 				
-				else {tabmap2d[positionMissileY][positionMissileX]='L';}
+				else {tabmap2d[this.fireball.getY()][this.fireball.getX()]='L';}
 			}
 		}
 		
 		else {}
-
 		
 	}
-
-	public void setM1alive(int m1alive) {
-		this.m1alive = m1alive;
-	}
-
-	public void setM2alive(int m2alive) {
-		this.m2alive = m2alive;
-	}
-
-	public void setM3alive(int m3alive) {
-		this.m3alive = m3alive;
-	}
-
-	public void setM4alive(int m4alive) {
-		this.m4alive = m4alive;
-	}
-	
 }
