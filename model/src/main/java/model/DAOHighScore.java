@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * The Class DAOHelloWorld.
+ * The Class DAOHighScore.
+ * 
+ * @author Group 5
  */
 class DAOHighScore extends DAOEntity<HighScore> {
 
 	/**
-	 * Instantiates a new DAO hello world.
+	 * Instantiates a new DAO HighScore.
 	 *
 	 * @param connection
 	 *          the connection
@@ -55,11 +57,13 @@ class DAOHighScore extends DAOEntity<HighScore> {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Function to Add a score to the current map
 	 *
-	 * @see model.DAOEntity#find(int)
-	 */
+	 * @param score, key (of the map)
+	 * 			the actual score and the key of the map
+	 * 
+	 */			
 	@Override
 	public HighScore find(final int score, final String key) {
 		HighScore highScore = new HighScore();
@@ -77,10 +81,17 @@ class DAOHighScore extends DAOEntity<HighScore> {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Function to gets the best score for a given map
 	 *
-	 * @see model.DAOEntity#find(java.lang.String)
+	 *@param key 
+	 *			key of the map
+	 *
+	 *@return score
+	 *			a int with the best score of the map inside
+	 *
+	 *	The function will use a procedure stored in the database to gets the best score
+	 * 
 	 */
 	@Override
 	public HighScore find(final String key) {

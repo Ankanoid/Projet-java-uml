@@ -15,11 +15,11 @@ import contract.IModel;
 /**
  * The Class ViewFrame.
  *
- * @author Jean-Aymeric Diet
+ *@author Group 5
  */
 class ViewFrame extends JFrame implements KeyListener {
 	
-	public static ArrayList l = new ArrayList();
+	public static ArrayList<Integer> l = new ArrayList<Integer>();
 
 	/** The model. */
 	private IModel						model;
@@ -129,8 +129,10 @@ class ViewFrame extends JFrame implements KeyListener {
 	 *          the model
 	 */
 	private void buildViewFrame(final IModel model) {
-		this.setTitle("Lorann");
 		this.setModel(model);
+		this.getModel().loadHighScore("mapG");
+		int globalscore = this.getModel().getHighScore();
+		this.setTitle("Lorann - Best : " + globalscore);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.addKeyListener(this);
@@ -140,13 +142,13 @@ class ViewFrame extends JFrame implements KeyListener {
 	}
 
 	/**
-	 * Prints the message.
+	 * Prints the map.
 	 *
-	 * @param message
-	 *          the message
+	 * @param map
+	 *          the map
 	 */
-	public void printMessage(final String message) {
-		JOptionPane.showMessageDialog(null, message);
+	public void printMap(final String map) {
+		JOptionPane.showMessageDialog(null, map);
 	}
 
 	/*
@@ -164,22 +166,20 @@ class ViewFrame extends JFrame implements KeyListener {
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 	 */
 	public void keyPressed(final KeyEvent keyEvent) {
-		for(int i = 0; i < this.l.size(); i++)
+		for(int i = 0; i < ViewFrame.l.size(); i++)
 
 		{
-			if ((Integer) this.l.get(i) == keyEvent.getKeyCode()) {
-				this.l.remove(i);
+			if ((Integer) ViewFrame.l.get(i) == keyEvent.getKeyCode()) {
+				ViewFrame.l.remove(i);
 			}
 		}
-		this.l.add(keyEvent.getKeyCode());
-		//NettleView.displayMessage("" + keyEvent.getKeyCode());
-		if (this.l.size() == 1) {
+		ViewFrame.l.add(keyEvent.getKeyCode());
+		if (ViewFrame.l.size() == 1) {
 			this.getController().orderPerform(View.keyCodeToControllerOrder(keyEvent.getKeyCode()));
-		} else if (this.l.size() == 2) {
+		} else if (ViewFrame.l.size() == 2) {
 			int i = 0;
-			i = (Integer) this.l.get(0) * (Integer) this.l.get(1);
+			i = (Integer) ViewFrame.l.get(0) * (Integer) ViewFrame.l.get(1);
 			this.getController().orderPerform(View.keyCodeToControllerOrder(i));
-			System.out.println("Deux touches sont utilisées en même temps !");
 		}
 	}
 	/*
@@ -188,11 +188,11 @@ class ViewFrame extends JFrame implements KeyListener {
 	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
 	 */
 	public void keyReleased(final KeyEvent keyEvent) {
-		for(int i = 0; i < this.l.size(); i++)
+		for(int i = 0; i < ViewFrame.l.size(); i++)
 
 		{
-			if ((Integer) this.l.get(i) == keyEvent.getKeyCode()) {
-				this.l.remove(i);
+			if ((Integer) ViewFrame.l.get(i) == keyEvent.getKeyCode()) {
+				ViewFrame.l.remove(i);
 			}
 		}
 	}

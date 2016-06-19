@@ -2,14 +2,16 @@ package contract;
 
 /**
  * The Enum ControllerOrder.
+ * 
+ * @author Group 5
+ * 
  */
 public enum ControllerOrder {
 
-	
-Map0,			/** Load 1st map */
-Missile,
-DisplayHighscores,
-/** Move left */
+	/** Load home map */
+HomeMap,		/** Launch fireball */
+Fireball,		/** Display highscores */
+DisplayHighscores,	/** Move left */
 MoveLeft,		/** Move right */
 MoveRight,		/** Move up */
 MoveUp,			/** Move down */

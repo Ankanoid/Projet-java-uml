@@ -7,7 +7,7 @@ import view.View;
 /**
  * The Class Main.
  *
- * @author Jean-Aymeric Diet
+ * @author Group 5
  */
 public abstract class Main {
 
@@ -17,6 +17,7 @@ public abstract class Main {
 	 * @param args
 	 *          the arguments
 	 */
+	
 	public static void main(final String[] args) {
 		final Model model = new Model();
 		final View view = new View(model);

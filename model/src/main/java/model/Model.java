@@ -11,86 +11,136 @@ import contract.IModel;
 /**
  * The Class Model.
  *
- * @author Jean-Aymeric Diet
+ * @author Group 5
  */
 public class Model extends Observable implements IModel {
 
+	/** The Hero. */
 	private Hero hero;
+	/** First Monster. */
 	private Monster monster1;
+	/** Second Monster. */
 	private Monster monster2;
+	/** Third Monster. */
 	private Monster monster3;
+	/** Fourth Monster. */
 	private Monster monster4;
+	/** The Fireball. */
 	private FireBall fireball;
+	/** The Door. */
 	private Door door;
-
-	public int getScore()
-	{
-		return Infos.getScore();
-	}
-	
-	public String getImageHero()
-	{
-		return this.hero.getImage();
-	}
-	
-	public String getImageFireBall()
-	{
-		return this.fireball.getImage();
-	}
-	
-	public String getImageDoor()
-	{
-		return this.door.getImage();
-	}
-	
-	public void setScore(int score)
-	{
-		Infos.setScore(score);
-	}
-	
-	public int getLevel()
-	{
-		return Infos.getLevel();
-	}
-	
-	public void setLevel(int level)
-	{
-		Infos.setLevel(level);
-	}
-	
-	public int getDoorLevel()
-	{
-		return this.door.getToLevel();
-	}
-	
+	/** String lastKey contains a String describing the last key pressed by the user */
 	public String lastKey;
-	
+	/** boolean isNewKey false by default. Turn at true when a user press a key, turn at false again when all the new moves are settled */
 	public boolean isNewKey = false;
-
-	public String getLastKey() {
-		return lastKey;
-	}
-	
+	/** height of the table (of the map also) */
 	private int height = 12;
+	/** width of the table (of the map also) */
 	private int width = 21;
-
-	public int getHeight(){
-		return this.height;
-	}
-
-	public int getWidth() {
-		return this.width;
-	}
-
+	/** char 2d tabmap2d contains the map */
 	public char[][] tabmap2d = new char[this.getHeight()][this.getWidth()];
-
-	/** The message. */
+	/** The map. */
 	private String map;
-	
+	/** Highscore */
 	private int highscore;
 
 	/**
+	 * Gets the actual score in the Infos Class
+	 */
+	public int getScore()
+	{ return Infos.getScore(); }
+	
+	/**
+	 * Gets the actual Global Score in the Infos Class
+	 */
+	public int getGlobalScore()
+	{ return Infos.getGlobalScore(); }
+	
+	/**
+	 * Gets the actual number of life
+	 */
+	public int getLife()
+	{ return Infos.getLife(); }
+	
+	/**
+	 * Sets a new number of life
+	 */
+	public void setLife(int life)
+	{ Infos.setLife(life); }
+	
+	/**
+	 * Sets a new Global Score
+	 */
+	public void setGlobalScore(int globalscore)
+	{ Infos.setGlobalScore(globalscore); }
+	
+	/**
+	 * Gets the Hero Image String containing the file name of the next hero sprite to display
+	 */
+	public String getImageHero()
+	{ return this.hero.getImage(); }
+	
+	/**
+	 * Gets the Fireball Image String containing the file name of the next fireball sprite to display
+	 */
+	public String getImageFireBall()
+	{ return this.fireball.getImage(); }
+	
+	/**
+	 * Gets the Door Image String containing the file name of the next door sprite to display
+	 */
+	public String getImageDoor()
+	{ return this.door.getImage(); }
+	
+	/**
+	 * Sets a new actual score
+	 * @param score
+	 */
+	public void setScore(int score)
+	{ Infos.setScore(score); }
+	
+	/**
+	 * Gets the actual level
+	 */
+	public int getLevel()
+	{ return Infos.getLevel(); }
+	
+	/**
+	 * Sets the actual level
+	 */
+	public void setLevel(int level)
+	{ Infos.setLevel(level); }
+	
+	/**
+	 * Gets the level reached if the door is touched by the hero
+	 */
+	public int getDoorLevel()
+	{ return this.door.getToLevel(); }
+
+	/**
+	 * Get the lastKey String containing the description of the last key pressed by the user
+	 * @return lastKey
+	 */
+	public String getLastKey() 
+	{ return lastKey; }
+
+	/**
+	 * Get the table Height (map height)
+	 * @return height
+	 */
+	public int getHeight()
+	{ return this.height; }
+
+	/**
+	 * Get the table Width (map width)
+	 * @return width
+	 */
+	public int getWidth() 
+	{ return this.width; }
+
+	/**
 	 * Instantiates a new model.
+	 * Contains the hero, the fireball, the door, and the four monsters
 	 */
 	public Model() {
 		this.hero = new Hero(0,0, false);
@@ -98,7 +148,7 @@ public class Model extends Observable implements IModel {
 		this.monster2 = new Monster(0,0,false);
 		this.monster3 = new Monster(0,0,false);
 		this.monster4 = new Monster(0,0,false);
-		this.fireball = new FireBall(0,0,false);
+		this.fireball = new FireBall(0,0,false, true);
 		this.door = new Door(0,0, false);
 		this.map = "";
 	}
@@ -112,110 +162,125 @@ public class Model extends Observable implements IModel {
 	public void getMapInChar() {
 
 	}
-
+	/**
+	 * Gets the map
+	 */
 	public String getMap() {
 		return this.map;
 
 	}
 	
+	/**
+	 * Gets the highscore
+	 */
 	public int getHighScore() {
 		return this.highscore;
 
 	}
 
-	public void putInTabmap(int i, int j, char car) {
-		this.tabmap2d[i][j] = car;
+	/**
+	 * Function called when the map is generated. Put the character in the table 2d
+	 * @param i
+	 * 			i position in the table
+	 * @param j
+	 * 			j position in the table
+	 * @param car
+	 * 			character to display
+	 */
+	public void putInTabmap(int i, int j, char c) {
+		this.tabmap2d[i][j] = c;
 	}
 
+	/**
+	 * Function called at each map switch. Gets the map simple String, split it, put each character at the right place and sets the coordinate of all the instance of the monsters, the hero, the door
+	 */
 	public void parseMap() {
-		
+		this.hero = new Hero(0,1,false); // Reset the instances
+		this.door = new Door (0,0, false);
 		this.monster1 = new Monster(0,0,false);
 		this.monster2 = new Monster(0,0,false);
 		this.monster3 = new Monster(0,0,false);
 		this.monster4 = new Monster(0,0,false);
-		this.hero = new Hero(0,1,false);
-		this.door = new Door (0,0, false);
+		this.fireball.setFirstLaunch(true); // Reset the fireball first launch
+		this.setScore(0); // Reset the Score
+		this.fireball.setActive(false); // Set the fireball inactive
 		
-		this.fireball.setFirstLaunch(true);
-		this.setScore(0);
-		this.fireball.setActive(false);
+		String[] tabmap = this.map.split("\n") ; // Split the map
 		
-		String[] tabmap = this.map.split("\n") ;
-		
-		for(int i = 0; i<tabmap.length; i++)
+		for(int i = 0; i<tabmap.length; i++) // Enter the characters at the right position i, j
 		{
 			for (int j =0; j<tabmap[i].length();j++)
 			{
 				switch (tabmap[i].charAt(j)) {
 					case '0':
-						this.putInTabmap(i,j,'0');
+						this.putInTabmap(i,j,'0'); // Nothing
 						break;
 					case '1':
-						this.putInTabmap(i,j,'1');
+						this.putInTabmap(i,j,'1'); // Bone
 						break;
 					case '2':
-						this.putInTabmap(i,j,'2');
+						this.putInTabmap(i,j,'2'); // Horizontal
 						break;
 					case '3':
-						this.putInTabmap(i,j,'3');
+						this.putInTabmap(i,j,'3'); // Vertical
 						break;
 					case '6':
-						this.putInTabmap(i,j,'6');
-						this.monster1.setAlive(true);
-						this.monster1.setMove(0);
-						this.monster1.setY(i);
+						this.putInTabmap(i,j,'6'); // First Monster
+						this.monster1.setAlive(true); // Set is alive
+						this.monster1.setMove(0); // Reset the move
+						this.monster1.setY(i); // Sets positions
 						this.monster1.setX(j);
 						break;
 					case '7':
-						this.putInTabmap(i,j,'7');
-						this.monster2.setAlive(true);
-						this.monster2.setMove(0);
-						this.monster2.setY(i);
+						this.putInTabmap(i,j,'7'); // Second monster
+						this.monster2.setAlive(true); // Set it alive
+						this.monster2.setMove(0); // Reset the move
+						this.monster2.setY(i); // Sets positions
 						this.monster2.setX(j);
 						break;
 					case '8':
-						this.putInTabmap(i,j,'8');
-						this.monster4.setAlive(true);
-						this.monster3.setMove(0);
-						this.monster3.setY(i);
+						this.putInTabmap(i,j,'8'); // Third monster
+						this.monster3.setAlive(true); // Set it alive
+						this.monster3.setMove(0); // Reset the move
+						this.monster3.setY(i); // Sets positions
 						this.monster3.setX(j);
 						break;
 					case '9':
-						this.putInTabmap(i,j,'9');
-						this.monster4.setAlive(true);
-						this.monster4.setMove(0);
-						this.monster4.setY(i);
+						this.putInTabmap(i,j,'9'); // Fourth monster
+						this.monster4.setAlive(true); // Set it alive
+						this.monster4.setMove(0); // Reset the move
+						this.monster4.setY(i); // Sets positions
 						this.monster4.setX(j);
 						break;
 					case 'C':
-						this.putInTabmap(i,j,'C');
+						this.putInTabmap(i,j,'C'); // Coins
 						break;
 					case 'E':
-						this.putInTabmap(i,j,'E');
+						this.putInTabmap(i,j,'E'); // Energy ball
 						break;
 					case 'P':
-						this.putInTabmap(i,j,'P');
-						this.hero.setAlive(true);
-						this.hero.setY(i);
+						this.putInTabmap(i,j,'P'); // Player
+						this.hero.setAlive(true); // Set it alive
+						this.hero.setY(i); // Sets positions
 						this.hero.setX(j);
 						break;
 					case 'S':
-						this.putInTabmap(i,j,'S');
-						this.door.setOpen(false);
-						this.door.setY(i);
+						this.putInTabmap(i,j,'S'); // Door
+						this.door.setOpen(false); // set it close
+						this.door.setY(i); // Sets positions
 						this.door.setX(j);
 						break;
 					case 'A':
-						this.putInTabmap(i,j,'A');
+						this.putInTabmap(i,j,'A'); // Minus Sprite at home map
 						break;
 					case 'Z':
-						this.putInTabmap(i,j,'Z');
+						this.putInTabmap(i,j,'Z'); // Plus Sprite at home map
 						break;
 					case 'G':
-						this.putInTabmap(i,j,'G');
+						this.putInTabmap(i,j,'G'); // Door at home map
 						break;
 					default :
-						this.putInTabmap(i,j,' ');
+						this.putInTabmap(i,j,' '); // If Nothing, shouldn't happen
 						break;
 				}
 			}
@@ -227,10 +292,10 @@ public class Model extends Observable implements IModel {
 	}
 
 	/**
-	 * Sets the message.
+	 * Sets the map.
 	 *
-	 * @param message
-	 *          the new message
+	 * @param map
+	 *          the new map
 	 */
 	private void setMap(final String map) {
 		this.map = map;
@@ -238,16 +303,23 @@ public class Model extends Observable implements IModel {
 		this.notifyObservers();
 	}
 	
+	/**
+	 * Sets the highscore.
+	 *
+	 * @param highscore
+	 *          the new highscore
+	 */
 	private void setHighScore(final int highscore) {
 		this.highscore = highscore;
 		this.setChanged();
 		this.notifyObservers();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage(java.lang.String)
+	/**
+	 * Load the map
+	 * 
+	 * @param key
+	 * 		key of the map
 	 */
 	public void loadMap(final String key) {
 		try {
@@ -258,6 +330,12 @@ public class Model extends Observable implements IModel {
 		}
 	}
 	
+	/**
+	 * Load a highscore
+	 * 
+	 * @param key
+	 * 		key of the map
+	 */
 	public void loadHighScore(final String key) {
 		try {
 			final DAOHighScore daoHighScore = new DAOHighScore(DBConnection.getInstance().getConnection());
@@ -267,6 +345,14 @@ public class Model extends Observable implements IModel {
 		}
 	}
 	
+	/**
+	 * Save the highscore
+	 * 
+	 * @param score
+	 * 		score of the map or global
+	 * @param key
+	 * 		key of the map
+	 */
 	public void saveHighScore(final int score, final String key) {
 		try {
 			final DAOHighScore daoHighScore = new DAOHighScore(DBConnection.getInstance().getConnection());
@@ -285,6 +371,13 @@ public class Model extends Observable implements IModel {
 		return this;
 	}
 
+	/**
+	 * Set last Key String, also set isNewKey at true, and then set the move for the hero, and select the position (image) to display
+	 * Finally set the move for the fireball and select it, if isFirstLaunch is true
+	 * 
+	 * @param String LastKey
+	 * 		String contains the description of the last key pressed
+	 */
 	public void setLastKey(String lastKey) {
 		this.lastKey = lastKey;
 		this.isNewKey = true;
@@ -296,158 +389,180 @@ public class Model extends Observable implements IModel {
 			this.fireball.SelectMoveFireBall();
 		}
 	}
-	
 
-	public void setActiveMissile(boolean isActive) {
+	/**
+	 * Set the fireball active if isFirstLaunch true
+	 * If it's not true, that means the ball is still active but key has been pressed again, then make the fireball move to the hero
+	 */
+	public void setActiveFireBall(boolean isActive) {
 		if(this.fireball.isFirstLaunch()==true)
 		this.fireball.setActive(isActive);
+		
+		else
+			this.fireball.toHero(this.hero.getY(),this.hero.getX());
 	}
 	
-	private boolean bourse = false;
-	
-	public void moveH() {
-		this.hero.setPosGen(this.hero.getPosGen()+1);
-		this.hero.SelectPosGenHero();
+	/**
+	 * Function called at each refresh, make it move to the given position (depending on the key pressed) or just change his sprite if there is no key pressed
+	 */
+	public void moveHero() {
+		this.hero.setPosGen(this.hero.getPosGen()+1); // Increment the PosGen of the hero
+		this.hero.SelectPosGenHero(this.getLevel());	 // Select the new Sprite to display
 		if(isMovePossible() == true && this.isNewKey == true && this.hero.isAlive() == true)
 		{
-			this.hero.SelectPosHero();
+			this.hero.SelectPosHero(); // If a key is pressed and the move is possible and the hero is alive, select the new sprite to display depending on the key
 			tabmap2d[this.hero.getY()][this.hero.getX()]='P';
-			tabmap2d[this.hero.getY()-this.hero.getyToMove()][this.hero.getX()-this.hero.getxToMove()]='0';
-			this.hero.setxToMove(0);
+			tabmap2d[this.hero.getY()-this.hero.getyToMove()][this.hero.getX()-this.hero.getxToMove()]='0'; // Move the hero
+			this.hero.setxToMove(0); // Set the new coordiante of the hero
 			this.hero.setyToMove(0);
-			this.isNewKey = false;
+			this.isNewKey = false; // There is no longer a new key pressed since this one has been handle
 		}
-		
-		if(isMovePossible() == false && this.hero.isAlive() == true)
-		{
-			tabmap2d[this.hero.getY()][this.hero.getX()]='P';
-		}
-		
-		else {}
 	}
 	
-
+	/**
+	 * Function which return true or false to moveHero function
+	 * Check if the move asked by the user (by pressing a key) is possible or not
+	 * Also handle all the collision with monsters, fireball, and events when an energy ball or coins are touched
+	 * @return true if move is possible, false if not
+	 */
 	public boolean isMovePossible()
 	{
-		this.hero.setX(this.hero.getX()+this.hero.getxToMove());
+		this.hero.setX(this.hero.getX()+this.hero.getxToMove()); // Set position to the next move
 		this.hero.setY(this.hero.getY()+this.hero.getyToMove());
 		
-		if(tabmap2d[this.hero.getY()][this.hero.getX()] == '0')
-			return true;
-		
-		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'A')
-		{
-			if(this.door.getToLevel()>2)
-			{
-				this.door.setToLevel(this.door.getToLevel()-1); 
-				this.hero.setX(this.hero.getX()-this.hero.getxToMove()); 
-				this.hero.setY(this.hero.getY()-this.hero.getyToMove());
-				this.hero.setxToMove(0);
-				this.hero.setyToMove(0);
-				return false; }
+		if(tabmap2d[this.hero.getY()][this.hero.getX()] == '0') // If this one contains nothing, move the player character to the new position
+		{	if(this.getLevel() == 103 || this.getLevel() == 102) // Not on Win and Loose Map
+				return false;
 			else
-			{
-				this.hero.setX(this.hero.getX()-this.hero.getxToMove()); 
-				this.hero.setY(this.hero.getY()-this.hero.getyToMove()); 
-			}
-			return false; 
+				return true; // return true because we can go on this and suppress it
 		}
 		
-		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'Z')
+		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'A' && this.door.getToLevel()>1) // if the new positions is an 'A' (on the home map)
 		{
-			if(this.door.getToLevel()<5)
-			{
-				this.door.setToLevel(this.door.getToLevel()+1); 
-				this.hero.setX(this.hero.getX()-this.hero.getxToMove()); 
-				this.hero.setY(this.hero.getY()-this.hero.getyToMove());
-				this.hero.setxToMove(0);
-				this.hero.setyToMove(0);
-				return false; }
-			else
-			{
-				this.hero.setX(this.hero.getX()-this.hero.getxToMove()); 
-				this.hero.setY(this.hero.getY()-this.hero.getyToMove()); 
-			}
-			return false; 
+			SoundClip.playThis("P_M_LEVEL"); // Play the song plus or minus level 
+			this.door.setToLevel(this.door.getToLevel()-1);  // set the new level for the door
+			this.hero.setX(this.hero.getX()-this.hero.getxToMove()); 
+			this.hero.setY(this.hero.getY()-this.hero.getyToMove()); // Go back because we don't want to suppress this button
+			this.hero.setxToMove(0); // Reset the hero move, so he won't move alone when refreshing
+			this.hero.setyToMove(0);
+			
+			return false; // return false because we can't go on this
 		}
 		
-		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'G')
+		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'Z' && this.door.getToLevel()<5) // if the new positions is an 'Z' (on the home map)
 		{
-			this.setLevel(this.door.getToLevel()); this.loadMap("m"+this.door.getToLevel()); return false;
+			SoundClip.playThis("P_M_LEVEL"); // Play the song plus or minus level 
+			this.door.setToLevel(this.door.getToLevel()+1);  // set the new level for the door
+			this.hero.setX(this.hero.getX()-this.hero.getxToMove()); 
+			this.hero.setY(this.hero.getY()-this.hero.getyToMove()); // Go back because we don't want to suppress this button
+			this.hero.setxToMove(0);
+			this.hero.setyToMove(0); // Reset the hero move, so he won't move alone when refreshing
+			
+			return false; // return false because we can't go on this
 		}
 		
-		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'E')
+		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'G' && Infos.returnMapState(this.door.getToLevel()) == false) // if the new positions is an 'G' (on the home map)
 		{
-			this.door.SelectPosDoor(this.getLevel());
-			this.door.setOpen(true);
-			return true;
+			SoundClip.playThis("DOOR"); // Play the song when we walk through a door
+			this.setLevel(this.door.getToLevel());  // set the actual level
+			this.loadMap("m"+this.door.getToLevel());  // load the level
+			
+			return false; // return false because we can't go on this
 		}
 		
-		if(this.hero.getY() == this.monster1.getY() && this.hero.getX() == this.monster1.getX())
-		{ this.monster1 = new Monster(0,0,false); gameOver(); return false; }
+		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'E') // if next position is an energy ball
+		{
+			SoundClip.playThis("ENERGY"); // Play the sound of that energy ball
+			this.door.SelectPosDoor(this.getLevel()); // Select the next level when we will walk through the door and change the sprite
+			this.door.setOpen(true); // Set the door open
+			
+			return true; // return true because we can go on this and suppress it
+		}
 		
-		if(this.hero.getY() == this.door.getY() && this.hero.getX() == this.door.getX() && this.door.isOpen()==true)
-		{ gameEnd(); return false; }
+		if(this.hero.getY() == this.monster1.getY() && this.hero.getX() == this.monster1.getX()) // if next position is the monster 1
+		{ SoundClip.playThis("DEATH_PLAYER"); this.monster1 = new Monster(0,0,false); gameOver(); return false; } // Play the sound of player death, reset the monster, launch the gameover function, return false because we won't change the position to the monster position
 		
-		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'C')
-		{ this.setScore(this.getScore()+100); return true; }
+		if(this.hero.getY() == this.monster2.getY() && this.hero.getX() == this.monster2.getX()) // if next position is the monster 2
+		{ SoundClip.playThis("DEATH_PLAYER"); this.monster2 = new Monster(0,0,false); gameOver(); return false; } // Play the sound of player death, reset the monster, launch the gameover function, return false because we won't change the position to the monster position
 		
-		if(this.hero.getY() == this.fireball.getY() && this.hero.getX() == this.fireball.getX())
+		if(this.hero.getY() == this.monster3.getY() && this.hero.getX() == this.monster3.getX()) // if next position is the monster 3
+		{ SoundClip.playThis("DEATH_PLAYER"); this.monster3 = new Monster(0,0,false); gameOver(); return false; } // Play the sound of player death, reset the monster, launch the gameover function, return false because we won't change the position to the monster position
+		
+		if(this.hero.getY() == this.monster4.getY() && this.hero.getX() == this.monster4.getX()) // if next position is the monster 4
+		{ SoundClip.playThis("DEATH_PLAYER"); this.monster4 = new Monster(0,0,false); gameOver(); return false; } // Play the sound of player death, reset the monster, launch the gameover function, return false because we won't change the position to the monster position
+		
+		if(this.hero.getY() == this.door.getY() && this.hero.getX() == this.door.getX() && this.door.isOpen()==true) // if next position is the door and this one is open
+		{ SoundClip.playThis("DOOR"); gameEnd(); return false; } // play the sound when a door is walked through, launch the function gameEnd, return false because we can't go on the door and suppress it
+		
+		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'C') // if next position is coins
+		{ SoundClip.playThis("COINS"); this.setScore(this.getScore()+100); Infos.setGlobalScore(this.getGlobalScore()+100); this.getGlobalScore(); return true; } // play the sound of coins, update the current score by adding 100 points, also update the same way the global score, then return true because we can suppress it
+		
+		if(this.hero.getY() == this.fireball.getY() && this.hero.getX() == this.fireball.getX()) // if next position is the fireball
 		{ 			
-			this.fireball.setActive(false);
-			this.fireball.setFirstLaunch(true);
-			return true;
+			SoundClip.playThis("FIREBALL_B"); // play the sound of the fireball coming back to the hero
+			this.fireball.setX(0); // reset positions of the fireball
+			this.fireball.setY(0);
+			this.fireball.setActive(false); // set it inactive
+			this.fireball.setFirstLaunch(true); // set his launch to a new one
+			return true; // suppress it
 		}
 		
 		else
 		{
-			this.hero.setX(this.hero.getX()-this.hero.getxToMove()); this.hero.setY(this.hero.getY()-this.hero.getyToMove());
+			this.hero.setX(this.hero.getX()-this.hero.getxToMove()); this.hero.setY(this.hero.getY()-this.hero.getyToMove()); // anything else, the hero can't go or interact with this, cancel the move
 			return false; 
 		}
 	}
 	
+	/**
+	 * Function gameOver, called each time the player dies
+	 * Decrease the life by 1, save the score of the map or the globalscore and load the lose map if there is no more life
+	 */
 	public void gameOver()
 	{
-		this.saveHighScore(this.getScore(),"map"+this.getLevel());
-		this.loadMap("m6");
-		this.setLevel(6);
+		Infos.setLife(Infos.getLife()-1); // decrease the life amount
+		this.saveHighScore(this.getScore(),"map"+this.getLevel()); // save the current map score
+		if(Infos.getLife()==0) // if there is no more life
+		{
+			this.saveHighScore(this.getGlobalScore(),"mapG"); // save the global score aswell
+			Infos.resetScores(); // reset all the scores
+			this.loadMap("m103"); // load the lose map
+			this.setLevel(103);
+		}
+		
+		else // if there is still life
+		{
+			Infos.setGlobalScore(Infos.getGlobalScore()-this.getScore()); // update the globalscore
+			this.loadMap("m104"); // load the home map
+			this.setLevel(104);
+		}
 	}
 	
+	/**
+	 * Function gameEnd, called every time a door is walked through, update the map state, save the score of the map, set the new level, if all the maps are done, save the global score as well, reset them, and load the win screen, if not, just load the home map
+	 */
 	public void gameEnd()
 	{
-		this.saveHighScore(this.getScore(),"map"+this.getLevel());
-		
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println(this.getScore());
-		System.out.println(this.getLevel());
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		
-		
-		
-		this.setLevel(this.door.getToLevel());
-		this.loadMap("m"+this.door.getToLevel());
+		Infos.updateMap(); // update the map
+		this.saveHighScore(this.getScore(),"map"+this.getLevel()); // save the map score
+		this.setLevel(this.door.getToLevel()); // set the new level
+		if(Infos.allLevelDone() == true) // if all maps are done
+		{
+			this.saveHighScore(this.getGlobalScore(),"mapG"); // save the global score 
+			Infos.resetScores(); // reset scores
+			this.setLevel(102); // set the level to the win map
+		}
+
+		this.loadMap("m"+this.getLevel()); // load the map
 	}
-	
+
+	/**
+	 * Function which calculate the next move of the monster 1 depending of the hero position
+	 */
 	public void moveM1() {
-		this.monster1.setMove(this.monster1.getMove()+1);
+		this.monster1.setMove(this.monster1.getMove()+1); // Increment the int move so that the monster can move
 		
-		if(this.monster1.getAlive() == true && this.monster1.getMove() == 2)
+		if(this.monster1.getAlive() == true && this.monster1.getMove() == 2) // if the int move == 2 and the monster is alive
 		{
 				int min = -1, max = 1;
 				
@@ -468,27 +583,29 @@ public class Model extends Observable implements IModel {
 				else
 					min = 0;
 				
-				int randY = r.nextInt((max - min) + 1) + min;
+				int randY = r.nextInt((max - min) + 1) + min; // calculate coordinate 
 				
-				switch (tabmap2d[this.monster1.getY()+randY][this.monster1.getX()+randX]) {
-				case '0':
+				switch (tabmap2d[this.monster1.getY()+randY][this.monster1.getX()+randX]) { // if the next position is ...
+				case '0': // nothing, then move the monster
 					tabmap2d[this.monster1.getY()][this.monster1.getX()]='0';
 					tabmap2d[this.monster1.getY()+randY][this.monster1.getX()+randX]='6';
-					this.monster1.setX(this.monster1.getX()+randX);
+					this.monster1.setX(this.monster1.getX()+randX); // set new position
 					this.monster1.setY(this.monster1.getY()+randY);
-					this.monster1.setMove(0);
+					this.monster1.setMove(0); // reset int move
 					break;
-				case 'P':
-					gameOver();
+				case 'P': // if it's the player
+					SoundClip.playThis("DEATH_PLAYER"); // play the death player sound
+					gameOver(); // call the gameOver function
 					break;
-				case 'L':
-					tabmap2d[this.monster1.getY()][this.monster1.getX()]='0';
+				case 'L': // if it's the fireball
+					SoundClip.playThis("DEATH_MONSTER"); // play the death monster sound
+					tabmap2d[this.monster1.getY()][this.monster1.getX()]='0'; // kill the monster
 					tabmap2d[this.monster1.getY()+randY][this.monster1.getX()+randX]='0';
-					this.monster1 = new Monster(0,0,false);
-					this.fireball.setActive(false);
+					this.monster1 = new Monster(0,0,false); // reset it, and make it dead (false)
+					this.fireball.setActive(false); // set the fireball inactive
 					break;
 				default:
-					this.monster1.setMove(0);
+					this.monster1.setMove(0); // else, the monster can't move, so we reset the move
 					break;
 				}
 		}
@@ -496,12 +613,14 @@ public class Model extends Observable implements IModel {
 		else {}
 	}
 
-	public void moveM2() {
+	/**
+	 * Function which calculate the next move of the monster 2 depending of the hero position
+	 */
+	public void moveM2() { // same as the previous monster, we can modify their behavior by making them slower (just increase the move needed to enter the condition), or we can change their random and so on
 		this.monster2.setMove(this.monster2.getMove()+1);
 		
-		if(this.monster2.getAlive() == true)
+		if(this.monster2.getAlive() == true && this.monster2.getMove() == 2)
 		{
-			if(this.monster2.getMove() == 2){
 				int min = -1, max = 1;
 				
 				Random r = new Random();
@@ -532,33 +651,33 @@ public class Model extends Observable implements IModel {
 					this.monster2.setMove(0);
 					break;
 				case 'P':
+					SoundClip.playThis("DEATH_PLAYER");
 					gameOver();
 					break;
 				case 'L':
+					SoundClip.playThis("DEATH_MONSTER");
 					tabmap2d[this.monster2.getY()][this.monster2.getX()]='0';
 					tabmap2d[this.monster2.getY()+randY][this.monster2.getX()+randX]='0';
-					this.fireball.setActive(false);
 					this.monster2 = new Monster(0,0,false);
+					this.fireball.setActive(false);
 					break;
 				default:
 					this.monster2.setMove(0);
 					break;
 				}
-			}
-			
-			else {}
 		}
 		
 		else {}
 	}
 	
-
+	/**
+	 * Function which calculate the next move of the monster 3 depending of the hero position
+	 */
 	public void moveM3() {
 		this.monster3.setMove(this.monster3.getMove()+1);
 		
-		if(this.monster3.getAlive() == true)
+		if(this.monster3.getAlive() == true && this.monster3.getMove() == 2)
 		{
-			if(this.monster3.getMove() == 2){
 				int min = -1, max = 1;
 				
 				Random r = new Random();
@@ -589,33 +708,33 @@ public class Model extends Observable implements IModel {
 					this.monster3.setMove(0);
 					break;
 				case 'P':
+					SoundClip.playThis("DEATH_PLAYER");
 					gameOver();
 					break;
 				case 'L':
+					SoundClip.playThis("DEATH_MONSTER");
 					tabmap2d[this.monster3.getY()][this.monster3.getX()]='0';
 					tabmap2d[this.monster3.getY()+randY][this.monster3.getX()+randX]='0';
-					this.fireball.setActive(false);
 					this.monster3 = new Monster(0,0,false);
+					this.fireball.setActive(false);
 					break;
 				default:
 					this.monster3.setMove(0);
 					break;
 				}
-			}
-			
-			else {}
 		}
 		
 		else {}
 	}
-	
 
+	/**
+	 * Function which calculate the next move of the monster 4 depending of the hero position
+	 */
 	public void moveM4() {
 		this.monster4.setMove(this.monster4.getMove()+1);
 		
-		if(this.monster4.getAlive() == true)
+		if(this.monster4.getAlive() == true && this.monster4.getMove() == 2)
 		{
-			if(this.monster4.getMove() == 2){
 				int min = -1, max = 1;
 				
 				Random r = new Random();
@@ -646,128 +765,132 @@ public class Model extends Observable implements IModel {
 					this.monster4.setMove(0);
 					break;
 				case 'P':
+					SoundClip.playThis("DEATH_PLAYER");
 					gameOver();
 					break;
 				case 'L':
+					SoundClip.playThis("DEATH_MONSTER");
 					tabmap2d[this.monster4.getY()][this.monster4.getX()]='0';
 					tabmap2d[this.monster4.getY()+randY][this.monster4.getX()+randX]='0';
-					this.fireball.setActive(false);
 					this.monster4 = new Monster(0,0,false);
+					this.fireball.setActive(false);
 					break;
 				default:
 					this.monster4.setMove(0);
 					break;
 				}
-			}
-			
-			else {}
 		}
 		
 		else {}
 	}
 	
-	
-	public void moveMissile()
+	/**
+	 * Function which calculate the next move of the fireball, if that move is possible, and all the events of that fireball
+	 */
+	public void moveFireBall()
 	{
-		this.fireball.setPosGen(this.fireball.getPosGen()+1);
-		this.fireball.setCanMove(this.fireball.getCanMove()+1);
-		this.fireball.SelectPosGenFireBall();
+		this.fireball.setPosGen(this.fireball.getPosGen()+1); // set next sprite to fireball
+		this.fireball.SelectPosGenFireBall(); // apply it
 		
-		if(this.fireball.isActive() == true)
+		if(this.fireball.isActive() == true) // if the fireball is active, enter, else, do nothing
 		{
-			if(this.fireball.isFirstLaunch() == true)
+			if(this.fireball.isFirstLaunch() == true) // if she isn't present and it's the firstlaunch, check the next position
 			{
-				if(tabmap2d[this.hero.getY()+this.fireball.getyToMove()][this.hero.getX()+this.fireball.getxToMove()]!='0')
+				if(tabmap2d[this.hero.getY()+this.fireball.getyToMove()][this.hero.getX()+this.fireball.getxToMove()]!='0') // if it's not nothing, set it again to inactive and firstlaunch, because she can't spawn
 				{	
 					this.fireball.setFirstLaunch(true);
 					this.fireball.setActive(false);
-					this.fireball.setCanMove(0);
 				}
 				
-				else
+				else // if it's nothing, she can spawn
 				{
-					tabmap2d[this.hero.getY()+this.fireball.getyToMove()][this.hero.getX()+this.fireball.getxToMove()]='L';
-					this.fireball.setX(this.hero.getX()+this.fireball.getxToMove());
+					SoundClip.playThis("FIREBALL_O"); // play the fireball out sound
+					tabmap2d[this.hero.getY()+this.fireball.getyToMove()][this.hero.getX()+this.fireball.getxToMove()]='L'; // spawn the fireball
+					this.fireball.setX(this.hero.getX()+this.fireball.getxToMove()); // set positions
 					this.fireball.setY(this.hero.getY()+this.fireball.getyToMove());
-					this.fireball.setFirstLaunch(false);
-					this.fireball.setCanMove(0);
+					this.fireball.setFirstLaunch(false); // the fireball is spawn so it's no more a firstlaunch
 				}
 			}
 			
-			if(this.fireball.isFirstLaunch() == false)
+			if(this.fireball.isFirstLaunch() == false) // if the fireball is already on the land, so it's not a first launch
 			{
-				if(this.fireball.getCanMove() == 1){
 					switch (tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]) {
-					case '0':
-						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+					case '0': // if next position is nothing
+						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0'; // make the fireball move
 						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='L';
-						this.fireball.setX(this.fireball.getX()+this.fireball.getxToMove());
+						this.fireball.setX(this.fireball.getX()+this.fireball.getxToMove()); // set the new positions
 						this.fireball.setY(this.fireball.getY()+this.fireball.getyToMove());
-						this.fireball.setCanMove(0);
 						break;
-					case 'P':
-						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
-						this.fireball.setActive(false);
-						this.fireball.setFirstLaunch(true);
-						this.fireball.setxToMove(-this.fireball.getxToMove());
+					case 'P': // if it's the player
+						SoundClip.playThis("FIREBALL_B"); // play the fireball back to hero sound
+						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0'; // suppress the fireball
+						this.fireball.setX(0); // reset positions
+						this.fireball.setY(0);
+						this.fireball.setActive(false); // set her inactive
+						this.fireball.setFirstLaunch(true); // set her first launch
+						this.fireball.setxToMove(-this.fireball.getxToMove()); // reset coordinate to move of the fireball
 						this.fireball.setyToMove(-this.fireball.getyToMove());
 						break;
-					case '6':
-						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+					case '6': // if it's a monster
+						SoundClip.playThis("DEATH_MONSTER"); // play the death monster sound
+						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0'; // suppress fireball and monster
 						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
-						this.fireball.setActive(false);
-						this.monster1 = new Monster(0,0,false);
-						this.fireball.setFirstLaunch(true);
+						this.fireball.setActive(false); // set her inactive
+						this.monster1 = new Monster(0,0,false); // reset the monster1
+						this.fireball.setFirstLaunch(true); // set her first launch
 						break;
-					case '7':
+					case '7': // same
+						SoundClip.playThis("DEATH_MONSTER");
 						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
 						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
 						this.fireball.setActive(false);
 						this.monster2 = new Monster(0,0,false);
 						this.fireball.setFirstLaunch(true);
 						break;
-					case '8':
+					case '8': // same
+						SoundClip.playThis("DEATH_MONSTER");
 						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
 						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
 						this.fireball.setActive(false);
 						this.monster3 = new Monster(0,0,false);
 						this.fireball.setFirstLaunch(true);
 						break;
-					case '9':
+					case '9': // same
+						SoundClip.playThis("DEATH_MONSTER");
 						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
 						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
 						this.fireball.setActive(false);
 						this.monster4 = new Monster(0,0,false);
 						this.fireball.setFirstLaunch(true);
 						break;
-					default:
-						this.fireball.setxToMove(-this.fireball.getxToMove());
+					default: // everything else, she has to bounce
+						this.fireball.setxToMove(-this.fireball.getxToMove()); // invert the coordinate to move to go the other way
 						this.fireball.setyToMove(-this.fireball.getyToMove());
 						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
-						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='0')
+						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='0') // if next position is nothing
 						{
-							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='L';
-							this.fireball.setX(this.fireball.getX()+this.fireball.getxToMove());
+							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='L'; // move the fireball
+							this.fireball.setX(this.fireball.getX()+this.fireball.getxToMove()); // set new positions
 							this.fireball.setY(this.fireball.getY()+this.fireball.getyToMove());
-							this.fireball.setCanMove(0);
 						}
-						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()] == 'P')
+						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()] == 'P') // if it's the player
 						{
-							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
-							this.fireball.setActive(false);
-							this.fireball.setFirstLaunch(true);
-							this.fireball.setxToMove(-this.fireball.getxToMove());
+							SoundClip.playThis("FIREBALL_B"); // play the sound fireball back to hero
+							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0'; // suppress the fireball
+							this.fireball.setActive(false); // set her inactive
+							this.fireball.setFirstLaunch(true); // set her first launch again
+							this.fireball.setxToMove(-this.fireball.getxToMove()); // invert the coordinate to get back to the normal one
 							this.fireball.setyToMove(-this.fireball.getyToMove());
 						}
-						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='6')
+						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='6') // if it's the monster 1
 						{
-							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
+							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0'; // suppress the fireball and the monster
 							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
-							this.fireball.setActive(false);
-							this.monster1 = new Monster(0,0,false);
-							this.fireball.setFirstLaunch(true);
+							this.fireball.setActive(false); // set the fireball inactive
+							this.monster1 = new Monster(0,0,false); // reset the monster 1
+							this.fireball.setFirstLaunch(true); // set her first launch
 						}
-						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='7')
+						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='7') // same as before
 						{
 							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
 							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
@@ -775,7 +898,7 @@ public class Model extends Observable implements IModel {
 							this.monster2 = new Monster(0,0,false);
 							this.fireball.setFirstLaunch(true);
 						}
-						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='8')
+						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='8') // same as before
 						{
 							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
 							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
@@ -783,7 +906,7 @@ public class Model extends Observable implements IModel {
 							this.monster3 = new Monster(0,0,false);
 							this.fireball.setFirstLaunch(true);
 						}
-						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='9')
+						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='9') // same as before
 						{
 							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
 							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
@@ -793,9 +916,6 @@ public class Model extends Observable implements IModel {
 						}
 						break;
 					}
-				}
-				
-				else {tabmap2d[this.fireball.getY()][this.fireball.getX()]='L';}
 			}
 		}
 		

@@ -1,7 +1,9 @@
 package model;
 
 /**
- * The Class HelloWorld.
+ * The Class Map.
+ * 
+ * @author Group 5
   */
 class Map extends Entity {
 
@@ -11,7 +13,7 @@ class Map extends Entity {
     /** The key. */
     private String	key;
 
-    /** The message. */
+    /** The map. */
     private String	map;
 
     /**
@@ -21,8 +23,8 @@ class Map extends Entity {
      *          the id
      * @param key
      *          the key
-     * @param message
-     *          the message
+     * @param map
+     *          the map
      */
     public Map(final int id_map, final String key, final String map) {
         this.setId(id_map);
@@ -31,7 +33,7 @@ class Map extends Entity {
     }
 
     /**
-     * Instantiates a new hello world.
+     * Instantiates a new map.
      */
     public Map() {
         this(0, "", "");
@@ -76,19 +78,19 @@ class Map extends Entity {
     }
 
     /**
-     * Gets the message.
+     * Gets the map.
      *
-     * @return the message
+     * @return the map
      */
     public String getMap() {
         return this.map;
     }
 
     /**
-     * Sets the message.
+     * Sets the map.
      *
-     * @param message
-     *          the new message
+     * @param map
+     *          the new map
      */
     public void setMap(final String map) {
         this.map = map;

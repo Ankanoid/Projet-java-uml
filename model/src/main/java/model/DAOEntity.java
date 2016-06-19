@@ -8,6 +8,8 @@ import java.sql.SQLException;
  *
  * @param <E>
  *          the element type
+ *          
+ * @author Group 5
  */
 abstract class DAOEntity<E extends Entity> {
 

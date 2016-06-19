@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * The Class DAOHelloWorld.
+ * The Class DAOMap.
+ * 
+ * @author Group 5
  */
 class DAOMap extends DAOEntity<Map> {
 
 	/**
-	 * Instantiates a new DAO hello world.
+	 * Instantiates a new DAO map.
 	 *
 	 * @param connection
 	 *          the connection
@@ -55,10 +57,17 @@ class DAOMap extends DAOEntity<Map> {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Function to gets the best score for a given map
 	 *
-	 * @see model.DAOEntity#find(java.lang.String)
+	 *@param key 
+	 *			key of the map
+	 *
+	 *@return score
+	 *			a int with the best score of the map inside
+	 *
+	 *	The function will use a procedure stored in the database to gets the best score
+	 * 
 	 */
 	@Override
 	public Map find(final String key) {

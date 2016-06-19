@@ -1,12 +1,39 @@
 package model;
 
+/**
+ * The Class Hero.
+ * 
+ * @author Group 5
+ *
+ */
 public class Hero {
 
+	/**
+	 * int x and y are the coordinate of the hero
+	 * int yToMove and xToMove represent the coordinate of the next move
+	 * int Posgen switch between numbers from 1 to 8 and determine the next sprite to display for the hero
+	 */
 	private int x, y, yToMove = 0, xToMove = 0, PosGen = 0;
+	
+	/**
+	 * String Image contains the file name of the next sprite of the hero
+	 * String move contains the move made by the user. Used to determine the next sprite of the hero 
+	 */
 	private String move, Image;
-	private char position;
+	/**
+	 * boolean isAlive settled at true if the hero is alive, and false if he is not
+	 */
 	private boolean isAlive = true;
 
+	/**
+	 * Instantiate a new hero
+	 * @param x
+	 * 			x coordinate
+	 * @param y
+	 * 			y coordinate
+	 * @param isAlive
+	 *			boolean if he is dead (false) or alive (true)
+	 */
 	public Hero (int x, int y, boolean isAlive)
 	{ 	
 		this.x = x;
@@ -14,26 +41,42 @@ public class Hero {
 		this.isAlive = isAlive;
 	}
 	
+	/**
+	 * Getter of isAlive, gets the state of the hero (true if alive, false if dead)
+	 * @return isAlive
+	 */
 	public boolean isAlive() {
 		return isAlive;
 	}
 
+	/**
+	 * Sets the next hero state (true if alive, false if dead)
+	 * @param isAlive
+	 */
 	public void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
+	}
+	
+	/**
+	 * Getter of PosGen
+	 * @return PosGen
+	 */
+	public int getPosGen() {
+		return PosGen;
+	}
+
+	/**
+	 * Setter of PosGen
+	 * @param posGen
+	 */
+	public void setPosGen(int posGen) {
+		PosGen = posGen;
 	}
 
 	public int getX() {
 		return x;
 	}
 	
-	public int getPosGen() {
-		return PosGen;
-	}
-
-	public void setPosGen(int posGen) {
-		PosGen = posGen;
-	}
-
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -45,32 +88,26 @@ public class Hero {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
 
-	public char getPosition() {
-		return position;
-	}
-
-	public void setPosition(char position) {
-		this.position = position;
-	}
-
-	public String getMove() {
-		return move;
-	}
-
+	/**
+	 * Setter of move, depending on the last key pressed by the user
+	 * @param move
+	 */
 	public void setMove(String move) {
 		this.move = move;
 	}
 	
+	/**
+	 * Getter of Image, to know which sprite the view has to display
+	 * @return String Image
+	 */
 	public String getImage() {
 		return Image;
 	}
 
-	public void setImage(String image) {
-		Image = image;
-	}
-
+	/**
+	 * Function called when a key is pressed by the user, set a sprite depending on this key, also set the next move
+	 */
 	public void SelectPosHero()
 	{
 		if(move == "LEFT")
@@ -101,7 +138,11 @@ public class Hero {
 		{}
 	}
 	
-	public void SelectPosGenHero()
+	/**
+	 * Function in background, which is automatically changed. Define a new sprite to display and make the hero turn on himself when there is no move
+	 * @param level
+	 */
+	public void SelectPosGenHero(int level)
 	{
 		if(PosGen == 1)
 			Image="lorann_u";
@@ -126,6 +167,9 @@ public class Hero {
 			
 		if(PosGen == 8)
 			{ Image="lorann_ul"; PosGen = 0; } 
+		
+		if(level == 102 || level == 103) // No display of the hero on the Win Screen and on the Loose Screen
+			Image="no_image";
 	}
 
 	public int getyToMove() {

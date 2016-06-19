@@ -11,6 +11,8 @@ import contract.IView;
 
 /**
  * The Class View.
+ * 
+ * @author Group 5
  */
 public class View implements IView, Runnable {
 
@@ -24,6 +26,8 @@ public class View implements IView, Runnable {
 	 *          the model
 	 */
 	public View(final IModel model) {
+		Thread playWave=new SoundClip("C:/Users/Thomas/git/Projet-java-uml/sprite/loop.wav");
+		playWave.start();
 		this.viewFrame = new ViewFrame(model);
 		SwingUtilities.invokeLater(this);
 	}
@@ -38,9 +42,9 @@ public class View implements IView, Runnable {
 	protected static ControllerOrder keyCodeToControllerOrder(final int keyCode) {
 		switch (keyCode) {
 			case KeyEvent.VK_ENTER:
-				return ControllerOrder.Map0;
+				return ControllerOrder.HomeMap;
 			case KeyEvent.VK_SPACE:
-				return ControllerOrder.Missile;
+				return ControllerOrder.Fireball;
 			case KeyEvent.VK_H:
 				return ControllerOrder.DisplayHighscores;
 			case KeyEvent.VK_LEFT:
@@ -69,8 +73,8 @@ public class View implements IView, Runnable {
 	 *
 	 * @see contract.IView#printMessage(java.lang.String)
 	 */
-	public void printMessage(final String message) {
-		this.viewFrame.printMessage(message);
+	public void printMap(final String map) {
+		this.viewFrame.printMap(map);
 	}
 
 	/*

@@ -5,13 +5,15 @@ import contract.IController;
 import contract.IModel;
 import contract.IView;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Controller.
+ * 
+ * @author Group 5
  */
 public class Controller implements IController {
 
 	/** The view. */
+	@SuppressWarnings("unused")
 	private IView view;
 
 	/** The model. */
@@ -28,6 +30,7 @@ public class Controller implements IController {
 	public Controller(final IView view, final IModel model) {
 		this.setView(view);
 		this.setModel(model);
+		this.model.loadMap("m104");
 	}
 
 	/*
@@ -64,17 +67,44 @@ public class Controller implements IController {
 	 *
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
+	
+	/**
+	 * Calls function depending on key pressed
+	 * 
+	 * @param controllerOrder 
+	 * 					Order from the view depending on the last key pressed
+	 * 
+	 */
 	public void orderPerform(final ControllerOrder controllerOrder) {
 		switch (controllerOrder) {
-			case Map0:
-				this.model.loadMap("m9");
-				this.model.setLevel(9);
+			case HomeMap:
+				if(this.model.getLevel() == 0 || this.model.getLevel() == 102 || this.model.getLevel() == 103)
+				{
+					this.model.loadMap("m104");
+					this.model.setLevel(104);
+					this.model.setGlobalScore(0); 
+				}
+				
+				if(this.model.getLevel()==104)
+					;
+				
+				else
+				{
+					this.model.setLife(this.model.getLife()-1);
+					this.model.setGlobalScore(this.model.getGlobalScore()-this.model.getScore());
+					this.model.loadMap("m"+this.model.getLevel());
+					if(this.model.getLife()==0)
+					{	
+						this.model.setLife(this.model.getLife()+1);
+						this.model.gameOver();
+					}
+				}
 				break;
-			case Missile:
-				this.model.setActiveMissile(true);
+			case Fireball:
+				this.model.setActiveFireBall(true);
 				break;
 			case DisplayHighscores:
-				if(this.model.getLevel()==9)
+				if(this.model.getLevel()==104)
 				this.model.setLevel(0);
 				break;
 			case MoveLeft:
@@ -107,5 +137,4 @@ public class Controller implements IController {
 				break;
 		}
 	}
-
 }

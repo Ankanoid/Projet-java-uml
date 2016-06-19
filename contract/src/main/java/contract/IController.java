@@ -2,7 +2,9 @@ package contract;
 
 /**
  * The Interface IController.
-  */
+ * 
+ * @author Group 5
+ */
 public interface IController {
 
 	/**

@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The Class HelloWorld.
+ * The Class HighScore.
   */
 class HighScore extends Entity {
 
@@ -11,7 +11,7 @@ class HighScore extends Entity {
     /** The key. */
     private String	key;
 
-    /** The message. */
+    /** The highscore. */
     private int highscore;
 
     /**
@@ -21,8 +21,8 @@ class HighScore extends Entity {
      *          the id
      * @param key
      *          the key
-     * @param message
-     *          the message
+     * @param highscore
+     *          the highscore
      */
     public HighScore(final int id, final String map, final int highscore) {
         this.setId(id);
@@ -31,7 +31,7 @@ class HighScore extends Entity {
     }
 
     /**
-     * Instantiates a new hello world.
+     * Instantiates a new HighScore
      */
     public HighScore() {
         this(0, "", 0);
@@ -76,19 +76,19 @@ class HighScore extends Entity {
     }
 
     /**
-     * Gets the message.
+     * Gets the highscore.
      *
-     * @return the message
+     * @return the highscore
      */
     public int getHighScore() {
         return this.highscore;
     }
 
     /**
-     * Sets the message.
+     * Sets the highscore.
      *
-     * @param message
-     *          the new message
+     * @param highscore
+     *          the new highscore
      */
     public void setHighScore(final int highscore) {
         this.highscore = highscore;

@@ -15,8 +15,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+
 /**
  * The Class ViewPanel.
+ * 
+ * @author Group 5
  */
 class ViewPanel extends JPanel implements Observer {
 
@@ -25,9 +28,13 @@ class ViewPanel extends JPanel implements Observer {
 	/** The Constant serialVersionUID. */
 	private static final long	serialVersionUID	= -998294702363713521L;
 	
-	char[][] tabmap ;
 	/**
-	 * Instantiates a new view panel.
+	 * Char containing the map
+	 */
+	char[][] tabmap ;
+	
+	/**
+	 * Instantiates a new view panel. Make it refresh
 	 *
 	 * @param viewFrame
 	 *          the view frame
@@ -51,6 +58,7 @@ class ViewPanel extends JPanel implements Observer {
 	 *
 	 * @return the view frame
 	 */
+	@SuppressWarnings("unused")
 	private ViewFrame getViewFrame() {
 		return this.viewFrame;
 	}
@@ -92,7 +100,7 @@ class ViewPanel extends JPanel implements Observer {
 		if(this.viewFrame.getModel().getLevel() == 0)
 		{ 
 			this.viewFrame.getModel().loadHighScore("map1");
-			int scoremap1 = this.viewFrame.getModel().getHighScore();
+			int scoremap1 = this.viewFrame.getModel().getHighScore(); // Ask the highscore of the map, save it in an int
 			this.viewFrame.getModel().loadHighScore("map2");
 			int scoremap2 = this.viewFrame.getModel().getHighScore();
 			this.viewFrame.getModel().loadHighScore("map3");
@@ -101,52 +109,78 @@ class ViewPanel extends JPanel implements Observer {
 			int scoremap4 = this.viewFrame.getModel().getHighScore();
 			this.viewFrame.getModel().loadHighScore("map5");
 			int scoremap5 = this.viewFrame.getModel().getHighScore();
+			this.viewFrame.getModel().loadHighScore("mapG");
+			int globalscore = this.viewFrame.getModel().getHighScore();
 			
-			Font fonte = new Font("TimesRoman ",Font.BOLD,30);
-			graphics.setFont(fonte);
-			graphics.setColor(Color.white);
-			graphics.drawString("H",100,58); graphics.drawString("I",100,90); graphics.drawString("G",100,122);
-			graphics.drawString("H",100,155); graphics.drawString("S",100,188); graphics.drawString("C",100,220); graphics.drawString("O",100,252);
-			graphics.drawString("R",100,285); graphics.drawString("E",100,318); graphics.drawString("S",100,350);
-			graphics.drawString("Map 1 : " + scoremap1,150,90);
-			graphics.drawString("Map 2 : " + scoremap2,150,155);
-			graphics.drawString("Map 3 : " + scoremap3,150,220);
-			graphics.drawString("Map 4 : " + scoremap4,150,285);
-			graphics.drawString("Map 5 : " + scoremap5,150,350);
+			Font font = new Font("Courier New",Font.BOLD,35);
+			graphics.setFont(font);
+			graphics.setColor(Color.red);
+			graphics.drawString("HIGHSCORES",42,75);
+			font = new Font("Courier New",Font.BOLD,20);
+			graphics.setFont(font);
 			graphics.drawString("PRESS ENTER TO CONTINUE ",50,415);
+			graphics.setColor(Color.white);
+			graphics.drawString("Map 1 : " + scoremap1,250,150);
+			graphics.drawString("Map 2 : " + scoremap2,250,200); // Displaying scores
+			graphics.drawString("Map 3 : " + scoremap3,250,250);
+			graphics.drawString("Map 4 : " + scoremap4,250,300);
+			graphics.drawString("Map 5 : " + scoremap5,250,350);
+			font = new Font("Courier New",Font.BOLD,28);
+			graphics.setFont(font);
+			graphics.setColor(Color.yellow);
+			graphics.drawString("Global : " + globalscore,375,55);
+			try {
+				Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/cesi.png"));
+				graphics.drawImage(img, 480, 380, this);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
-			this.viewFrame.getModel().moveH();
+			this.viewFrame.getModel().moveHero();
 		}
 			
-		if(this.viewFrame.getModel().getLevel() == 1 || this.viewFrame.getModel().getLevel() == 2 || this.viewFrame.getModel().getLevel() == 3 || this.viewFrame.getModel().getLevel() == 4 || this.viewFrame.getModel().getLevel() == 5)
+		if(this.viewFrame.getModel().getLevel() >= 1 && this.viewFrame.getModel().getLevel() <= 101)
 		{
-			Font fonte = new Font("TimesRoman ",Font.BOLD,30);
+			Font fonte = new Font("Courier New",Font.BOLD,28);
 			graphics.setFont(fonte);
-			graphics.setColor(Color.white);
-			graphics.drawString("Niveau : " + this.viewFrame.getModel().getLevel(),60,410);
-			graphics.drawString("Score : " + this.viewFrame.getModel().getScore(),60,440);
+			graphics.setColor(Color.yellow);
+			graphics.drawString("Level : " + this.viewFrame.getModel().getLevel(),10,410);
+			graphics.drawString("Map Score : " + this.viewFrame.getModel().getScore(),10,440);
+			graphics.drawString("Global Score : " + this.viewFrame.getModel().getGlobalScore(),310,440);
+			graphics.drawString("Life x" + this.viewFrame.getModel().getLife(),310,410);
 			
-			this.viewFrame.getModel().moveH();
+			this.viewFrame.getModel().moveHero();
 			this.viewFrame.getModel().moveM1();
-			//this.viewFrame.getModel().moveM2();
-			//this.viewFrame.getModel().moveM3();
-			//this.viewFrame.getModel().moveM4();
-			this.viewFrame.getModel().moveMissile();
-			
+			this.viewFrame.getModel().moveM2();
+			this.viewFrame.getModel().moveM3();
+			this.viewFrame.getModel().moveM4();
+			this.viewFrame.getModel().moveFireBall();
 			displayMap(graphics);
 		}
 		
-		if(this.viewFrame.getModel().getLevel() == 9)
+		if(this.viewFrame.getModel().getLevel() == 104)
 		{ 
-			Font fonte = new Font("TimesRoman ",Font.BOLD,20);
-			graphics.setFont(fonte);
-			graphics.setColor(Color.white);
+			Font font = new Font("Courier New",Font.BOLD,35);
+			graphics.setFont(font);
+			graphics.setColor(Color.red);
+			graphics.drawString("LEVEL",95,75);
+			font = new Font("Courier New",Font.BOLD,20);
+			graphics.setFont(font);
+			graphics.setColor(Color.red);
 			graphics.drawString("PRESS H FOR HIGHSCORES",50,415);
-			fonte = new Font("TimesRoman ",Font.BOLD,50);
-			graphics.setFont(fonte);
-			graphics.drawString(""+this.viewFrame.getModel().getDoorLevel(),290,220);
-			//this.viewFrame.getModel().animatedHero();
-			this.viewFrame.getModel().moveH();
+			font = new Font("Courier New",Font.BOLD,80);
+			graphics.setColor(Color.yellow);
+			graphics.setFont(font);
+			graphics.drawString(""+this.viewFrame.getModel().getDoorLevel(),525,115);
+			font = new Font("Courier New",Font.BOLD,55);
+			graphics.setFont(font);
+			graphics.drawString("+",95,160);
+			graphics.drawString("-",95,285);
+			font = new Font("Courier New",Font.BOLD,24);
+			graphics.setFont(font);
+			graphics.drawString("Global Score : " + this.viewFrame.getModel().getGlobalScore(),350,440);
+			graphics.drawString("Life x" + this.viewFrame.getModel().getLife(),350,410);
+			this.viewFrame.getModel().moveHero();
 			
 			displayMap(graphics);
 		}
@@ -250,7 +284,6 @@ class ViewPanel extends JPanel implements Observer {
 					case 'P':
 						System.out.print(tabmap[i][j]);
 						String ImageHero = this.viewFrame.getModel().getImageHero();
-						if(this.viewFrame.getModel().getLevel() != 6 && this.viewFrame.getModel().getLevel() != 7)
 						try {
 							Image img = ImageIO.read(new File("C:/Users/Thomas/git/Projet-java-uml/sprite/"+ImageHero+".png"));
 							graphics.drawImage(img, 32*j, 32*i, this);
@@ -324,8 +357,5 @@ class ViewPanel extends JPanel implements Observer {
 			}
 			System.out.println();
 		}
-		
-		
-		
 	}
 }
