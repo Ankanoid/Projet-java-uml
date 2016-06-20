@@ -43,6 +43,8 @@ public class Model extends Observable implements IModel {
 	private String map;
 	/** Highscore */
 	private int highscore;
+	/** current level */
+	private int currentlevel=1;
 
 	/**
 	 * Gets the actual score in the Infos Class
@@ -95,6 +97,7 @@ public class Model extends Observable implements IModel {
 	/**
 	 * Sets a new actual score
 	 * @param score
+	 * 			current score
 	 */
 	public void setScore(int score)
 	{ Infos.setScore(score); }
@@ -160,8 +163,8 @@ public class Model extends Observable implements IModel {
 		this.door = new Door(0,0, false);
 		this.map = "";
 		
-		/*Thread playWave=new SoundClip("C:/Users/Thomas/git/Projet-java-uml/sprite/loop.wav");
-		playWave.start();*/
+		Thread playWave=new SoundClip("C:/Users/Thomas/git/Projet-java-uml/sprite/loop.wav");
+		playWave.start();
 	}
 
 	/*
@@ -195,7 +198,7 @@ public class Model extends Observable implements IModel {
 	 * 			i position in the table
 	 * @param j
 	 * 			j position in the table
-	 * @param car
+	 * @param c
 	 * 			character to display
 	 */
 	public void putInTabmap(int i, int j, char c) {
@@ -289,6 +292,7 @@ public class Model extends Observable implements IModel {
 						break;
 					case 'G':
 						this.putInTabmap(i,j,'G'); // Door at home map
+						this.door.setToLevel(currentlevel);
 						break;
 					default :
 						this.putInTabmap(i,j,' '); // If Nothing, shouldn't happen
@@ -421,8 +425,10 @@ public class Model extends Observable implements IModel {
 		if(isMovePossible() == true && this.hero.isAlive() == true)
 		{
 			this.hero.SelectPosHero(); // If a key is pressed and the move is possible and the hero is alive, select the new sprite to display depending on the key
-			tabmap2d[this.hero.getY()][this.hero.getX()]='P';
-			tabmap2d[this.hero.getY()-this.hero.getyToMove()][this.hero.getX()-this.hero.getxToMove()]='0'; // Move the hero
+			tabmap2d[this.hero.getY()][this.hero.getX()]='0';
+			tabmap2d[this.hero.getY()+this.hero.getyToMove()][this.hero.getX()+this.hero.getxToMove()]='P'; // Move the hero
+			this.hero.setX(this.hero.getX()+this.hero.getxToMove()); // Set position to the next move
+			this.hero.setY(this.hero.getY()+this.hero.getyToMove());
 			if(this.isNewKey == false)
 			{
 				this.hero.setxToMove(0);
@@ -439,41 +445,35 @@ public class Model extends Observable implements IModel {
 	 */
 	public boolean isMovePossible()
 	{
-		this.hero.setX(this.hero.getX()+this.hero.getxToMove()); // Set position to the next move
-		this.hero.setY(this.hero.getY()+this.hero.getyToMove());
 		
-		if(tabmap2d[this.hero.getY()][this.hero.getX()] == '0' && this.isNewKey == true) // If this one contains nothing, move the player character to the new position
+		if(tabmap2d[this.hero.getY()+this.hero.getyToMove()][this.hero.getX()+this.hero.getxToMove()] == '0' && this.isNewKey == true) // If this one contains nothing, move the player character to the new position
 		{	if(this.getLevel() == 103 || this.getLevel() == 102) // Not on Win and Loose Map
 				return false;
 			else
 				return true; // return true because we can go on this and suppress it
 		}
-		
-		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'A' && this.door.getToLevel()>1 && this.isNewKey == true) // if the new positions is an 'A' (on the home map)
+
+		if(tabmap2d[this.hero.getY()+this.hero.getyToMove()][this.hero.getX()+this.hero.getxToMove()] == 'A' && this.door.getToLevel()>1 && this.isNewKey == true) // if the new positions is an 'A' (on the home map)
 		{
 			SoundClip.playThis("P_M_LEVEL"); // Play the song plus or minus level 
 			this.door.setToLevel(this.door.getToLevel()-1);  // set the new level for the door
-			this.hero.setX(this.hero.getX()-this.hero.getxToMove()); 
-			this.hero.setY(this.hero.getY()-this.hero.getyToMove()); // Go back because we don't want to suppress this button
 			this.hero.setxToMove(0); // Reset the hero move, so he won't move alone when refreshing
 			this.hero.setyToMove(0);
 			
 			return false; // return false because we can't go on this
 		}
 		
-		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'Z' && this.door.getToLevel()<5 && this.isNewKey == true) // if the new positions is an 'Z' (on the home map)
+		if(tabmap2d[this.hero.getY()+this.hero.getyToMove()][this.hero.getX()+this.hero.getxToMove()] == 'Z' && this.door.getToLevel()<5 && this.isNewKey == true) // if the new positions is an 'Z' (on the home map)
 		{
 			SoundClip.playThis("P_M_LEVEL"); // Play the song plus or minus level 
 			this.door.setToLevel(this.door.getToLevel()+1);  // set the new level for the door
-			this.hero.setX(this.hero.getX()-this.hero.getxToMove()); 
-			this.hero.setY(this.hero.getY()-this.hero.getyToMove()); // Go back because we don't want to suppress this button
 			this.hero.setxToMove(0);
 			this.hero.setyToMove(0); // Reset the hero move, so he won't move alone when refreshing
 			
 			return false; // return false because we can't go on this
 		}
 		
-		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'G' && Infos.returnMapState(this.door.getToLevel()) == false && this.isNewKey == true) // if the new positions is an 'G' (on the home map)
+		if(tabmap2d[this.hero.getY()+this.hero.getyToMove()][this.hero.getX()+this.hero.getxToMove()] == 'G' && Infos.returnMapState(this.door.getToLevel()) == false && this.isNewKey == true) // if the new positions is an 'G' (on the home map)
 		{
 			SoundClip.playThis("DOOR"); // Play the song when we walk through a door
 			this.setLevel(this.door.getToLevel());  // set the actual level
@@ -482,7 +482,7 @@ public class Model extends Observable implements IModel {
 			return false; // return false because we can't go on this
 		}
 		
-		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'E' && this.isNewKey == true) // if next position is an energy ball
+		if(tabmap2d[this.hero.getY()+this.hero.getyToMove()][this.hero.getX()+this.hero.getxToMove()] == 'E' && this.isNewKey == true) // if next position is an energy ball
 		{
 			SoundClip.playThis("ENERGY"); // Play the sound of that energy ball
 			this.door.SelectPosDoor(this.getLevel()); // Select the next level when we will walk through the door and change the sprite
@@ -491,29 +491,29 @@ public class Model extends Observable implements IModel {
 			return true; // return true because we can go on this and suppress it
 		}
 		
-		if(this.hero.getY() == this.monster1.getY() && this.hero.getX() == this.monster1.getX()  && this.isNewKey == true) // if next position is the monster 1
+		if(this.hero.getY()+this.hero.getyToMove() == this.monster1.getY() && this.hero.getX()+this.hero.getxToMove() == this.monster1.getX()  && this.isNewKey == true) // if next position is the monster 1
 		{ SoundClip.playThis("DEATH_PLAYER"); this.monster1 = new Monster(0,0,false); gameOver(); return false; } // Play the sound of player death, reset the monster, launch the gameover function, return false because we won't change the position to the monster position
 		
-		if(this.hero.getY() == this.monster2.getY() && this.hero.getX() == this.monster2.getX()  && this.isNewKey == true) // if next position is the monster 2
+		if(this.hero.getY()+this.hero.getyToMove() == this.monster2.getY() && this.hero.getX()+this.hero.getxToMove() == this.monster2.getX()  && this.isNewKey == true) // if next position is the monster 2
 		{ SoundClip.playThis("DEATH_PLAYER"); this.monster2 = new Monster(0,0,false); gameOver(); return false; } // Play the sound of player death, reset the monster, launch the gameover function, return false because we won't change the position to the monster position
 		
-		if(this.hero.getY() == this.monster3.getY() && this.hero.getX() == this.monster3.getX()  && this.isNewKey == true) // if next position is the monster 3
+		if(this.hero.getY()+this.hero.getyToMove() == this.monster3.getY() && this.hero.getX()+this.hero.getxToMove() == this.monster3.getX()  && this.isNewKey == true) // if next position is the monster 3
 		{ SoundClip.playThis("DEATH_PLAYER"); this.monster3 = new Monster(0,0,false); gameOver(); return false; } // Play the sound of player death, reset the monster, launch the gameover function, return false because we won't change the position to the monster position
 		
-		if(this.hero.getY() == this.monster4.getY() && this.hero.getX() == this.monster4.getX()  && this.isNewKey == true) // if next position is the monster 4
+		if(this.hero.getY()+this.hero.getyToMove() == this.monster4.getY() && this.hero.getX()+this.hero.getxToMove() == this.monster4.getX()  && this.isNewKey == true) // if next position is the monster 4
 		{ SoundClip.playThis("DEATH_PLAYER"); this.monster4 = new Monster(0,0,false); gameOver(); return false; } // Play the sound of player death, reset the monster, launch the gameover function, return false because we won't change the position to the monster position
 		
-		if(this.hero.getY() == this.door.getY() && this.hero.getX() == this.door.getX() && this.door.isOpen()==true  && this.isNewKey == true) // if next position is the door and this one is open
+		if(this.hero.getY()+this.hero.getyToMove() == this.door.getY() && this.hero.getX()+this.hero.getxToMove() == this.door.getX() && this.door.isOpen()==true  && this.isNewKey == true) // if next position is the door and this one is open
 		{ SoundClip.playThis("DOOR"); gameEnd(); return false; } // play the sound when a door is walked through, launch the function gameEnd, return false because we can't go on the door and suppress it
 		
-		if(this.hero.getY() == this.door.getY() && this.hero.getX() == this.door.getX() && this.door.isOpen()==false  && this.isNewKey == true) // if next position is the door and this one is open
+		if(this.hero.getY()+this.hero.getyToMove() == this.door.getY() && this.hero.getX()+this.hero.getxToMove() == this.door.getX() && this.door.isOpen()==false  && this.isNewKey == true) // if next position is the door and this one is open
 		{ SoundClip.playThis("DEATH_PLAYER"); gameOver(); return false; } // play the sound when a door is walked through, launch the function gameEnd, return false because we can't go on the door and suppress it
 		
-		if(tabmap2d[this.hero.getY()][this.hero.getX()] == 'C' && this.isNewKey == true) // if next position is coins
+		if(tabmap2d[this.hero.getY()+this.hero.getyToMove()][this.hero.getX()+this.hero.getxToMove()] == 'C' && this.isNewKey == true) // if next position is coins
 		{ SoundClip.playThis("COINS"); this.setScore(this.getScore()+100); Infos.setGlobalScore(this.getGlobalScore()+100); this.getGlobalScore(); return true; } // play the sound of coins, update the current score by adding 100 points, also update the same way the global score, then return true because we can suppress it
 		
-		if(this.hero.getY() == this.fireball.getY() && this.hero.getX() == this.fireball.getX()  && this.isNewKey == true) // if next position is the fireball
-		{ 			
+		if(this.hero.getY()+this.hero.getyToMove() == this.fireball.getY() && this.hero.getX()+this.hero.getxToMove() == this.fireball.getX()  && this.isNewKey == true) // if next position is the fireball
+		{
 			SoundClip.playThis("FIREBALL_B"); // play the sound of the fireball coming back to the hero
 			this.fireball.setX(0); // reset positions of the fireball
 			this.fireball.setY(0);
@@ -524,7 +524,6 @@ public class Model extends Observable implements IModel {
 		
 		else
 		{
-			this.hero.setX(this.hero.getX()-this.hero.getxToMove()); this.hero.setY(this.hero.getY()-this.hero.getyToMove()); // anything else, the hero can't go or interact with this, cancel the move
 			return false;
 		}
 	}
@@ -536,17 +535,20 @@ public class Model extends Observable implements IModel {
 	public void gameOver()
 	{
 		Infos.setLife(Infos.getLife()-1); // decrease the life amount
+		currentlevel = this.getLevel();
 		this.saveHighScore(this.getScore(),"map"+this.getLevel()); // save the current map score
 		if(Infos.getLife()==0) // if there is no more life
 		{
 			this.saveHighScore(this.getGlobalScore(),"mapG"); // save the global score aswell
 			Infos.resetScores(); // reset all the scores
+			this.currentlevel = 1;
 			this.loadMap("m103"); // load the lose map
 			this.setLevel(103);
 		}
 		
 		else // if there is still life
 		{
+			hero = new Hero(0,0,false);
 			Infos.setGlobalScore(Infos.getGlobalScore()-this.getScore()); // update the globalscore
 			this.loadMap("m104"); // load the home map
 			this.setLevel(104);
@@ -559,6 +561,7 @@ public class Model extends Observable implements IModel {
 	public void gameEnd()
 	{
 		Infos.updateMap(); // update the map
+		currentlevel = this.getLevel();
 		this.saveHighScore(this.getScore(),"map"+this.getLevel()); // save the map score
 		this.setLevel(this.door.getToLevel()); // set the new level
 		if(Infos.allLevelDone() == true) // if all maps are done
@@ -809,9 +812,9 @@ public class Model extends Observable implements IModel {
 		
 		if(this.fireball.isActive() == true) // if the fireball is active, enter, else, do nothing
 		{
-			if(this.fireball.isFirstLaunch() == true && this.isNewKey == true) // if she isn't present and it's the firstlaunch, check the next position
+			if(this.fireball.isFirstLaunch() == true) // if she isn't present and it's the first launch, check the next position
 			{
-				if(tabmap2d[this.hero.getY()+this.fireball.getyToMove()][this.hero.getX()+this.fireball.getxToMove()]!='0') // if it's not nothing, set it again to inactive and firstlaunch, because she can't spawn
+				if(tabmap2d[this.hero.getY()+this.fireball.getyToMove()][this.hero.getX()+this.fireball.getxToMove()]!='0') // if it's not nothing, set it again to inactive and first launch, because she can't spawn
 				{	
 					this.fireball.setFirstLaunch(true);
 					this.fireball.setActive(false);
@@ -823,12 +826,11 @@ public class Model extends Observable implements IModel {
 					this.fireball.setX(this.hero.getX()+this.fireball.getxToMove()); // set positions
 					this.fireball.setY(this.hero.getY()+this.fireball.getyToMove());
 					tabmap2d[this.fireball.getY()][this.fireball.getX()]='L'; // spawn the fireball
-					tabmap2d[this.hero.getY()-this.fireball.getyToMove()][this.hero.getX()-this.fireball.getxToMove()]='P';
 					this.fireball.setFirstLaunch(false); // the fireball is spawn so it's no more a first launch
 				}
 			}
 			
-			if(this.fireball.isFirstLaunch() == false) // if the fireball is already on the land, so it's not a first launch
+			else if(this.fireball.isFirstLaunch() == false) // if the fireball is already on the land, so it's not a first launch
 			{
 					switch (tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]) {
 					case '0': // if next position is nothing

@@ -150,10 +150,10 @@ class ViewPanel extends JPanel implements Observer {
 			graphics.drawString("Life x" + this.viewFrame.getModel().getLife(),310,410);
 			
 			this.viewFrame.getModel().moveHero();
-			this.viewFrame.getModel().moveM1();
+			/*this.viewFrame.getModel().moveM1();
 			this.viewFrame.getModel().moveM2();
 			this.viewFrame.getModel().moveM3();
-			this.viewFrame.getModel().moveM4();
+			this.viewFrame.getModel().moveM4();*/
 			this.viewFrame.getModel().moveFireBall();
 			displayMap(graphics);
 		}

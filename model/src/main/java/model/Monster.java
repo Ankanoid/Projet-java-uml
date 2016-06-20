@@ -46,6 +46,7 @@ public class Monster {
 	/**
 	 * Setter of isAlive, sets if the monster is alive or not
 	 * @param isAlive
+	 * 				monster is alive or not
 	 */
 	public void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
@@ -78,6 +79,7 @@ public class Monster {
 	/**
 	 * Setter of move, incremented each refresh
 	 * @param move
+	 * 			incremented variable which define if the monster will move at this refresh or not
 	 */
 	public void setMove(int move) {
 		this.move = move;

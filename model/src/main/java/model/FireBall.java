@@ -32,8 +32,11 @@ public class FireBall {
 	 * @param x
 	 * 			x coordinate of the fireball
 	 * @param y
+	 * 			y coordinate of the fireball
 	 * @param isActive
+	 * 			the ball is active or not
 	 * @param isFirstLaunch
+	 * 			the ball can be launch or not
 	 */
 	public FireBall (int x, int y, boolean isActive, boolean isFirstLaunch)
 	{ 	
@@ -54,6 +57,7 @@ public class FireBall {
 	/**
 	 * Setter of PosGen
 	 * @param posGen
+	 * 		the current position
 	 */
 	public void setPosGen(int posGen) {
 		PosGen = posGen;
@@ -78,6 +82,7 @@ public class FireBall {
 	/**
 	 * Setter of isActive, used to change the fireball state
 	 * @param isActive
+	 * 			the ball is active or not
 	 */
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
@@ -110,6 +115,7 @@ public class FireBall {
 	/**
 	 * Setter of xToMove, set the next x move of the fireball
 	 * @param xToMove
+	 * 			x coordinate for the next ball move
 	 */
 	public void setxToMove(int xToMove) {
 		this.xToMove = xToMove;
@@ -118,6 +124,7 @@ public class FireBall {
 	/**
 	 * Getter of yToMove, gets the next y move of the fireball
 	 * @return yToMove
+	 * 			y coordinate for the next ball move
 	 */
 	public int getyToMove() {
 		return yToMove;
@@ -126,6 +133,7 @@ public class FireBall {
 	/**
 	 * Setter of yToMove, set the next y move of the fireball
 	 * @param yToMove
+	 * 			y coordinate for the next ball move
 	 */
 	public void setyToMove(int yToMove) {
 		this.yToMove = yToMove;
@@ -134,6 +142,7 @@ public class FireBall {
 	/**
 	 * Setter of move, set the move performed by the hero, this one used to determines the first move of the fireball
 	 * @param move
+	 * 			the ball will move at this refresh or not
 	 */
 	public void setMove(String move) {
 		this.move = move;
@@ -150,6 +159,7 @@ public class FireBall {
 	/**
 	 * Setter of isFirstLaunch, sets the state if the fireball can be landed or not
 	 * @param isFirstLaunch
+	 * 			it's the first launch of the ball or not
 	 */
 	public void setFirstLaunch(boolean isFirstLaunch) {
 		this.isFirstLaunch = isFirstLaunch;
@@ -212,7 +222,9 @@ public class FireBall {
 	/**
 	 * When Space is pressed when the fireball is already on the land, this function is called and determine the new coordinate to move the fireball to the Hero
 	 * @param HeroY
+	 * 			y coordinate of the hero
 	 * @param HeroX
+	 * 			x coordinate of the hero
 	 */
 	public void toHero(int HeroY, int HeroX)
 	{

@@ -26,7 +26,7 @@ public class DoorTest extends TestCase {
     /**
      * Test method for {@link Door#SelectPosDoor(int level)}.
      */
-    public void testSelectPosDoor() throws Exception {
+    public void testSelectPosDoor() {
         door.SelectPosDoor(1);
         assertEquals("Image is false", "gate_open", door.getImage());
         assertEquals("Level is false", 104, door.getToLevel());

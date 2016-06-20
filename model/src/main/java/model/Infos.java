@@ -32,6 +32,7 @@ public class Infos {
 	/**
 	 * Setter of level, set the new level entered as the actual level
 	 * @param level
+	 * 			current level
 	 */
 	public static void setLevel(int level) {
 		Infos.level = level;
@@ -48,6 +49,7 @@ public class Infos {
 	/**
 	 * Setter of score, set the new actual score (generally just increased by 100)
 	 * @param score
+	 * 			current score
 	 */
 	public static void setScore(int score) {
 		Infos.score = score;
@@ -63,7 +65,7 @@ public class Infos {
 
 	/**
 	 * Getter of life, gets the number of life available
-	 * @return
+	 * @return life
 	 */
 	public static int getLife() {
 		return life;
@@ -72,6 +74,7 @@ public class Infos {
 	/**
 	 * Setter of life, sets the new number of life (generally decreased by 1)
 	 * @param life
+	 * 			current life
 	 */
 	public static void setLife(int life) {
 		Infos.life = life;
@@ -80,6 +83,7 @@ public class Infos {
 	/**
 	 * Setter of globalscore, sets the new actual global score (generally increased by 100)
 	 * @param globalscore
+	 * 			current global score
 	 */
 	public static void setGlobalScore(int globalscore) {
 		Infos.globalScore = globalscore;
@@ -109,6 +113,7 @@ public class Infos {
 	/**
 	 * Function which return the state of a given map (to check if the level is already done or not)
 	 * @param goLevel
+	 * 				next level is door is walked through
 	 * @return boolean - true if the map is done, false if not
 	 */
 	public static boolean returnMapState(int goLevel)

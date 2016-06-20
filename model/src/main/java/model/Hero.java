@@ -52,6 +52,7 @@ public class Hero {
 	/**
 	 * Sets the next hero state (true if alive, false if dead)
 	 * @param isAlive
+	 * 			the hero is alive or not
 	 */
 	public void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
@@ -68,6 +69,7 @@ public class Hero {
 	/**
 	 * Setter of PosGen
 	 * @param posGen
+	 * 			current rotation of the hero's sprites
 	 */
 	public void setPosGen(int posGen) {
 		PosGen = posGen;
@@ -92,6 +94,7 @@ public class Hero {
 	/**
 	 * Setter of move, depending on the last key pressed by the user
 	 * @param move
+	 * 			String containing the move depending on the last key pressed
 	 */
 	public void setMove(String move) {
 		this.move = move;
@@ -144,6 +147,7 @@ public class Hero {
 	/**
 	 * Function in background, which is automatically changed. Define a new sprite to display and make the hero turn on himself when there is no move
 	 * @param level
+	 * 			current level
 	 */
 	public void SelectPosGenHero(int level)
 	{
@@ -169,10 +173,7 @@ public class Hero {
 			Image="lorann_l";
 			
 		if(PosGen == 8)
-			{ Image="lorann_ul"; PosGen = 0; } 
-		
-		if(level == 102 || level == 103) // No display of the hero on the Win Screen and on the Loose Screen
-			Image="no_image";
+			{ Image="lorann_ul"; PosGen = 0; }
 	}
 
 	public int getyToMove() {

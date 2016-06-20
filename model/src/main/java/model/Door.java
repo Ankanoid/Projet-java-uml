@@ -32,8 +32,11 @@ public class Door {
 	/**
 	 * Instantiate a new Door.
 	 * @param x
+	 * 			x coordinate of the door
 	 * @param y
+	 * 			y coordiante of the door
 	 * @param open
+	 *			the door is open or not
 	 * Instantiate a new door with his coordinates x, y and the boolean if she is open or not
 	 */
 	public Door (int x, int y, boolean open)
@@ -63,6 +66,8 @@ public class Door {
 	 * Setter of the next level if door is touched
 	 * @param toLevel
 	 *
+	 * 			the door leads toLevel
+	 *
 	 */
 	public void setToLevel(int toLevel) {
 		this.toLevel = toLevel;
@@ -79,6 +84,7 @@ public class Door {
 	/** 
 	 * Setter of the boolean open
 	 * @param open
+	 * 			the door is open or not
 	*/
 	public void setOpen(boolean open) {
 		this.open = open;
@@ -108,6 +114,7 @@ public class Door {
 	 * This function is called when the player touch the energy ball
 	 * 
 	 * @param level
+	 * 				current level
 	 */
 	public void SelectPosDoor(int level)
 	{
