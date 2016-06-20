@@ -133,6 +133,9 @@ public class Hero {
 			
 		if(move == "RIGHTDOWN")
 			{ Image="lorann_br"; yToMove = 1; xToMove = 1; }
+		
+		if(move == "NOPE")
+		{ yToMove = 0; xToMove = 0; }
 			
 		else
 		{}

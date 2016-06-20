@@ -26,8 +26,6 @@ public class View implements IView, Runnable {
 	 *          the model
 	 */
 	public View(final IModel model) {
-		Thread playWave=new SoundClip("C:/Users/Thomas/git/Projet-java-uml/sprite/loop.wav");
-		playWave.start();
 		this.viewFrame = new ViewFrame(model);
 		SwingUtilities.invokeLater(this);
 	}

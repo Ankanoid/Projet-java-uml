@@ -166,6 +166,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 	 */
 	public void keyPressed(final KeyEvent keyEvent) {
+		this.model.setNewKey(true);
 		for(int i = 0; i < ViewFrame.l.size(); i++)
 
 		{
@@ -182,12 +183,14 @@ class ViewFrame extends JFrame implements KeyListener {
 			this.getController().orderPerform(View.keyCodeToControllerOrder(i));
 		}
 	}
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	/**
+	 * 
+	 * @param
+	 * @return 
+	 * 
 	 */
 	public void keyReleased(final KeyEvent keyEvent) {
+		this.model.setNewKey(false);
 		for(int i = 0; i < ViewFrame.l.size(); i++)
 
 		{

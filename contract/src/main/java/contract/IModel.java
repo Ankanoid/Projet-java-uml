@@ -9,6 +9,8 @@ import java.util.Observable;
  */
 public interface IModel {
 
+	void setNewKey(boolean newKey);
+
 	/**
 	 * Gets the map.
 	 *

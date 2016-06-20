@@ -102,6 +102,7 @@ public class Controller implements IController {
 				break;
 			case Fireball:
 				this.model.setActiveFireBall(true);
+				this.model.setLastKey("NOPE");
 				break;
 			case DisplayHighscores:
 				if(this.model.getLevel()==104)
@@ -131,9 +132,8 @@ public class Controller implements IController {
 			case MoveRightDown:
 				this.model.setLastKey("RIGHTDOWN");
 				break;
-			case Nop:
-				break;
 			default:
+				this.model.setLastKey("NOPE");
 				break;
 		}
 	}

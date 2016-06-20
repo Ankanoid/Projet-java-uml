@@ -192,7 +192,6 @@ public class FireBall {
 	 * Background function which switch PosGen between 1, 2, 3, 4 and 5, and set a new Image each time. Function which allows to make the fireball switch between the sprites
 	 */
 	public void SelectPosGenFireBall()
-	
 	{
 		if(PosGen == 1)
 			Image="fireball_2";
