@@ -386,7 +386,7 @@ public class Model extends Observable implements IModel {
 	 * Set last Key String, also set isNewKey at true, and then set the move for the hero, and select the position (image) to display
 	 * Finally set the move for the fireball and select it, if isFirstLaunch is true
 	 * 
-	 * @param String LastKey
+	 * @param lastKey
 	 * 		String contains the description of the last key pressed
 	 */
 	public void setLastKey(String lastKey) {
@@ -820,10 +820,11 @@ public class Model extends Observable implements IModel {
 				else // if it's nothing, she can spawn
 				{
 					SoundClip.playThis("FIREBALL_O"); // play the fireball out sound
-					tabmap2d[this.hero.getY()+this.fireball.getyToMove()][this.hero.getX()+this.fireball.getxToMove()]='L'; // spawn the fireball
 					this.fireball.setX(this.hero.getX()+this.fireball.getxToMove()); // set positions
 					this.fireball.setY(this.hero.getY()+this.fireball.getyToMove());
-					this.fireball.setFirstLaunch(false); // the fireball is spawn so it's no more a firstlaunch
+					tabmap2d[this.fireball.getY()][this.fireball.getX()]='L'; // spawn the fireball
+					tabmap2d[this.hero.getY()-this.fireball.getyToMove()][this.hero.getX()-this.fireball.getxToMove()]='P';
+					this.fireball.setFirstLaunch(false); // the fireball is spawn so it's no more a first launch
 				}
 			}
 			

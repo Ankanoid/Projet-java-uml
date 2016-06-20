@@ -203,7 +203,7 @@ public interface IModel {
 	/**
 	 * Sets on the fireball by changing the boolean isActive
 	 *
-	 * @param boolean isActive
+	 * @param isActive
 	 *          the boolean which will indicate to moveFireBall function that the fireball is appeared and will move
 	 */
 	void setActiveFireBall(boolean isActive);

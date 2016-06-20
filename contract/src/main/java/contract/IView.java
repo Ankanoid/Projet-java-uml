@@ -8,10 +8,10 @@ package contract;
 public interface IView {
 
 	/**
-	 * Prints the message.
+	 * Prints the map.
 	 *
-	 * @param message
-	 *          the message
+	 * @param map
+	 *          the map
 	 */
 	void printMap(final String map);
 }

@@ -13,9 +13,10 @@ import org.junit.Test;
 /**
  * The Class ModelTest.
  *
- * @author Jean-Aymeric Diet
+ * @author Group 5
  */
 public class ModelTest {
+
 	private Model model;
 
 	/**
@@ -60,7 +61,7 @@ public class ModelTest {
 	}
 
 	/**
-	 * Test method for {@link model.Model#getMessage()}.
+	 * Test method for {@link model.Model#getMap()}.
 	 */
 	@Test
 	public void testGetMessage() {
@@ -68,7 +69,7 @@ public class ModelTest {
 	}
 
 	/**
-	 * Test method for {@link model.Model#loadMessage(java.lang.String)}.
+	 * Test method for {@link model.Model#loadMap(java.lang.String)}.
 	 */
 	@Test
 	public void testGetMessageString() {

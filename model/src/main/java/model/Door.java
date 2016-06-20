@@ -62,6 +62,7 @@ public class Door {
 	/**
 	 * Setter of the next level if door is touched
 	 * @param toLevel
+	 *
 	 */
 	public void setToLevel(int toLevel) {
 		this.toLevel = toLevel;
