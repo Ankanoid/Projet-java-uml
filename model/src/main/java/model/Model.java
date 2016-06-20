@@ -160,8 +160,8 @@ public class Model extends Observable implements IModel {
 		this.door = new Door(0,0, false);
 		this.map = "";
 		
-		Thread playWave=new SoundClip("C:/Users/Thomas/git/Projet-java-uml/sprite/loop.wav");
-		playWave.start();
+		/*Thread playWave=new SoundClip("C:/Users/Thomas/git/Projet-java-uml/sprite/loop.wav");
+		playWave.start();*/
 	}
 
 	/*
