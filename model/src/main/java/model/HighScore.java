@@ -19,7 +19,7 @@ class HighScore extends Entity {
      *
      * @param id
      *          the id
-     * @param key
+     * @param map
      *          the key
      * @param highscore
      *          the highscore
@@ -52,7 +52,7 @@ class HighScore extends Entity {
      * @param id
      *          the new id
      */
-    public void setId(final int id) {
+    private void setId(final int id) {
         this.id = id;
     }
 
@@ -71,7 +71,7 @@ class HighScore extends Entity {
      * @param key
      *          the new key
      */
-    public void setKey(final String key) {
+    private void setKey(final String key) {
         this.key = key;
     }
 
@@ -90,7 +90,7 @@ class HighScore extends Entity {
      * @param highscore
      *          the new highscore
      */
-    public void setHighScore(final int highscore) {
+    private void setHighScore(final int highscore) {
         this.highscore = highscore;
     }
 

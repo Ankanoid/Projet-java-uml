@@ -18,8 +18,8 @@ import contract.IModel;
  *@author Group 5
  */
 class ViewFrame extends JFrame implements KeyListener {
-	
-	public static ArrayList<Integer> l = new ArrayList<Integer>();
+
+	private static ArrayList<Integer> l = new ArrayList<Integer>();
 
 	/** The model. */
 	private IModel						model;
@@ -170,7 +170,7 @@ class ViewFrame extends JFrame implements KeyListener {
 		for(int i = 0; i < ViewFrame.l.size(); i++)
 
 		{
-			if ((Integer) ViewFrame.l.get(i) == keyEvent.getKeyCode()) {
+			if (l.get(i) == keyEvent.getKeyCode()) {
 				ViewFrame.l.remove(i);
 			}
 		}
@@ -179,22 +179,22 @@ class ViewFrame extends JFrame implements KeyListener {
 			this.getController().orderPerform(View.keyCodeToControllerOrder(keyEvent.getKeyCode()));
 		} else if (ViewFrame.l.size() == 2) {
 			int i = 0;
-			i = (Integer) ViewFrame.l.get(0) * (Integer) ViewFrame.l.get(1);
+			i = l.get(0) * l.get(1);
 			this.getController().orderPerform(View.keyCodeToControllerOrder(i));
 		}
 	}
-	/**
-	 * 
-	 * @param
-	 * @return 
-	 * 
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
 	 */
 	public void keyReleased(final KeyEvent keyEvent) {
 		this.model.setNewKey(false);
 		for(int i = 0; i < ViewFrame.l.size(); i++)
 
 		{
-			if ((Integer) ViewFrame.l.get(i) == keyEvent.getKeyCode()) {
+			if (l.get(i) == keyEvent.getKeyCode()) {
 				ViewFrame.l.remove(i);
 			}
 		}

@@ -31,7 +31,7 @@ class ViewPanel extends JPanel implements Observer {
 	/**
 	 * Char containing the map
 	 */
-	char[][] tabmap ;
+	private char[][] tabmap ;
 	
 	/**
 	 * Instantiates a new view panel. Make it refresh
@@ -41,7 +41,6 @@ class ViewPanel extends JPanel implements Observer {
 	 */
 	public ViewPanel(final ViewFrame viewFrame) {
 		Timer timer = new Timer(75, new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 repaint();
             }
@@ -150,10 +149,10 @@ class ViewPanel extends JPanel implements Observer {
 			graphics.drawString("Life x" + this.viewFrame.getModel().getLife(),310,410);
 			
 			this.viewFrame.getModel().moveHero();
-			/*this.viewFrame.getModel().moveM1();
+			this.viewFrame.getModel().moveM1();
 			this.viewFrame.getModel().moveM2();
 			this.viewFrame.getModel().moveM3();
-			this.viewFrame.getModel().moveM4();*/
+			this.viewFrame.getModel().moveM4();
 			this.viewFrame.getModel().moveFireBall();
 			displayMap(graphics);
 		}
@@ -188,7 +187,7 @@ class ViewPanel extends JPanel implements Observer {
 		else { displayMap(graphics); }
 	}
 	
-	public void displayMap(final Graphics graphics) {
+	private void displayMap(final Graphics graphics) {
 		
 		this.tabmap = this.viewFrame.getModel().getTabmap2d();
 

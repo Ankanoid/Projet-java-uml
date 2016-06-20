@@ -19,7 +19,7 @@ class Map extends Entity {
     /**
      * Instantiates a new hello world.
      *
-     * @param id
+     * @param id_map
      *          the id
      * @param key
      *          the key
@@ -51,10 +51,10 @@ class Map extends Entity {
     /**
      * Sets the id.
      *
-     * @param id
+     * @param id_map
      *          the new id
      */
-    public void setId(final int id_map) {
+    private void setId(final int id_map) {
         this.id_map = id_map;
     }
 
@@ -73,7 +73,7 @@ class Map extends Entity {
      * @param key
      *          the new key
      */
-    public void setKey(final String key) {
+    private void setKey(final String key) {
         this.key = key;
     }
 
