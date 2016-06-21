@@ -2,22 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="970d3da7-a4f2-44a9-aad8-a8a2552a4324" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/model/src/test/java/model/InfosTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/view/src/test/java/view/ViewTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/target/classes/model/Model.class" afterPath="$PROJECT_DIR$/model/target/classes/model/Model.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/target/test-classes/model/ModelTest.class" afterPath="$PROJECT_DIR$/model/target/test-classes/model/ModelTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/target/classes/view/ViewPanel.class" afterPath="$PROJECT_DIR$/view/target/classes/view/ViewPanel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/controller.iml" afterPath="$PROJECT_DIR$/controller/controller.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/main/java/model/FireBall.java" afterPath="$PROJECT_DIR$/model/src/main/java/model/FireBall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/main/java/model/Hero.java" afterPath="$PROJECT_DIR$/model/src/main/java/model/Hero.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/main/java/model/Model.java" afterPath="$PROJECT_DIR$/model/src/main/java/model/Model.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/main/java/model/Monster.java" afterPath="$PROJECT_DIR$/model/src/main/java/model/Monster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/test/java/model/DoorTest.java" afterPath="$PROJECT_DIR$/model/src/test/java/model/DoorTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/test/java/model/FireBallTest.java" afterPath="$PROJECT_DIR$/model/src/test/java/model/FireBallTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/test/java/model/HeroTest.java" afterPath="$PROJECT_DIR$/model/src/test/java/model/HeroTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/src/test/java/model/ModelTest.java" afterPath="$PROJECT_DIR$/model/src/test/java/model/ModelTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/view.iml" afterPath="$PROJECT_DIR$/view/view.iml" />
     </list>
     <ignored path="masterpom.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1129,7 +1114,7 @@
       <workItem from="1466426103968" duration="2811000" />
       <workItem from="1466429257932" duration="6778000" />
       <workItem from="1466441168525" duration="7328000" />
-      <workItem from="1466491754971" duration="6562000" />
+      <workItem from="1466491754971" duration="6571000" />
     </task>
     <task id="LOCAL-00001" summary="Maps calls">
       <created>1465983153512</created>
@@ -1229,7 +1214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1466499671513</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="One of the last version">
+      <created>1466499689290</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1466499689290</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1265,7 +1257,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41537000" />
+    <option name="totallyTimeSpent" value="41546000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1277,9 +1269,9 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09947917" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09947917" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22832981" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22832981" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
