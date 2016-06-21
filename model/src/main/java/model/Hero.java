@@ -132,7 +132,7 @@ public class Hero {
 			{ Image="lorann_ur"; yToMove = -1; xToMove = 1; }
 			
 		if(move == "LEFTDOWN")
-			{ Image="lorann_bl";; yToMove = 1; xToMove = -1; }
+			{ Image="lorann_bl"; yToMove = 1; xToMove = -1; }
 			
 		if(move == "RIGHTDOWN")
 			{ Image="lorann_br"; yToMove = 1; xToMove = 1; }
@@ -146,10 +146,8 @@ public class Hero {
 	
 	/**
 	 * Function in background, which is automatically changed. Define a new sprite to display and make the hero turn on himself when there is no move
-	 * @param level
-	 * 			current level
 	 */
-	public void SelectPosGenHero(int level)
+	public void SelectPosGenHero()
 	{
 		if(PosGen == 1)
 			Image="lorann_u";

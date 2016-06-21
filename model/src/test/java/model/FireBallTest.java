@@ -3,7 +3,9 @@ package model;
 import junit.framework.TestCase;
 
 /**
- * Created by Thomas on 20/06/2016.
+ * The Class FireBallTest
+ *
+ * @author Group 5
  */
 public class FireBallTest extends TestCase {
 
@@ -23,7 +25,10 @@ public class FireBallTest extends TestCase {
 
     }
 
-    public void testSelectMoveFireBall() throws Exception {
+    /**
+     * Test method for {@link FireBall#SelectMoveFireBall()}.
+     */
+    public void testSelectMoveFireBall() {
         fireball.setMove("UP");
         fireball.SelectMoveFireBall();
         assertEquals("Bad move UPy", -1, fireball.getyToMove());
@@ -58,7 +63,10 @@ public class FireBallTest extends TestCase {
         assertEquals("Bad move DOWNx", 1, fireball.getxToMove());
     }
 
-    public void testSelectPosGenFireBall() throws Exception {
+    /**
+     * Test method for {@link FireBall#SelectPosGenFireBall()}.
+     */
+    public void testSelectPosGenFireBall() {
         fireball.setPosGen(1);
         fireball.SelectPosGenFireBall();
         assertEquals("Bad Image 1", "fireball_2", fireball.getImage());
@@ -76,4 +84,33 @@ public class FireBallTest extends TestCase {
         assertEquals("Bad Image 5", "fireball_1", fireball.getImage());
     }
 
+    /**
+     * Test method for {@link FireBall#toHero(int, int)}.
+     */
+    public void testToHero() {
+        fireball.toHero(1,1);
+        assertEquals("Bad yToMove", 1, fireball.getyToMove());
+        assertEquals("Bad xToMove", 1, fireball.getxToMove());
+        fireball.toHero(-1,-1);
+        assertEquals("Bad yToMove", -1, fireball.getyToMove());
+        assertEquals("Bad xToMove", -1, fireball.getxToMove());
+        fireball.toHero(1,-1);
+        assertEquals("Bad yToMove", 1, fireball.getyToMove());
+        assertEquals("Bad xToMove", -1, fireball.getxToMove());
+        fireball.toHero(-1,1);
+        assertEquals("Bad yToMove", -1, fireball.getyToMove());
+        assertEquals("Bad xToMove", 1, fireball.getxToMove());
+        fireball.toHero(1,0);
+        assertEquals("Bad yToMove", 1, fireball.getyToMove());
+        assertEquals("Bad xToMove", 0, fireball.getxToMove());
+        fireball.toHero(-1,0);
+        assertEquals("Bad yToMove", -1, fireball.getyToMove());
+        assertEquals("Bad xToMove", 0, fireball.getxToMove());
+        fireball.toHero(0,1);
+        assertEquals("Bad yToMove", 0, fireball.getyToMove());
+        assertEquals("Bad xToMove", 1, fireball.getxToMove());
+        fireball.toHero(0,-1);
+        assertEquals("Bad yToMove", 0, fireball.getyToMove());
+        assertEquals("Bad xToMove", -1, fireball.getxToMove());
+    }
 }

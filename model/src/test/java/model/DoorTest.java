@@ -3,7 +3,9 @@ package model;
 import junit.framework.TestCase;
 
 /**
- * Created by Thomas on 20/06/2016.
+ * The Class DoorTest
+ *
+ * @author Group 5
  */
 public class DoorTest extends TestCase {
 

@@ -18,14 +18,15 @@ public class FireBall {
 	 * String Image contains the file name of the sprite of the fireball to display
 	 * String move contains the move made by the user. Used to determine the first fireball move
 	 */
-	private String Image, move;
+	public String Image;
+	private String move;
 
 	/**
 	 * Boolean isActive used to check if the fireball is on the move
 	 * Boolean isFirstLaunch checked when the user press space. Determine if a new ball can be landed or not
 	 * 
 	 */
-	boolean isActive, isFirstLaunch = true;
+	private boolean isActive, isFirstLaunch = true;
 	
 	/**
 	 * Instantiate a new Fireball
@@ -54,6 +55,10 @@ public class FireBall {
 		return PosGen;
 	}
 
+	public void setImage( String image)
+	{
+		image = Image;
+	}
 	/**
 	 * Setter of PosGen
 	 * @param posGen
@@ -240,7 +245,7 @@ public class FireBall {
 		if(HeroY > y && HeroX > x)
 		{ yToMove = 1; xToMove = 1; }
 		
-		/*if(HeroY > y && HeroX == x)
+		if(HeroY > y && HeroX == x)
 		{ yToMove = 1; xToMove = 0; }
 		
 		if(HeroY < y && HeroX == x)
@@ -250,7 +255,7 @@ public class FireBall {
 		{ yToMove = 0; xToMove = -1; }
 		
 		if(HeroY == y && HeroX > x)
-		{ yToMove = 0; xToMove = 1; }*/
+		{ yToMove = 0; xToMove = 1; }
 	}
 
 }

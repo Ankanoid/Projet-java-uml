@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The Classe Monster.
+ * The Class Monster.
  * 
  * @author Group 5
  *
@@ -17,7 +17,7 @@ public class Monster {
 	/**
 	 * boolean isAlive contains the state of the monster, true if alive, false if dead
 	 */
-	boolean isAlive = false;
+	private boolean isAlive = false;
 	
 	/**
 	 * Instantiate a new monster

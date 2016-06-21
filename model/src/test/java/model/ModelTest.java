@@ -18,6 +18,7 @@ import org.junit.Test;
 public class ModelTest {
 
 	private Model model;
+	private FireBall fireball;
 	/**
 	 * Sets the up before class.
 	 *
@@ -47,6 +48,7 @@ public class ModelTest {
 	@Before
 	public void setUp() throws Exception {
 		this.model = new Model();
+		this.fireball = new FireBall(0,0,false, true);
 }
 
 	/**
@@ -179,7 +181,7 @@ public class ModelTest {
 	}
 
 	/**
-	 * Test method for {@link model.Model#getScore()}.
+	 * Test method for {@link Model#getScore()}.
 	 */
 	@Test
 	public void testGetScore() {
