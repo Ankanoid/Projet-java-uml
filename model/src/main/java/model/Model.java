@@ -461,7 +461,7 @@ public class Model extends Observable implements IModel {
 			return false; // return false because we can't go on this
 		}
 		
-		if(tabmap2d[this.hero.getY()+this.hero.getyToMove()][this.hero.getX()+this.hero.getxToMove()] == 'Z' && this.door.getToLevel()<5 && this.isNewKey == true) // if the new positions is an 'Z' (on the home map)
+		if(tabmap2d[this.hero.getY()+this.hero.getyToMove()][this.hero.getX()+this.hero.getxToMove()] == 'Z' && this.door.getToLevel()<5 && this.isNewKey) // if the new positions is an 'Z' (on the home map)
 		{
 			SoundClip.playThis("P_M_LEVEL"); // Play the song plus or minus level 
 			this.door.setToLevel(this.door.getToLevel()+1);  // set the new level for the door
@@ -626,8 +626,6 @@ public class Model extends Observable implements IModel {
 					break;
 				}
 		}
-		
-		else {}
 	}
 
 	/**
@@ -684,36 +682,59 @@ public class Model extends Observable implements IModel {
 					break;
 				}
 		}
-		
-		else {}
 	}
-	
+
+	/**
+	 * Function which check if the monster can move or not
+	 * @param x
+	 * 			x coordinate to check
+	 * @param y
+	 * 			y coordinate to check
+     * @return boolean
+	 * 			false if monster can't move, true if he can
+     */
+	private boolean canMove(int x, int y) {
+		return tabmap2d[y][x] == '0' || tabmap2d[y][x] == 'P' || tabmap2d[y][x] == 'L';
+
+	}
+
 	/**
 	 * Function which calculate the next move of the monster 3 depending of the hero position
 	 */
 	public void moveM3() {
 		this.monster3.setMove(this.monster3.getMove()+1);
-		
+
 		if(this.monster3.getAlive() && this.monster3.getMove() == 1)
 		{
-				int x = 0, y = 0;
-
+			int x, y, ty;
 
 			if(this.hero.getX() < this.monster3.getX())
-				x = 1;
+				x = -1;
 			else if (this.hero.getX() == this.monster3.getX())
 				x = 0;
 			else
-				x = -1;
+				x = 1;
 
 			if(this.hero.getY() < this.monster3.getY())
-				x = 1;
-			else if (this.hero.getX() == this.monster3.getX())
-				x = 0;
+				y = -1;
+			else if (this.hero.getY() == this.monster3.getY())
+				y = 0;
 			else
-				x = -1;
-				
-				switch (tabmap2d[this.monster3.getY()+y][this.monster3.getX()+x]) {
+				y = 1;
+
+			if(!canMove(this.monster3.getX()+x, this.monster3.getY()+y))
+			{
+				ty = y;
+				y = 0;
+
+				if(!canMove(this.monster3.getX()+x, this.monster3.getY()+y))
+				{
+					y = ty;
+					x = 0;
+				}
+			}
+
+			switch (tabmap2d[this.monster3.getY()+y][this.monster3.getX()+x]) {
 				case '0':
 					tabmap2d[this.monster3.getY()][this.monster3.getX()]='0';
 					tabmap2d[this.monster3.getY()+y][this.monster3.getX()+x]='8';
@@ -736,10 +757,8 @@ public class Model extends Observable implements IModel {
 				default:
 					this.monster3.setMove(0);
 					break;
-				}
+			}
 		}
-		
-		else {}
 	}
 
 	/**
@@ -796,8 +815,6 @@ public class Model extends Observable implements IModel {
 					break;
 				}
 		}
-		
-		else {}
 	}
 	
 	/**
@@ -810,36 +827,32 @@ public class Model extends Observable implements IModel {
 		
 		if(this.fireball.isActive()) // if the fireball is active, enter, else, do nothing
 		{
-			if(this.fireball.isFirstLaunch()) // if she isn't present and it's the first launch, check the next position
+			if (this.fireball.isFirstLaunch()) // if she isn't present and it's the first launch, check the next position
 			{
-				if(tabmap2d[this.hero.getY()+this.fireball.getyToMove()][this.hero.getX()+this.fireball.getxToMove()]!='0') // if it's not nothing, set it again to inactive and first launch, because she can't spawn
-				{	
+				if (tabmap2d[this.hero.getY() + this.fireball.getyToMove()][this.hero.getX() + this.fireball.getxToMove()] != '0') // if it's not nothing, set it again to inactive and first launch, because she can't spawn
+				{
 					this.fireball.setFirstLaunch(true);
 					this.fireball.setActive(false);
-				}
-				
-				else // if it's nothing, she can spawn
+				} else // if it's nothing, she can spawn
 				{
 					SoundClip.playThis("FIREBALL_O"); // play the fireball out sound
-					this.fireball.setX(this.hero.getX()+this.fireball.getxToMove()); // set positions
-					this.fireball.setY(this.hero.getY()+this.fireball.getyToMove());
-					tabmap2d[this.fireball.getY()][this.fireball.getX()]='L'; // spawn the fireball
+					this.fireball.setX(this.hero.getX() + this.fireball.getxToMove()); // set positions
+					this.fireball.setY(this.hero.getY() + this.fireball.getyToMove());
+					tabmap2d[this.fireball.getY()][this.fireball.getX()] = 'L'; // spawn the fireball
 					this.fireball.setFirstLaunch(false); // the fireball is spawn so it's no more a first launch
 				}
-			}
-			
-			else if(!this.fireball.isFirstLaunch()) // if the fireball is already on the land, so it's not a first launch
+			} else if (!this.fireball.isFirstLaunch()) // if the fireball is already on the land, so it's not a first launch
 			{
-					switch (tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]) {
+				switch (tabmap2d[this.fireball.getY() + this.fireball.getyToMove()][this.fireball.getX() + this.fireball.getxToMove()]) {
 					case '0': // if next position is nothing
-						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0'; // make the fireball move
-						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='L';
-						this.fireball.setX(this.fireball.getX()+this.fireball.getxToMove()); // set the new positions
-						this.fireball.setY(this.fireball.getY()+this.fireball.getyToMove());
+						tabmap2d[this.fireball.getY()][this.fireball.getX()] = '0'; // make the fireball move
+						tabmap2d[this.fireball.getY() + this.fireball.getyToMove()][this.fireball.getX() + this.fireball.getxToMove()] = 'L';
+						this.fireball.setX(this.fireball.getX() + this.fireball.getxToMove()); // set the new positions
+						this.fireball.setY(this.fireball.getY() + this.fireball.getyToMove());
 						break;
 					case 'P': // if it's the player
 						SoundClip.playThis("FIREBALL_B"); // play the fireball back to hero sound
-						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0'; // suppress the fireball
+						tabmap2d[this.fireball.getY()][this.fireball.getX()] = '0'; // suppress the fireball
 						this.fireball.setX(0); // reset positions
 						this.fireball.setY(0);
 						this.fireball.setActive(false); // set her inactive
@@ -849,93 +862,42 @@ public class Model extends Observable implements IModel {
 						break;
 					case '6': // if it's a monster
 						SoundClip.playThis("DEATH_MONSTER"); // play the death monster sound
-						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0'; // suppress fireball and monster
-						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
+						tabmap2d[this.fireball.getY()][this.fireball.getX()] = '0'; // suppress fireball and monster
+						tabmap2d[this.fireball.getY() + this.fireball.getyToMove()][this.fireball.getX() + this.fireball.getxToMove()] = '0';
 						this.fireball.setActive(false); // set her inactive
-						this.monster1 = new Monster(0,0,false); // reset the monster1
+						this.monster1 = new Monster(0, 0, false); // reset the monster1
 						this.fireball.setFirstLaunch(true); // set her first launch
 						break;
 					case '7': // same
 						SoundClip.playThis("DEATH_MONSTER");
-						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
-						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
+						tabmap2d[this.fireball.getY()][this.fireball.getX()] = '0';
+						tabmap2d[this.fireball.getY() + this.fireball.getyToMove()][this.fireball.getX() + this.fireball.getxToMove()] = '0';
 						this.fireball.setActive(false);
-						this.monster2 = new Monster(0,0,false);
+						this.monster2 = new Monster(0, 0, false);
 						this.fireball.setFirstLaunch(true);
 						break;
 					case '8': // same
 						SoundClip.playThis("DEATH_MONSTER");
-						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
-						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
+						tabmap2d[this.fireball.getY()][this.fireball.getX()] = '0';
+						tabmap2d[this.fireball.getY() + this.fireball.getyToMove()][this.fireball.getX() + this.fireball.getxToMove()] = '0';
 						this.fireball.setActive(false);
-						this.monster3 = new Monster(0,0,false);
+						this.monster3 = new Monster(0, 0, false);
 						this.fireball.setFirstLaunch(true);
 						break;
 					case '9': // same
 						SoundClip.playThis("DEATH_MONSTER");
-						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
-						tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
+						tabmap2d[this.fireball.getY()][this.fireball.getX()] = '0';
+						tabmap2d[this.fireball.getY() + this.fireball.getyToMove()][this.fireball.getX() + this.fireball.getxToMove()] = '0';
 						this.fireball.setActive(false);
-						this.monster4 = new Monster(0,0,false);
+						this.monster4 = new Monster(0, 0, false);
 						this.fireball.setFirstLaunch(true);
 						break;
 					default: // everything else, she has to bounce
 						this.fireball.setxToMove(-this.fireball.getxToMove()); // invert the coordinate to move to go the other way
 						this.fireball.setyToMove(-this.fireball.getyToMove());
-						tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
-						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='0') // if next position is nothing
-						{
-							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='L'; // move the fireball
-							this.fireball.setX(this.fireball.getX()+this.fireball.getxToMove()); // set new positions
-							this.fireball.setY(this.fireball.getY()+this.fireball.getyToMove());
-						}
-						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()] == 'P') // if it's the player
-						{
-							SoundClip.playThis("FIREBALL_B"); // play the sound fireball back to hero
-							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0'; // suppress the fireball
-							this.fireball.setActive(false); // set her inactive
-							this.fireball.setFirstLaunch(true); // set her first launch again
-							this.fireball.setxToMove(-this.fireball.getxToMove()); // invert the coordinate to get back to the normal one
-							this.fireball.setyToMove(-this.fireball.getyToMove());
-						}
-						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='6') // if it's the monster 1
-						{
-							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0'; // suppress the fireball and the monster
-							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
-							this.fireball.setActive(false); // set the fireball inactive
-							this.fireball.setFirstLaunch(true); // set her first launch
-							this.monster1 = new Monster(0,0,false); // reset the monster 1
-						}
-						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='7') // same as before
-						{
-							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
-							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
-							this.fireball.setActive(false);
-							this.monster2 = new Monster(0,0,false);
-							this.fireball.setFirstLaunch(true);
-						}
-						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='8') // same as before
-						{
-							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
-							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
-							this.fireball.setActive(false);
-							this.monster3 = new Monster(0,0,false);
-							this.fireball.setFirstLaunch(true);
-						}
-						if(tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]=='9') // same as before
-						{
-							tabmap2d[this.fireball.getY()][this.fireball.getX()]='0';
-							tabmap2d[this.fireball.getY()+this.fireball.getyToMove()][this.fireball.getX()+this.fireball.getxToMove()]='0';
-							this.fireball.setActive(false);
-							this.monster4 = new Monster(0,0,false);
-							this.fireball.setFirstLaunch(true);
-						}
 						break;
-					}
+				}
 			}
 		}
-		
-		else {}
-		
 	}
 }
